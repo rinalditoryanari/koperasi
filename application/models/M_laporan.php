@@ -18,8 +18,8 @@ class M_laporan extends ci_Model
         } else {
             $ses_client = $this->session->userdata('ID');
         }
-
-        $keyword = str_replace("'", "\'", $this->input->get('table_search'));
+        $keyword = '';
+        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search')):"";
 
         $where = array();
         if (!empty($this->input->get('table_search'))) {
@@ -80,7 +80,8 @@ class M_laporan extends ci_Model
             $ses_client = $this->session->userdata('ID');
         }
 
-        $keyword = str_replace("'", "\'", $this->input->get('table_search_bulan'));
+        $keyword = '';
+        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search_bulan')):"";
 
         $where = array();
         if (!empty($this->input->get('table_search_bulan'))) {
@@ -140,7 +141,8 @@ class M_laporan extends ci_Model
             $ses_client = $this->session->userdata('ID');
         }
 
-        $keyword = str_replace("'", "\'", $this->input->get('table_search_tahun'));
+        $keyword = '';
+        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search_tahun')):"";
 
         $where = array();
         if (!empty($this->input->get('table_search_tahun'))) {

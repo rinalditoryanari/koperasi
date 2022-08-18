@@ -20,7 +20,8 @@ class M_pengembalian extends ci_Model
             $ses_nelayan = '';
         }
 
-        $keyword = str_replace("'", "\'", $this->input->get('table_search'));
+        $keyword = '';
+        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search')):"";
 
         $where = array();
         if (!empty($this->input->get('table_search'))) {
