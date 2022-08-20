@@ -3,6 +3,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class CLogin extends CI_Controller
 {
 
+    //Input:    
+    //Output:   
+    //Process:  Selft Routing
     public function __construct()
     {
         parent::__construct();
@@ -13,6 +16,9 @@ class CLogin extends CI_Controller
 
     }
 
+    //Input:    
+    //Output:   
+    //Process:  Penampilan Halaman
     public function index()
     {
 
@@ -20,6 +26,10 @@ class CLogin extends CI_Controller
         $this->load->view('vlogin');
     }
 
+    //Input:    post username, post password 
+    //Output:   TRUE -> C_menu, FALSE -> CLogin
+    //Process:  Proses Autentifikasi akun di table akun
+    //          set session set_userdata
     public function cekLogin()
     {
         $user = $this->input->post("username");
@@ -51,6 +61,10 @@ class CLogin extends CI_Controller
         }
     }
 
+    //Input:    
+    //Output:   
+    //Process:  unset session unset_userdata
+    //          log out
     public function logout()
     {
         $this->session->unset_userdata('akun_id');
@@ -62,6 +76,10 @@ class CLogin extends CI_Controller
         redirect(site_url());
     }
     
+
+    //Input:    func code_guest(), fun M_alatbahan list_alat_regist()
+    //Output:   
+    //Process:  tampilan vregistrasi
     public function form_registrasi()
     {
         $data['guest_code'] = $this->code_guest();
@@ -70,6 +88,11 @@ class CLogin extends CI_Controller
         $this->load->view('vregistrasi', $data);
     }
 
+    //Input:    post nama, post id_alat, post username, post password, post password2
+    //Output:   
+    //Process:  cek kesamaan password
+    //          SELECT di table akun where username
+    //          INSERT akun
     public function cekRegistrasi()
     {
         $nama               = $this->input->post("nama");
@@ -139,6 +162,9 @@ class CLogin extends CI_Controller
         redirect(site_url('CLogin'));
     }
 
+    //Input:    
+    //Output:   $code -> code guest
+    //Process:  generate code guest
     public function code_guest()
     {
         $bulan = date('m');

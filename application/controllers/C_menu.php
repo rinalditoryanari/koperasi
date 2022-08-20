@@ -2,6 +2,9 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class C_menu extends CI_Controller
 {
+    //Input:    
+    //Output:   
+    //Process:  Selft Routing
     public function __construct()
     {
         parent::__construct();
@@ -10,6 +13,9 @@ class C_menu extends CI_Controller
         $this->load->library('form_validation');
     }
 
+    //Input:    
+    //Output:   
+    //Process:  Menampilkan halaman vmenu + template header + template vsidebar + template footer
     public function index()
     {
         if ($this->session->userdata("akun_id") == "") {
