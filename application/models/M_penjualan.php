@@ -123,6 +123,9 @@ class M_penjualan extends ci_Model
         return $client;
     }
 
+    //Input:    session userdata
+    //Output:   $total = total pembayaran
+    //Process:  perhitungan total
     public function total_pembayaran()
     {
         $total  = 0;
@@ -167,6 +170,9 @@ class M_penjualan extends ci_Model
         return $code;
     }
 
+    //Input:    $all -> list ikan yang dibayar, session userdata
+    //Output:   
+    //Process:  INSERT data penjualan ke table penjualan_header, penjualan_detail
     public function simpan_penjualan_ikan($all)
     {
         $ses_username   = $this->session->userdata('username');

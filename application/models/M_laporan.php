@@ -5,12 +5,18 @@ use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class M_laporan extends ci_Model
 {
+    //Input:    
+    //Output:   
+    //Process:  
     public function __construct()
     {
         parent::__construct();
         $this->load->library('session');
     }
 
+    //Input:    session userdata clien_id / ID
+    //Output:   list $data -> tanggal, nama ikan, jumlah, total, harga/kg
+    //Process:  SELECT data penjualan di table penjualan_header, penjualan_detail, ikan
     public function index($isall = true, $limit = null, $offset = null)
     {
         if ($this->session->userdata('client_id')) {
@@ -72,6 +78,9 @@ class M_laporan extends ci_Model
         return $data;
     }
 
+    //Input:    session userdata clien_id / ID
+    //Output:   list $data -> bulan, nama ikan, jumlah, total, harga/kg
+    //Process:  SELECT data penjualan di table penjualan_header, penjualan_detail, ikan
     public function bulan($isall = true, $limit = null, $offset = null)
     {
         if ($this->session->userdata('client_id')) {
@@ -133,6 +142,9 @@ class M_laporan extends ci_Model
         return $data;
     }
 
+    //Input:    session userdata clien_id / ID
+    //Output:   list $data -> tahun, nama ikan, jumlah, total, harga/kg
+    //Process:  SELECT data penjualan di table penjualan_header, penjualan_detail, ikan
     public function tahun($isall = true, $limit = null, $offset = null)
     {
         if ($this->session->userdata('client_id')) {
@@ -349,6 +361,9 @@ class M_laporan extends ci_Model
         return  $this->db->query($q)->result();
     }
 
+    //Input:    
+    //Output:  list -> select month
+    //Process:  SELECT bulan di penjualan_header
     public function list_bulan_tersedia()
     {
         $query = "  SELECT
@@ -358,6 +373,9 @@ class M_laporan extends ci_Model
         return  $this->db->query($query)->result_array();
     }
 
+    //Input:    
+    //Output:  list -> select_year
+    //Process:  SELECT tahun di penjualan_header
     public function list_tahun_tersedia()
     {
         $query = "  SELECT

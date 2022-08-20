@@ -59,6 +59,9 @@ class C_penjualan extends CI_Controller
         }
     }
 
+    //Input:    post kode_penjualan, nealyan, ikan, nama_ikan, jumlah, harga_ikan
+    //Output:   
+    //Process:  set session ikan_keranjang
     public function simpan_ikan()
     {
         $kode_penjualan     = $_POST['kode_penjualan'];
@@ -134,6 +137,9 @@ class C_penjualan extends CI_Controller
         die(json_encode($this->session->userdata('ikan_keranjang')));
     }
 
+    //Input:    post kode_penjualan, nealyan, ikan, nama_ikan, jumlah, harga_ikan
+    //Output:   
+    //Process:  re-set session ikan_keranjang
     public function hapus_ikan($kode_penjualan, $nelayan, $ikan, $nama_ikan, $jumlah, $harga_ikan, $total)
     {
         $params = array(
@@ -178,6 +184,9 @@ class C_penjualan extends CI_Controller
         die(json_encode($this->session->userdata('ikan_keranjang')));
     }
 
+    //Input:    session userdata, func M_penjualan total_pembayaran, func M_penjualan get_nelayan
+    //Output:   
+    //Process:  Tampilkan halaman vform_pemabayaran
     public function form_bayar_nelayan()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -197,6 +206,10 @@ class C_penjualan extends CI_Controller
         }
     }
 
+    //Input:    session userdata
+    //Output:   
+    //Process:  ke M_penjualan simpan_penjualan_ikan
+    //          set userdata ikan keranjang null
     public function bayar_nelayan()
     {
         $all = $this->session->userdata('ikan_keranjang');
@@ -205,6 +218,9 @@ class C_penjualan extends CI_Controller
         redirect("C_penjualan");
     }
 
+    //Input:    $id -> id penjualan    
+    //Output:   
+    //Process:  DELETE penjualan
     public function hapus_penjualan($id)
     {
         $a = $this->M_penjualan->hapus_penjualan($id);
@@ -271,6 +287,9 @@ class C_penjualan extends CI_Controller
         return $hasil;
     }
 
+    //Input:    $id -> id penjualan
+    //Output:   pdf
+    //Process:  print laporan penjualan pdf 
     public function download_pdf_penjualan($id)
     {
         $ses_user       = $this->session->userdata('username');

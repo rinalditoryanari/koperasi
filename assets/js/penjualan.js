@@ -1,4 +1,9 @@
 $(document).ready(function() {
+	
+	//Input:    input dari formDataUpload
+    //Output:   
+    //Process:  POST ke C_penjualan/simpan_ikan
+	//			Add row di table 'Ikan Yang Dijual Oleh Nelayan'
     $("#tambah_ikan").click(function(e) {
 		e.preventDefault();
 		var formDataUpload = $('#formDataUpload');
@@ -83,6 +88,10 @@ $(document).ready(function() {
 	});
 });
 
+//Input:    kode_penjualan,nelayan,ikan,nama_ikan,jumlah,harga_ikan,total
+//Output:   
+//Process:  POST ke C_penjualan/hapus_ikan
+//			Re-Add row di table 'Ikan Yang Dijual Oleh Nelayan'
 function delete_detail(kode_penjualan,nelayan,ikan,nama_ikan,jumlah,harga_ikan,total){
 	if(confirm('Are you sure?'))
 	{
@@ -142,6 +151,9 @@ function delete_detail(kode_penjualan,nelayan,ikan,nama_ikan,jumlah,harga_ikan,t
 	}
 }
 
+//Input:    evt -> event
+//Output:   boolean
+//Process:  Pengecekan apakah dia angka apa bukan
 function hanyaAngka(evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57))
@@ -149,6 +161,9 @@ function hanyaAngka(evt) {
     return true;
 }
 
+//Input:    
+//Output:   
+//Process:  Ganti harga pas ganti ikan
 function ganti_harga() {
 	// var x = document.getElementById("item_sku").value;
 	var active = document.getElementById("ikan");
