@@ -2,7 +2,9 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class C_peminjaman extends CI_Controller
 {
-
+    //Input:    
+    //Output:   
+    //Process:  Selft Routing
     public function __construct()
     {
         parent::__construct();
@@ -13,6 +15,9 @@ class C_peminjaman extends CI_Controller
         $this->load->model('M_peminjaman');
     }
 
+    //Input:    func M_peminjaman index()
+    //Output:   
+    //Process:  Menampilkan halamn vpeminjaman
     public function index()
     {
         if ($this->session->userdata("akun_id") == "") {

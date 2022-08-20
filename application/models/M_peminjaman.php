@@ -5,12 +5,19 @@ use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class M_peminjaman extends ci_Model
 {
+    //Input:    
+    //Output:   
+    //Process:  
     public function __construct()
     {
         parent::__construct();
         $this->load->library('session');
     }
 
+    //Input:    
+    //Output:   list $data -> id_peminjaman_header, id_nelayan, nama_nelayan, code_peminjaman, 
+    //                         total_pinjam, status, tanggal_pinjam, created_by, tanggal_kembali, modified_by
+    //Process:  SELECT data peminjaman di table peminjaman_header
     public function index($isall = TRUE, $limit = NULL, $offset = NULL)
     {
         if ($this->session->userdata('tipe_akun') == '0') {

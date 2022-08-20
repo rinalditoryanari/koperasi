@@ -2,7 +2,9 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class C_penjualan extends CI_Controller
 {
-
+    //Input:    
+    //Output:   
+    //Process:  Self Routing
     public function __construct()
     {
         parent::__construct();
@@ -13,6 +15,9 @@ class C_penjualan extends CI_Controller
         $this->load->model('M_penjualan');
     }
 
+    //Input:    func M_penjualan index
+    //Output:   
+    //Process:  Menampilkan Halaman vpenjualan 
     public function index()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -34,6 +39,9 @@ class C_penjualan extends CI_Controller
         return $hasil_rupiah;
     }
 
+    //Input:    func M_penjualan list_nelayan(), func M_penjualan list_ikan(), func M_penjualan code_penjualan()
+    //Output:   
+    //Process:  Menampilkan Halaman vform_prnjualan
     public function form_penjualan()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -203,6 +211,9 @@ class C_penjualan extends CI_Controller
         redirect('C_penjualan');
     }
 
+    //Input:    $id -> id penjualan, func M_penjualan view_detail_penjualan(), func M_penjualan total_penjualan()
+    //Output:   
+    //Process:  menamilkan halaman vdetail_penjualan
     public function view_detail_penjualan($id)
     {
         if ($this->session->userdata("akun_id") == "") {

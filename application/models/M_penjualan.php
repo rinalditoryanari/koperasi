@@ -5,11 +5,18 @@ use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class M_penjualan extends ci_Model
 {
+    //Input:    
+    //Output:   
+    //Process:  
     public function __construct()
     {
         parent::__construct();
         $this->load->library('session');
     }
+
+    //Input:    
+    //Output:   list $data -> id_penjualan, id_nelayan, nama, code, total, created_date dari table penjualan header
+    //Process:  SELECT list penjualan where id nelayan
     public function index($isall = TRUE, $limit = NULL, $offset = NULL)
     {
         if ($this->session->userdata('tipe_akun') == '0' || $this->session->userdata('tipe_akun') == '4') {
@@ -73,6 +80,9 @@ class M_penjualan extends ci_Model
         return $data;
     }
 
+    //Input:    
+    //Output:   list $client -> id, nama, nama_kapal
+    //Process:  SELECT daftar nelayan, status 1
     public function list_nelayan()
     {
         $pilih_client = "SELECT	
@@ -86,6 +96,9 @@ class M_penjualan extends ci_Model
         return $client;
     }
 
+    //Input:    
+    //Output:   list $client -> id_ikan, nama_ikan, harga_ikan
+    //Process:  SELECT daftar ikan di table ikan
     public function list_ikan()
     {
         $pilih_client = "SELECT
@@ -99,6 +112,9 @@ class M_penjualan extends ci_Model
         return $client;
     }
 
+    //Input:    $id -> id nelayan
+    //Output:   $lient -> nama nelayan
+    //Process:  SELECT nama di table nelayan
     public function get_nelayan($id)
     {
         $pilih_client = "SELECT nama FROM nelayan WHERE id = '$id';";
@@ -117,6 +133,9 @@ class M_penjualan extends ci_Model
         return $total;
     }
 
+    //Input:    
+    //Output:   $code -> code penjualan
+    //Process:  generate code penjualan
     public function code_penjualan()
     {
         $bulan = date('m');
@@ -186,6 +205,9 @@ class M_penjualan extends ci_Model
         }
     }
 
+    //Input:    $id -> id penjualan
+    //Output:   
+    //Process:  DELETE di table penjualan_detail, penjualan_header
     public function hapus_penjualan($id)
     {
         $querylog1   = "DELETE FROM penjualan_detail WHERE id_penjualan='$id';";
@@ -195,6 +217,9 @@ class M_penjualan extends ci_Model
         // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
     }
 
+    //Input:    $id -> id penjualan
+    //Output:   list $client -> kode_penjualan, nama_nelayan, nama_kapal, jumlah, harga_ikan, total, created_date
+    //Process:  SELECT data penjualan di table penjualan detail, penjualan header, ikan , nelayan
     public function view_detail_penjualan($id)
     {
         $pilih_client = "SELECT 
@@ -217,6 +242,9 @@ class M_penjualan extends ci_Model
         return $client;
     }
 
+    //Input:    $id -> id penjualan
+    //Output:   $client -> total 
+    //Process:  SELECT total di table penjualan header
     public function total_penjualan($id)
     {
         $pilih_client = "SELECT 

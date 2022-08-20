@@ -2,7 +2,9 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class C_pengembalian extends CI_Controller
 {
-
+    //Input:    
+    //Output:   
+    //Process:  Self Routing
     public function __construct()
     {
         parent::__construct();
@@ -14,6 +16,9 @@ class C_pengembalian extends CI_Controller
         $this->load->model('M_peminjaman');
     }
 
+    //Input:    func M_pengembalian index()
+    //Output:   
+    //Process:  Tampilan halaman vpengembalian
     public function index()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -29,6 +34,9 @@ class C_pengembalian extends CI_Controller
         }
     }
 
+    //Input:    func M_peminjaman keranjang_pinjam()
+    //Output:   
+    //Process:  Menampilkan Halaman vform_prnjualan
     public function form_pengembalian_dan_pembayaran($id)
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -85,6 +93,7 @@ class C_pengembalian extends CI_Controller
             $hasil = trim($this->penyebut($nilai));
         return $hasil;
     }
+
 
     public function download_pdf_pengembalian($id)
     {

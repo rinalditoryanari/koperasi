@@ -5,12 +5,19 @@ use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class M_pengembalian extends ci_Model
 {
+    //Input:    
+    //Output:   
+    //Process:  
     public function __construct()
     {
         parent::__construct();
         $this->load->library('session');
     }
 
+    //Input:    
+    //Output:   list $data -> id_peminjaman_header, id_nelayan, nama_nelayan, code_peminjaman, total_pinjam, 
+    //                        total_kembali, status, tanggal_pinjam, created_by, tanggal_kembali, modified_by
+    //Process:  SELECT data peminjaman di table peminjaman header
     public function index($isall = TRUE, $limit = NULL, $offset = NULL)
     {
         if ($this->session->userdata('tipe_akun') == '0') {
@@ -225,6 +232,10 @@ class M_pengembalian extends ci_Model
         // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
     }
 
+    //Input:    $id -> id peminjaman
+    //Output:   list $client -> id_peminjaman_header, id_pemnjaman_detail, kode_peminjaman, nama_nelayan, nama_alat_bahan, jumlah_pinjam
+    //                          harga/unit_pinjam..... just look at the SELECT command
+    //Process:  SELECT data pinjam
     public function keranjang_pinjam($id)
     {
         $pilih_client = "SELECT

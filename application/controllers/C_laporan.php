@@ -15,7 +15,9 @@ use Box\Spout\Common\Entity\Style\Color;
 class C_laporan extends CI_Controller
 {
 
-
+    //Input:    
+    //Output:   
+    //Process: Self Route  
     public function __construct()
     {
         parent::__construct();
@@ -26,6 +28,9 @@ class C_laporan extends CI_Controller
         $this->load->model('M_laporan');
     }
 
+    //Input:    
+    //Output:   
+    //Process:  Tampilan halaman v_laporan
     public function index()
     {
         if ($this->session->userdata("akun_id") == "") {
