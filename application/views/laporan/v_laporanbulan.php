@@ -164,7 +164,7 @@
 <script>
     function select_date1() {
         var select_date = $("#select_month").val();
-        uri = 'https://koperasinelayan.com/C_laporan/report_monthly';
+        uri = '<?= base_url('C_laporan/report_monthly'); ?>'
         $.ajax({
             url: uri + "/" + select_date,
             async: true,

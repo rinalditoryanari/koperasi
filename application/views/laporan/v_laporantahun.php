@@ -163,7 +163,7 @@
 <script>
     function select_date1() {
         var select_date = $("#select_year").val();
-        uri = 'https://koperasinelayan.com/C_laporan/report_yearly';
+        uri = '<?= base_url('C_laporan/report_yearly'); ?>'
         $.ajax({
             url: uri + "/" + select_date,
             async: true,
