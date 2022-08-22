@@ -3,6 +3,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class C_ikan extends CI_Controller
 {
 
+    //Input:    
+    //Output:   
+    //Process:  Self routing
     public function __construct()
     {
         parent::__construct();
@@ -13,6 +16,9 @@ class C_ikan extends CI_Controller
        
     }
 
+    //Input:    func M_ikan index
+    //Output:   
+    //Process:  Tampikan halamn vikan
     public function index()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -43,6 +49,9 @@ class C_ikan extends CI_Controller
         }
     }
 
+    //Input:    
+    //Output:   
+    //Process:  Tampilkan halaman vform_ikan
     public function form_ikan()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -56,6 +65,9 @@ class C_ikan extends CI_Controller
         }
     }
 
+    //Input:    post nama_ikan, harga ikan, upload gambar
+    //Output:   
+    //Process:  INSERT data ikan ke table ikan
     public function tambah_ikan()
     {
             $config['upload_path']          = './gambar/';
@@ -106,6 +118,10 @@ class C_ikan extends CI_Controller
                 redirect('C_ikan');
         }
     }
+    
+    //Input:    $id -> id ikan
+    //Output:   
+    //Process:  Tampilkan halaman vformedit_ikan 
     public function edit($id)
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -119,6 +135,10 @@ class C_ikan extends CI_Controller
             $this->load->view('template/footer');
         }
     }
+
+    //Input:    post id_ikan, upload gambar, post nama_ikan, harga_ikan
+    //Output:   
+    //Process:  UPDATE data ikan di table ikan
     public function update()
     {
         $id_ikan= $this->input->post('id_ikan');
@@ -166,8 +186,12 @@ class C_ikan extends CI_Controller
            $this->session->set_flashdata('pesan', '<div class="alert alert-success"
             role="alert"> Data Berhasil Diubah! </div>');
             redirect('C_ikan');
+        }
     }
-    }
+    
+    //Input:    $id -> id ikan
+    //Output:   
+    //Process:  hapus data ikan
     public function hapus_ikan($id)
     {
         $a = $this->M_ikan->hapus_ikan($id);

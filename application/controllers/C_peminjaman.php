@@ -39,6 +39,9 @@ class C_peminjaman extends CI_Controller
         return $hasil_rupiah;
     }
 
+    //Input:    func M_peminjaman list_nelayan, func M_peminjaman list_alat, func M_peminjaman code_peminjaman
+    //Output:   
+    //Process:  Tampilkan halamn vform_peminjaman
     public function form_peminjaman()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -56,6 +59,9 @@ class C_peminjaman extends CI_Controller
         }
     }
 
+    //Input:    post kode_peminjaman,id nelayan, alat_bahan, nama_alat_bahan, jumlah, harga_alat_bahan
+    //Output:   
+    //Process:  set session userdata keranjang_pinjam
     public function simpan_alat_bahan()
     {
         $kode_peminjaman    = $_POST['kode_peminjaman'];
@@ -131,6 +137,9 @@ class C_peminjaman extends CI_Controller
         die(json_encode($this->session->userdata('keranjang_pinjam')));
     }
 
+    //Input:    $kode_peminjaman, $id_nelayan, $alat_bahan, $nama_alat_bahan, $jumlah, $harga_alat_bahan, $total
+    //Output:   
+    //Process:  re set session userdata keranjang_pinjam
     public function hapus_alat_bahan($kode_peminjaman, $id_nelayan, $alat_bahan, $nama_alat_bahan, $jumlah, $harga_alat_bahan, $total)
     {
         $params = array(
@@ -182,6 +191,9 @@ class C_peminjaman extends CI_Controller
         die(json_encode($this->session->userdata('keranjang_pinjam')));
     }
 
+    //Input:    func M_peminjaman total_peminjaman(), func M_peminjaman get_nelayan
+    //Output:   
+    //Process:  Tampilkan halaman vform_pinjamkan
     public function form_pinjamkan_nelayan()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -203,6 +215,9 @@ class C_peminjaman extends CI_Controller
         }
     }
 
+    //Input:    session userdata
+    //Output:   
+    //Process:  set null userdata keranjnag peminjaman 
     public function pinjamkan_nelayan()
     {
         $all = $this->session->userdata('keranjang_pinjam');
@@ -213,12 +228,18 @@ class C_peminjaman extends CI_Controller
         redirect("C_peminjaman");
     }
 
+    //Input:    $id -> id peminjaman
+    //Output:   
+    //Process:  Hapus peminjaman
     public function hapus_peminjaman($id)
     {
         $a = $this->M_peminjaman->hapus_peminjaman($id);
         redirect('C_peminjaman');
     }
 
+    //Input:    func M_peminjaman keranjang_pinjam()
+    //Output:   
+    //Process:  Tampilan halaman vdetail_peminjaman
     public function form_pengembalian_dan_pembayaran($id)
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -238,6 +259,9 @@ class C_peminjaman extends CI_Controller
         }
     }
 
+    //Input:    func M_peminjaman detail_item_pengembalian
+    //Output:   
+    //Process:  Tampilkan halaman vform_item_pengembalian
     public function form_pengembalian_item($id)
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -262,6 +286,9 @@ class C_peminjaman extends CI_Controller
         }
     }
 
+    //Input:    post id_peminjaman_header, ...
+    //Output:   
+    //Process:  redirect M_peminjaman simpan_pengembalian
     public function simpan_pengembalian_alat_bahan()
     {
         $id_peminjaman_header       = $_POST['id_peminjaman_header'];
@@ -338,6 +365,9 @@ class C_peminjaman extends CI_Controller
         return $hasil;
     }
 
+    //Input:    $id -> id peminjaman
+    //Output:   
+    //Process:  Print peminjaman pdf
     public function download_pdf_peminjaman($id)
     {
         $ses_user       = $this->session->userdata('username');

@@ -375,7 +375,7 @@ class M_laporan extends ci_Model
 
     //Input:    
     //Output:  list -> select_year
-    //Process:  SELECT tahun di penjualan_header
+    //Process:  SELECT tahun  di penjualan_header
     public function list_tahun_tersedia()
     {
         $query = "  SELECT

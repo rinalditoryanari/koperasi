@@ -1,4 +1,8 @@
 $(document).ready(function() {
+	//Input:    input dari formDataUpload
+    //Output:   
+    //Process:  POST ke C_penjualan/simpan_alat_bahan
+	//			Add row di table 'Ikan Yang Dijual Oleh Nelayan'
     $("#tambah_alat_bahan").click(function(e) {
 		e.preventDefault();
 		var formDataUpload = $('#formDataUpload');
@@ -79,6 +83,10 @@ $(document).ready(function() {
 	});
 });
 
+//Input:    kode_peminjaman,id_nelayan,alat_bahan,nama_alat_bahan,jumlah,harga_alat_bahan,total
+//Output:   
+//Process:  POST ke C_penjualan/hapus_alat_bahan
+//			Re-Add row di table 'Alat Yang Dipinjam Oleh Nelayan'
 function delete_detail(kode_peminjaman,id_nelayan,alat_bahan,nama_alat_bahan,jumlah,harga_alat_bahan,total){
 	if(confirm('Are you sure?'))
 	{
@@ -135,6 +143,9 @@ function delete_detail(kode_peminjaman,id_nelayan,alat_bahan,nama_alat_bahan,jum
 	}
 }
 
+//Input:    evt -> event
+//Output:   boolean
+//Process:  Pengecekan apakah dia angka apa bukan
 function hanyaAngka(evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57))
@@ -142,6 +153,9 @@ function hanyaAngka(evt) {
     return true;
 }
 
+//Input:    
+//Output:   
+//Process:  Ganti harga pas ganti alat
 function ganti_harga() {
 	var active = document.getElementById("alat_bahan");
 	var harga_alat_bahan = active.options[active.selectedIndex].getAttribute('data-harga_per_unit');

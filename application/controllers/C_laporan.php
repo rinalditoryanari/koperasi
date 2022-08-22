@@ -175,6 +175,9 @@ class C_laporan extends CI_Controller
         $writer->close();
     }
     
+    //Input:    
+    //Output:   
+    //Process:  
     public function download_laporan_per_hari()
     {
 

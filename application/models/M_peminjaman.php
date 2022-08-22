@@ -87,6 +87,9 @@ class M_peminjaman extends ci_Model
         return $data;
     }
 
+    //Input:    
+    //Output:   list $client -> id_nelayan, nama_nelayan, kapal_nelayan 
+    //Process:  SELECT di table nelayan
     public function list_nelayan()
     {
         $pilih_client = "SELECT	
@@ -100,6 +103,9 @@ class M_peminjaman extends ci_Model
         return $client;
     }
 
+    //Input:    
+    //Output:   list $client -> id_alat, nama_alat, jenis, satuan harga_per_unit
+    //Process:  SELECT di alat
     public function list_alat()
     {
         $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` ;";
@@ -107,6 +113,9 @@ class M_peminjaman extends ci_Model
         return $client;
     }
 
+    //Input:    
+    //Output:   $code -> code peminjaman
+    //Process:  Generate code peminjaman
     public function code_peminjaman()
     {
         $bulan = date('m');
@@ -138,6 +147,9 @@ class M_peminjaman extends ci_Model
         return $code;
     }
 
+    //Input:    session userdata
+    //Output:   $total -> totoal peminjamaan
+    //Process:  Hitung total peminjaman di session
     public function total_peminjaman()
     {
         $total  = 0;
@@ -150,6 +162,9 @@ class M_peminjaman extends ci_Model
         return $total;
     }
 
+    //Input:    $id -> id nelayan
+    //Output:   list $client
+    //Process:  SELECT data nelayan di table nelayan
     public function get_nelayan($id)
     {
         $pilih_client = "SELECT nama FROM nelayan WHERE id = '$id';";
@@ -158,6 +173,9 @@ class M_peminjaman extends ci_Model
         return $client;
     }
 
+    //Input:    $all
+    //Output:   
+    //Process:  INSERT into peminjaman header, peminjaman detail
     public function simpan_peminjaman_alat_bahan($all)
     {
         // var_dump($all);
@@ -224,6 +242,9 @@ class M_peminjaman extends ci_Model
         // die;
     }
 
+    //Input:    $id -> id peminjaman
+    //Output:   
+    //Process:  DELETE peminjaman dari table peminjmaan header, detail
     public function hapus_peminjaman($id)
     {
         $querylog1   = "DELETE FROM peminjaman_detail WHERE id_peminjaman='$id';";
@@ -233,6 +254,9 @@ class M_peminjaman extends ci_Model
         // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
     }
 
+    //Input:    $id -> id peminjaman
+    //Output:   list $client 
+    //Process:  SELECT data peminjaman di table peminjaman_detail, peminjaman_header,alat, nelayan
     public function keranjang_pinjam($id)
     {
         $pilih_client = "SELECT
@@ -266,6 +290,9 @@ class M_peminjaman extends ci_Model
         return $client;
     }
 
+    //Input:    $id -> id peminjaman
+    //Output:   $client
+    //Process:  SELECT data item pengembalian di table penminjaman detail,alat, peminjaman_header, nelayan
     public function detail_item_pengembalian($id)
     {
         $pilih_client = "SELECT 
@@ -297,6 +324,9 @@ class M_peminjaman extends ci_Model
         return $client;
     }
 
+    //Input:    $params -> id detail, id header, jumlah item kembali, harga kembali
+    //Output:   
+    //Process:  UPDATE di table peminjaman_header, peminjaman_detail
     public function simpan_pengembalian($params)
     {
         $ses_username = $this->session->userdata('username');
@@ -331,6 +361,9 @@ class M_peminjaman extends ci_Model
         $client2 = $this->db->query($update_header);
     }
 
+    //Input:    $id -> id peminjaman
+    //Output:   
+    //Process:  hitung total pengembalian
     public function total_pengembalian($id)
     {
         $pilih_client = "SELECT 
