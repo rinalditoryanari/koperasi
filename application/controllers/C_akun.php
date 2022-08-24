@@ -55,6 +55,8 @@ class C_akun extends CI_Controller
     //Process:  INSERT data akun ke table akun
     public function tambah_akun()
     {
+        $daerah = $this->session->userdata('asal');
+        $lokasi = $this->input->post('$daerah',TRUE);
         $data = array(
             'akun_id'   => $this->input->post('akun_id'),
             'username'  => $this->input->post('username'),
@@ -62,7 +64,7 @@ class C_akun extends CI_Controller
             'code'      => $this->input->post('code'),
             'tipe'      => $this->input->post('tipe'),
             'id_nelayan'=> $this->input->post('id_nelayan'),
-
+            'asal'      => $daerah
         );
         $query = $this->db->insert('akun', $data);
         if ($query = true) {
@@ -97,12 +99,12 @@ class C_akun extends CI_Controller
     {
         $akun_id = $this->input->post('akun_id');
         $data = array(
-            'akun_id' => $this->input->post('akun_id'),
-            'username'=> $this->input->post('username'),
-            'password'        => $this->input->post('password'),
-            'code'        => $this->input->post('code'),
-            'tipe'        => $this->input->post('tipe'),
-            'id_nelayan'        => $this->input->post('id_nelayan'),
+            'akun_id'   => $this->input->post('akun_id'),
+            'username'  => $this->input->post('username'),
+            'password'  => $this->input->post('password'),
+            'code'      => $this->input->post('code'),
+            'tipe'      => $this->input->post('tipe'),
+            'id_nelayan'=> $this->input->post('id_nelayan'),
 
         );
         $query = $this->M_akun->update($akun_id, $data);

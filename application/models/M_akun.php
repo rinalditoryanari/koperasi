@@ -117,4 +117,14 @@ class M_akun extends ci_Model
 
         return $client;
     }
+
+    //Input:    
+    //Output:   $client -> id_lokasi, nama_koperasi, kecamatan
+    //Process:  SELECT data koperasi di table koperasi
+    public function list_lokasi()
+    {
+        $pilih_client = "SELECT `id` as id_lokasi, `nama` as nama_koperasi, `kecamatan`FROM `koperasi`;";
+        $client = $this->db->query($pilih_client)->result_array();
+        return $client;
+    }
 }

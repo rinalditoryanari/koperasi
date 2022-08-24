@@ -13,6 +13,7 @@ class CLogin extends CI_Controller
         $this->load->library('session');
         $this->load->library('form_validation');
         $this->load->model('M_alatbahan');
+        $this->load->model('M_akun');
 
     }
 
@@ -48,12 +49,14 @@ class CLogin extends CI_Controller
             $code_akun   = $execcekakun[0]['code'];
             $tipe_akun   = $execcekakun[0]['tipe'];
             $id_nelayan  = $execcekakun[0]['id_nelayan'];
+            $koperasi  = $execcekakun[0]['asal'];
 
             $this->session->set_userdata('akun_id', $akun_id);
             $this->session->set_userdata('username', $username);
             $this->session->set_userdata('code_akun', $code_akun);
             $this->session->set_userdata('tipe_akun', $tipe_akun);
             $this->session->set_userdata('id_nelayan', $id_nelayan);
+            $this->session->set_userdata('koperasi', $koperasi);
             redirect("C_menu");
         } else {
             $this->session->set_flashdata('flash4', 'Akun Belum Terdaftar');
@@ -84,6 +87,7 @@ class CLogin extends CI_Controller
     {
         $data['guest_code'] = $this->code_guest();
         $data['pilih_alat'] = $this->M_alatbahan->list_alat_regist();
+        $data['lokasi'] = $this->M_akun->list_lokasi();
         $this->load->view('template/header');
         $this->load->view('vregistrasi', $data);
     }
@@ -97,6 +101,7 @@ class CLogin extends CI_Controller
     {
         $nama               = $this->input->post("nama");
         $id_alat            = $this->input->post("id_alat");
+        $lokasi            = $this->input->post("lokasi");
         $user               = $this->input->post("username");
         $pass               = $this->input->post("password");
         $pass2              = $this->input->post("password2");
@@ -144,7 +149,7 @@ class CLogin extends CI_Controller
                 '',
                 '',
                 '',
-                '',
+                '" . $lokasi ."',
                 '',
                 1
                 );
@@ -155,7 +160,7 @@ class CLogin extends CI_Controller
         $execambilid    = $this->db->query($ambilid)->result_array();
         $id_nelayan     = $execambilid[0]['id'];
 
-        $masukanakun        = "INSERT INTO `akun` ( `username`, `password`, `code`, `tipe`, `id_nelayan` ) VALUES ( '$user', '$pass', '$nama', 4, '$id_nelayan' );";
+        $masukanakun        = "INSERT INTO `akun` ( `username`, `password`, `code`, `tipe`, `id_nelayan`, `asal` ) VALUES ( '$user', '$pass', '$nama', 4, '$id_nelayan', '$lokasi' );";
         $execmasukanakun    = $this->db->query($masukanakun);
 
         $this->session->set_flashdata('flash2', 'asdas');
