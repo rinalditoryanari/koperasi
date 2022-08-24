@@ -110,7 +110,6 @@ class M_peminjaman extends ci_Model
     public function list_alat($asal)
     {
         $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` WHERE `lokasi` = '$asal';";
-        var_dump($pilih_client);
         
         $client = $this->db->query($pilih_client)->result_array();
         return $client;
