@@ -38,12 +38,13 @@ class M_akun extends ci_Model
         isLimit:
 
         $stringwhere = implode(" AND ", $where);
+        $lokasi = $this->session->userdata('asal');
 
         $query = "  SELECT
-                            a.`akun_id`, a.`username`, a.`password`, a.`code`, a.`tipe`, b.`nama` as nama_nelayan
+                            a.`akun_id`, a.`username`, a.`password`, a.`code`, a.`tipe`,a.`asal`, b.`nama` as nama_nelayan
                         FROM `akun` a
                         LEFT JOIN `nelayan` b on a.`id_nelayan` = b.`id`
-                        where 1=1
+                        where a.`asal`= '$lokasi'
                         $stringwhere 
                         ORDER BY a.`akun_id` DESC;";
 

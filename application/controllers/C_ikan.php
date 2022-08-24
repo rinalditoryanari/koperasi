@@ -83,12 +83,14 @@ class C_ikan extends CI_Controller
                 
                 $nama_ikan = $this->input->post('nama_ikan', TRUE);
                 $harga_ikan = $this->input->post('harga_ikan', TRUE);
+                $daerah = $this->session->userdata('asal');
+                $lokasi = $this->input->post('$daerah', TRUE);
 
                 $data = array(
                         
                         'nama_ikan'  => $nama_ikan,
                         'harga_ikan' => $harga_ikan,
-                      
+                        'lokasi'     => $daerah
                 );
             
                $this->db->insert('ikan', $data);
@@ -104,12 +106,15 @@ class C_ikan extends CI_Controller
                 
                 $nama_ikan = $this->input->post('nama_ikan', TRUE);
                 $harga_ikan = $this->input->post('harga_ikan', TRUE);
+                $daerah = $this->session->userdata('asal');
+                $lokasi = $this->input->post('$daerah', TRUE);
 
                 $data = array(
                         
                         'nama_ikan'  => $nama_ikan,
                         'harga_ikan' => $harga_ikan,
                         'gambar'     => $gambar,
+                        'lokasi'     => $daerah
                 );
             
                $this->db->insert('ikan', $data);
@@ -186,7 +191,7 @@ class C_ikan extends CI_Controller
            $this->session->set_flashdata('pesan', '<div class="alert alert-success"
             role="alert"> Data Berhasil Diubah! </div>');
             redirect('C_ikan');
-        }
+    }
     }
     
     //Input:    $id -> id ikan

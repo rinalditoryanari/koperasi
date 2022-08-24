@@ -49,14 +49,15 @@ class CLogin extends CI_Controller
             $code_akun   = $execcekakun[0]['code'];
             $tipe_akun   = $execcekakun[0]['tipe'];
             $id_nelayan  = $execcekakun[0]['id_nelayan'];
-            $koperasi  = $execcekakun[0]['asal'];
+            $asal = $execcekakun[0]['asal'];
+            
 
             $this->session->set_userdata('akun_id', $akun_id);
             $this->session->set_userdata('username', $username);
             $this->session->set_userdata('code_akun', $code_akun);
             $this->session->set_userdata('tipe_akun', $tipe_akun);
             $this->session->set_userdata('id_nelayan', $id_nelayan);
-            $this->session->set_userdata('koperasi', $koperasi);
+            $this->session->set_userdata('asal', $asal);
             redirect("C_menu");
         } else {
             $this->session->set_flashdata('flash4', 'Akun Belum Terdaftar');

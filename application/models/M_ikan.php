@@ -40,10 +40,12 @@ class M_ikan extends ci_Model
 
         $stringwhere = implode(" AND ", $where);
 
+        $lokasi = $this->session->userdata('asal');
+
         $query = "  SELECT
                       * 
                     FROM `ikan` 
-                    where 1=1
+                    where `lokasi`= '$lokasi'
                     $stringwhere 
 
                     ORDER BY `id_ikan` DESC

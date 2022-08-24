@@ -27,17 +27,6 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-12">
-                                <select name="lokasi" id="lokasi" class="form-control" required="">
-                                    <option value="">Pilih Koperasi</option>
-                                    <?php foreach ($lokasi as $a) : ?>
-                                        <option value="<?= $a['kecamatan']; ?>"><?= $a['kecamatan'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Username" id="username" name="username">
                         </div>

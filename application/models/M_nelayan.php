@@ -25,10 +25,9 @@ class M_nelayan extends ci_Model
             $ses_client = $this->session->userdata('ID');
         }
 
-
         $keyword = '';
         $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search')):"";
-        
+
         $where = array();
         if (!empty($this->input->get('table_search'))) {
             $where[] = " AND a.nama LIKE '%" . $keyword . "%'";
@@ -40,12 +39,24 @@ class M_nelayan extends ci_Model
 
         $stringwhere = implode(" AND ", $where);
 
+        // $lokasi_admin = $this->db->where('asal', );
+        $lokasi = $this->session->userdata('asal');
+
+        // $lokasi = "  SELECT
+        //                 a.`id`,a.`nama` as nama_nelayan, a.`nama_kapal`, a.`jenis_kapal`, a.`GT`, a.`daerah_tangkap`, a.`pelabuhan_bongkar`, a.`tanda_pas`,a.`keterangan`,    					  
+        //                      a.`status`,  b.`nama` as alat_tangkap 
+        //             FROM `nelayan` a
+        //             where a.`pelabuhan_bongkar`= ANGKE
+        //             $stringwhere 
+        //             ORDER BY a.`id` DESC;
+// ";
+        
         $query = "  SELECT
                             a.`id`,a.`nama` as nama_nelayan, a.`nama_kapal`, a.`jenis_kapal`, a.`GT`, a.`daerah_tangkap`, a.`pelabuhan_bongkar`, a.`tanda_pas`,a.`keterangan`,    					  
                              a.`status`,  b.`nama` as alat_tangkap 
                         FROM `nelayan` a
                         JOIN `alat` b on a.`id_alat` = b.`id_alat` 
-                        where 1=1
+                        where a.`pelabuhan_bongkar`= '$lokasi'
                         $stringwhere 
                         ORDER BY a.`id` DESC;
                   ";
@@ -55,21 +66,29 @@ class M_nelayan extends ci_Model
         if ($is_limit) {
             if (!$isall) {
                 $query .= ' LIMIT ' . $limit . " offset " . $offset;
+                // $lokasi_admin .= ' LIMIT ' . $limit . " offset " . $offset;
+                // $lokasi .= ' LIMIT ' . $limit . " offset " . $offset;
             }
         }
 
         if ($is_limit) {
+            // echo $lokasi;
             $res = $this->db->query($query)->result_array();
+            // $res = $this->db->query($lokasi_admin)->result_array();
+            // $res = $this->db->query($lokasi)->result_array();
             $is_limit = false;
             goto isLimit;
         }
 
         $count = $this->db->query($query)->num_rows();
+        // $count = $this->db->query($lokasi)->num_rows();
+        
 
         $data = array(
             "total" => $count,
             "data" => $res
         );
+        // var_dump($lokasi);
         // var_dump($data);
         // die;
         return $data;

@@ -39,10 +39,12 @@ class M_alatbahan extends ci_Model
 
         $stringwhere = implode(" AND ", $where);
 
+        $lokasi = $this->session->userdata('asal');
+
         $query = "  SELECT
                         * 
                     FROM `alat` 
-                    WHERE 1=1
+                    WHERE `lokasi`= '$lokasi'
                     $stringwhere
                     ORDER BY nama ASC";
 

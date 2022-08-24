@@ -29,6 +29,7 @@ class M_peminjaman extends ci_Model
 
         $keyword = '';
         $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search')):"";
+        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search')):"";
 
         $where = array();
         if (!empty($this->input->get('table_search'))) {

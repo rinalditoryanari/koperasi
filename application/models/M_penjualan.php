@@ -28,7 +28,7 @@ class M_penjualan extends ci_Model
 
         $keyword = '';
         $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search')):"";
-        
+
         $where = array();
         if (!empty($this->input->get('table_search'))) {
             $where[] = " AND a.code LIKE '%" . $keyword . "%'";

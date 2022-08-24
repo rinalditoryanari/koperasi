@@ -93,6 +93,7 @@ class C_laporan extends CI_Controller
     public function download_laporan_per_hari_()
     {
         $select_date = $_GET['select_date'];
+        // echo var_dump($select_date);
         // die;
         //    $select_date = '2022-05-19';
         //    echo var_dump($select_date);
@@ -340,7 +341,7 @@ class C_laporan extends CI_Controller
 
             $data_laporan = $this->M_laporan->download_laporan_per_bulan($select_month);
 
-            var_dump($data_laporan);
+            // var_dump($data_laporan);
             // die;
 
             // $penjualan_detail   = $this->M_penjualan->view_detail_penjualan($id);

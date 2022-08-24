@@ -115,8 +115,8 @@
                                         <label for="pelabuhan_bongkar" class="col-sm-2 col-form-label">Pelabuhan
                                             Bongkar</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="pelabuhan_bongkar" class="form-control"
-                                                id="pelabuhan_bongkar" placeholder="Pelabuhan Bongkar" required>
+                                            <input value="<?php echo $this->session->userdata('asal')?>" name="pelabuhan_bongkar" class="form-control"
+                                                id="pelabuhan_bongkar" placeholder="Pelabuhan Bongkar" disabled>
                                         </div>
                                     </div>
 
