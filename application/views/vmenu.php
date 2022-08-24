@@ -19,7 +19,36 @@
                     <!-- Default box -->
                     <div class="card">
                         <div class="card-body">
-                            Aplikasi untuk melakukan transaksi penjualan, peminjaman dan pengembalian
+                            Aplikasi untuk melakukan tdansaksi penjualan, peminjaman dan pengembalian
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Data Transaksi</h3>
+                        </div>
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <tr>
+                                    <td>Nama Koperasi</td>
+                                    <td>:</td>
+                                    <td><?php echo $lokasi['nama'];?></td>
+                                </tr>
+                                <tr>
+                                    <td>Kepala Koperasi</td>
+                                    <td>:</td>
+                                    <td><?php echo $lokasi["ketua"];?></td>
+                                </tr>
+                                <tr>
+                                    <td>Alamat</td>
+                                    <td>:</td>
+                                    <td><?php echo $lokasi["alamat"];?></td>
+                                </tr>
+                                <tr>
+                                    <td>Kecamatan</td>
+                                    <td>:</td>  
+                                    <td><?php echo $lokasi["kecamatan"];?></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <!-- /.card -->

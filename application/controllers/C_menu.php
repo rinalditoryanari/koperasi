@@ -11,6 +11,8 @@ class C_menu extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->library('form_validation');
+        $this->load->model('M_akun');
+
     }
 
     //Input:    
@@ -23,6 +25,13 @@ class C_menu extends CI_Controller
             redirect(site_url('CLogin'));
         } else {
             $data['judul']      = 'SISTEM INFORMASI KOPERASI NELAYAN SUMBER LAUT MANDIRI';
+
+            $tipe = $this->session->userdata('tipe_akun');
+            $asal = $this->session->userdata('asal');
+
+            if ($tipe == 2) {
+                $data['lokasi'] = $this->M_akun->cek_koperasi($asal);
+            }
 
             $this->load->view('template/header');
             $this->load->view('template/vsidebar');

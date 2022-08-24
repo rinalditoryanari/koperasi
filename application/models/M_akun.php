@@ -128,4 +128,11 @@ class M_akun extends ci_Model
         $client = $this->db->query($pilih_client)->result_array();
         return $client;
     }
+
+    public function cek_koperasi($asal)
+    {
+        $this->db->where('kecamatan', $asal);
+        return $this->db->get('koperasi')->row_array();
+    }
+
 }
