@@ -91,14 +91,14 @@ class M_peminjaman extends ci_Model
     //Input:    
     //Output:   list $client -> id_nelayan, nama_nelayan, kapal_nelayan 
     //Process:  SELECT di table nelayan
-    public function list_nelayan()
+    public function list_nelayan($asal)
     {
         $pilih_client = "SELECT	
                             `id` as id_nelayan,
                             `nama` as nama_nelayan,
                             `nama_kapal` as kapal_nelayan
                         FROM `nelayan`
-                        WHERE `status` = 1";
+                        WHERE `status` = 1 AND `pelabuhan_bongkar` = '$asal';";
         $client = $this->db->query($pilih_client)->result_array();
 
         return $client;
@@ -107,9 +107,11 @@ class M_peminjaman extends ci_Model
     //Input:    
     //Output:   list $client -> id_alat, nama_alat, jenis, satuan harga_per_unit
     //Process:  SELECT di alat
-    public function list_alat()
+    public function list_alat($asal)
     {
-        $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` ;";
+        $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` WHERE `lokasi` = '$asal';";
+        var_dump($pilih_client);
+        
         $client = $this->db->query($pilih_client)->result_array();
         return $client;
     }
@@ -185,9 +187,11 @@ class M_peminjaman extends ci_Model
         $total          = $this->total_peminjaman();
         $kode_peminjaman = $all[0]['kode_peminjaman'];
         $nelayan        = $all[0]['id_nelayan'];
+        $lokasi        = $all[0]['lokasi'];
         $insertheader = "INSERT INTO `peminjaman_header` (
                             `id_nelayan`,
                             `code`,
+                            `lokasi`,
                             `total_pinjam`,
                             `created_date`,
                             `created_by`,
@@ -198,6 +202,7 @@ class M_peminjaman extends ci_Model
                             (
                             $nelayan,
                             '$kode_peminjaman',
+                            '$lokasi',
                             $total,
                             now(),
                             '$ses_username',
@@ -215,6 +220,7 @@ class M_peminjaman extends ci_Model
             $insertdetail = "INSERT INTO `peminjaman_detail` (
                 `id_peminjaman_header`,
                 `id_alat`,
+                `lokasi`,
                 `jumlah_pinjam`,
                 `harga/unit_pinjam`,
                 `status`,
@@ -227,6 +233,7 @@ class M_peminjaman extends ci_Model
                 (
                 '$id_peminjaman_header',
                 '" . $a['alat_bahan'] . "',
+                '" . $lokasi . "',
                 '" . $a['jumlah'] . "',
                 '" . $a['harga_alat_bahan'] . "',
                 0,
@@ -236,8 +243,6 @@ class M_peminjaman extends ci_Model
                 '$ses_username'
                 );
                 ";
-            // echo $insertdetail;
-            // echo '<br>';
             $w = $this->db->query($insertdetail);
         }
         // die;
@@ -335,6 +340,7 @@ class M_peminjaman extends ci_Model
         $harga_item_kembali = $params['harga_item_kembali'];
         $id_peminjaman_header = $params['id_peminjaman_header'];
         $id_peminjaman_detail = $params['id_peminjaman_detail'];
+        $status = $params['status'];
 
 
         $update_detail =   "UPDATE
@@ -342,7 +348,7 @@ class M_peminjaman extends ci_Model
                     SET
                         `jumlah_kembali` = '$jumlah_kembali',
                         `harga/unit_kembali` = '$harga_item_kembali',
-                        `status` = 1,
+                        `status` = '$status',
                         `modified_date` = NOW(),
                         `modified_by` = '$ses_username'
                     WHERE `id_peminjaman_detail` = '$id_peminjaman_detail';";
@@ -355,7 +361,7 @@ class M_peminjaman extends ci_Model
                         `peminjaman_header`
                     SET
                         `total_kembali` = '$total_kembali',
-                        `status` = 1,
+                        `status` = '$status',
                         `modified_date` = NOW(),
                         `modified_by` = '$ses_username'
                     WHERE `id_peminjaman_header` = '$id_peminjaman_header';";
