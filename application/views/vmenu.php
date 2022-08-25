@@ -22,7 +22,7 @@
                             Aplikasi untuk melakukan tdansaksi penjualan, peminjaman dan pengembalian
                         </div>
                     </div>
-                    <?php if ($this->session->userdata('tipe_akun') == '2') { ?>
+                    
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Data Koperasi</h3>
@@ -52,7 +52,6 @@
                             </table>
                         </div>
                     </div>
-                    <?php }?>
                     <!-- /.card -->
 
 

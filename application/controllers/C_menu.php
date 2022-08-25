@@ -29,9 +29,9 @@ class C_menu extends CI_Controller
             $tipe = $this->session->userdata('tipe_akun');
             $asal = $this->session->userdata('asal');
 
-            if ($tipe == 2) {
+            // if ($tipe == 2) {
                 $data['lokasi'] = $this->M_akun->cek_koperasi($asal);
-            }
+            // }
 
             $this->load->view('template/header');
             $this->load->view('template/vsidebar');
