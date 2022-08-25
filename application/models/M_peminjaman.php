@@ -18,7 +18,7 @@ class M_peminjaman extends ci_Model
     //Output:   list $data -> id_peminjaman_header, id_nelayan, nama_nelayan, code_peminjaman, 
     //                         total_pinjam, status, tanggal_pinjam, created_by, tanggal_kembali, modified_by
     //Process:  SELECT data peminjaman di table peminjaman_header
-    public function index($isall = TRUE, $limit = NULL, $offset = NULL)
+    public function index($asal, $isall = TRUE, $limit = NULL, $offset = NULL)
     {
         if ($this->session->userdata('tipe_akun') == '0') {
             $id_nelayan  = $this->session->userdata('id_nelayan');
@@ -58,6 +58,7 @@ class M_peminjaman extends ci_Model
                     JOIN nelayan b ON a.`id_nelayan` = b.`id`
                     $stringwhere
                     $ses_nelayan
+                    WHERE a.`lokasi` = '$asal'
                     AND a.`status` = 0
                     ORDER BY a.`id_peminjaman_header` DESC
                     

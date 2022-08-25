@@ -24,7 +24,8 @@ class C_peminjaman extends CI_Controller
             $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
             redirect(site_url('CLogin'));
         } else {
-            $data['all_peminjaman']   = $this->M_peminjaman->index();
+            $asal = $this->session->userdata('asal');
+            $data['all_peminjaman']   = $this->M_peminjaman->index($asal);
 
             $this->load->view('template/header');
             $this->load->view('template/vsidebar');
