@@ -48,8 +48,9 @@ class C_penjualan extends CI_Controller
             $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
             redirect(site_url('CLogin'));
         } else {
-            $data['list_nelayan'] = $this->M_penjualan->list_nelayan();
-            $data['list_ikan'] = $this->M_penjualan->list_ikan();
+            $asal = $this->session->userdata('asal');
+            $data['list_nelayan'] = $this->M_penjualan->list_nelayan($asal);
+            $data['list_ikan'] = $this->M_penjualan->list_ikan($asal);
             $data['code_penjualan'] = $this->M_penjualan->code_penjualan();
 
             $this->load->view('template/header');
@@ -69,6 +70,7 @@ class C_penjualan extends CI_Controller
         $ikan               = $_POST['ikan'];
         $nama_ikan          = $_POST['nama_ikan'];
         $jumlah             = $_POST['jumlah'];
+        $lokasi             = $this->session->userdata('asal');
         $harga              = $_POST['harga_ikan'];
         $harga123           = str_replace('.', '', $harga);
         $harga_ikan         = str_replace('Rp ', '', $harga123);
@@ -98,7 +100,8 @@ class C_penjualan extends CI_Controller
             "nama_ikan"     => $nama_ikan,
             "jumlah"        => $jumlah,
             "harga_ikan"    => $harga_ikan,
-            "total"         => $harga_ikan * $jumlah
+            "total"         => $harga_ikan * $jumlah,
+            "lokasi"        => $lokasi
         );
 
         if ($this->session->userdata('ikan_keranjang')) {
@@ -113,7 +116,8 @@ class C_penjualan extends CI_Controller
                     'nama_ikan'         => $as['nama_ikan'],
                     'jumlah'            => $as['jumlah'],
                     'harga_ikan'        => $as['harga_ikan'],
-                    'total'             => $as['total']
+                    'total'             => $as['total'],
+                    'lokasi'            => $as['lokasi']
                 ];
             }
             $keranjang[$i]        = [
@@ -123,7 +127,8 @@ class C_penjualan extends CI_Controller
                 'nama_ikan'         => $nama_ikan,
                 'jumlah'            => $jumlah,
                 'harga_ikan'        => $harga_ikan,
-                'total'             => $harga_ikan * $jumlah
+                'total'             => $harga_ikan * $jumlah,
+                'lokasi'            => $lokasi
             ];
             $this->session->set_userdata('ikan_keranjang', $keranjang);
         } else {
@@ -142,6 +147,7 @@ class C_penjualan extends CI_Controller
     //Process:  re-set session ikan_keranjang
     public function hapus_ikan($kode_penjualan, $nelayan, $ikan, $nama_ikan, $jumlah, $harga_ikan, $total)
     {
+        $lokasi = $this->session->userdata('lokasi');
         $params = array(
             "kode_penjualan" => $kode_penjualan,
             "nelayan"       => $nelayan,
@@ -149,7 +155,8 @@ class C_penjualan extends CI_Controller
             "nama_ikan"     => $nama_ikan,
             "jumlah"        => $jumlah,
             "harga_ikan"    => $harga_ikan,
-            "total"         => $total
+            "total"         => $total,
+            "lokasi"        => $this->session->userdata('lokasi')
         );
 
         $all    = $this->session->userdata('ikan_keranjang');
@@ -164,6 +171,7 @@ class C_penjualan extends CI_Controller
                 $as['jumlah'] == $jumlah &&
                 $as['harga_ikan'] == $harga_ikan &&
                 $as['total'] == $total &&
+                $as['lokasi'] == $lokasi &&
                 $loop == 0
             ) {
                 $loop = 1;
@@ -176,7 +184,8 @@ class C_penjualan extends CI_Controller
                     'nama_ikan'         => $as['nama_ikan'],
                     'jumlah'            => $as['jumlah'],
                     'harga_ikan'        => $as['harga_ikan'],
-                    'total'             => $as['total']
+                    'total'             => $as['total'],
+                    'lokasi'            => $as['lokasi']
                 ];
             }
         };

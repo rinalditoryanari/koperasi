@@ -83,14 +83,14 @@ class M_penjualan extends ci_Model
     //Input:    
     //Output:   list $client -> id, nama, nama_kapal
     //Process:  SELECT daftar nelayan, status 1
-    public function list_nelayan()
+    public function list_nelayan($asal)
     {
         $pilih_client = "SELECT	
                             `id` as id_nelayan,
                             `nama` as nama_nelayan,
                             `nama_kapal` as kapal_nelayan
                         FROM `nelayan`
-                        WHERE `status` = 1";
+                        WHERE `status` = 1 AND `pelabuhan_bongkar` = '$asal';";
         $client = $this->db->query($pilih_client)->result_array();
 
         return $client;
@@ -99,14 +99,13 @@ class M_penjualan extends ci_Model
     //Input:    
     //Output:   list $client -> id_ikan, nama_ikan, harga_ikan
     //Process:  SELECT daftar ikan di table ikan
-    public function list_ikan()
+    public function list_ikan($asal)
     {
         $pilih_client = "SELECT
                             `id_ikan`,
                             `nama_ikan`,
                             `harga_ikan`
-                        FROM `ikan`
-                        ";
+                        FROM `ikan` WHERE `lokasi` = '$asal';";
         $client = $this->db->query($pilih_client)->result_array();
 
         return $client;
@@ -179,9 +178,11 @@ class M_penjualan extends ci_Model
         $total          = $this->total_pembayaran();
         $kode_penjualan = $all[0]['kode_penjualan'];
         $nelayan        = $all[0]['nelayan'];
+        $lokasi        = $all[0]['lokasi'];
         $insertheader = "INSERT INTO `penjualan_header` (
                             `id_nelayan`,
                             `code`,
+                            `lokasi`,
                             `total`,
                             `created_date`,
                             `created_by`,
@@ -192,6 +193,7 @@ class M_penjualan extends ci_Model
                             (
                             '$nelayan',
                             '$kode_penjualan',
+                            '$lokasi',
                             '$total',
                             now(),
                             '$ses_username',

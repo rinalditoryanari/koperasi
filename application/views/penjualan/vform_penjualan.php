@@ -6,6 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Tambah Penjualan</h1>
+                    <h4>Pelabuhan <?php echo $this->session->userdata('asal')?></h4>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -49,6 +50,12 @@
                                         <label class="col-sm-4 col-form-label">Kode Penjualan</label>
                                         <div class="col-sm-8">
                                             <input value="<?= $code_penjualan ?>" type="text" class="form-control" id="kode_penjualan" name="kode_penjualan" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Lokasi</label>
+                                        <div class="col-sm-8">
+                                            <input value="<?php echo $this->session->userdata('asal') ?>" type="text" class="form-control" id="lokasi" name="lokasi" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
