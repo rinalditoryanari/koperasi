@@ -135,4 +135,33 @@ class M_akun extends ci_Model
         return $this->db->get('koperasi')->row_array();
     }
 
+    public function count_ikan($asal)
+    {
+        $this->db->where('lokasi', $asal);
+        return $this->db->get('ikan')->num_rows();
+    }
+
+    public function count_akun($asal)
+    {
+        $this->db->where('asal', $asal);
+        return $this->db->get('akun')->num_rows();
+    }
+
+    public function count_alat($asal)
+    {
+        $this->db->where('lokasi', $asal);
+        return $this->db->get('alat')->num_rows();
+    }
+
+    public function count_nelayan($asal)
+    {
+        $this->db->where('pelabuhan_bongkar', $asal);
+        return $this->db->get('nelayan')->num_rows();
+    }
+
+    public function count_penjualan($asal)
+    {
+        $this->db->where('lokasi', $asal);
+        return $this->db->get('penjualan_header')->num_rows();
+    }
 }

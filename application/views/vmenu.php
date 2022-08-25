@@ -19,10 +19,52 @@
                     <!-- Default box -->
                     <div class="card">
                         <div class="card-body">
-                            Aplikasi untuk melakukan tdansaksi penjualan, peminjaman dan pengembalian
+                            Aplikasi untuk melakukan transaksi penjualan, peminjaman dan pengembalian
                         </div>
                     </div>
-                    
+                    <div class="d-flex" style="justify-content: space-between;">
+                        <div class="col-2 card">
+                            <div class="card-header">
+                                <h3 class="card-title">Akun</h3>
+                            </div>
+                            <div class="card-body">
+                                <h3><?php echo $akun;?></h3>
+                            </div>
+                        </div> 
+                        <div class="col-2 card">
+                            <div class="card-header">
+                                <h3 class="card-title">Nelayan</h3>
+                            </div>
+                            <div class="card-body">
+                                <h3><?php echo $nelayan;?></h3>
+                            </div>
+                        </div> 
+                        <div class="col-2 card">
+                            <div class="card-header">
+                                <h3 class="card-title">Ikan</h3>
+                            </div>
+                            <div class="card-body">
+                                <h3><?php echo $ikan;?></h3>
+                            </div>
+                        </div> 
+                        <div class="col-2 card">
+                            <div class="card-header">
+                                <h3 class="card-title">Alat</h3>
+                            </div>
+                            <div class="card-body">
+                                <h3><?php echo $alat;?></h3>
+                            </div>
+                        </div> 
+                        <div class="col-2 card">
+                            <div class="card-header">
+                                <h3 class="card-title">Penjualan</h3>
+                            </div>
+                            <div class="card-body">
+                                <h3><?php echo $penjualan;?></h3>
+                            </div>
+                        </div> 
+                    </div>
+
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Data Koperasi</h3>
