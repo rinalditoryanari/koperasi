@@ -259,6 +259,19 @@
                                         </a>
                                     </li>
                                 </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('C_akunMaster/allkoperasi/') ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-user-circle"></i>
+                                            <p>
+                                                <p>
+                                                    <?php if ($this->session->userdata('tipe_akun') == '3') {
+                                                        echo 'Data Koperasi Master';
+                                                    }?>
+                                                </p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a href="<?= base_url('C_alatbahanMaster') ?>" class="nav-link">
@@ -359,6 +372,8 @@
                                         } else if ($this->session->userdata('tipe_akun') == '1') {
                                             echo 'Laporan Admin';
                                         } else if ($this->session->userdata('tipe_akun') == '0') {
+                                            echo 'Rekomendasi Tangkap Ikan';
+                                        } else if ($this->session->userdata('tipe_akun') == '4') {
                                             echo 'Rekomendasi Tangkap Ikan';
                                         } ?>
                                         <i class="right fas fa-angle-left"></i>

@@ -128,15 +128,32 @@ class M_akunMaster extends ci_Model
       
         // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
     }
+    public function hapus_akunkoperasi($akun_id)
+    {
+        $querylog1   = "DELETE FROM koperasi WHERE id='$akun_id';";
+        $run2       = $this->db->query($querylog1);
+      
+        // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
+    }
     public function edit($akun_id)
     {
         $this->db->where('akun_id', $akun_id);
         return $this->db->get('akun')->row_array();
     }
+    public function editkoperasi($akun_id)
+    {
+        $this->db->where('id', $akun_id);
+        return $this->db->get('koperasi')->row_array();
+    }
     public function update($akun_id, $data)
     {
         $this->db->where('akun_id', $akun_id);
         $this->db->update('akun', $data);
+    }
+    public function updatekoperasi($akun_id, $data)
+    {
+        $this->db->where('id', $akun_id);
+        $this->db->update('koperasi', $data);
     }
 
     public function list_nelayan()
@@ -150,5 +167,59 @@ class M_akunMaster extends ci_Model
         $client = $this->db->query($pilih_client)->result_array();
 
         return $client;
+    }
+
+    public function allkoperasi($isall = true, $limit = null, $offset = null)
+    {
+        if ($this->session->userdata('client_id')) {
+            $ses_client = $this->session->userdata('client_id');
+        } else {
+            $ses_client = $this->session->userdata('ID');
+        }
+
+        $keyword = str_replace("'", "\'", $this->input->get('table_search'));
+
+        $where = array();
+        if (!empty($this->input->get('table_search'))) {
+            $where[] = " AND username LIKE '%" . $keyword . "%'";
+        }
+
+        $is_limit = true;
+
+        isLimit:
+
+        $stringwhere = implode(" AND ", $where);
+        $lokasi = $this->session->userdata('asal');
+
+        $query = "  SELECT
+                        a.`id`, a.`nama`, a.`kecamatan`, a.`alamat`, a.`ketua`
+                    FROM `koperasi` a
+                    where 1=1
+                    $stringwhere 
+                    ORDER BY a.`id` DESC;";
+
+        // echo $query;
+        // die();
+        if ($is_limit) {
+            if (!$isall) {
+                $query .= ' LIMIT ' . $limit . " offset " . $offset;
+            }
+        }
+
+        if ($is_limit) {
+            $res = $this->db->query($query)->result_array();
+            $is_limit = false;
+            goto isLimit;
+        }
+
+        $count = $this->db->query($query)->num_rows();
+
+        $data = array(
+            "total" => $count,
+            "data" => $res
+        );
+        // var_dump($data);
+        // die;
+        return $data;
     }
 }
