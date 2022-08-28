@@ -5,18 +5,12 @@ use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class M_nelayan extends ci_Model
 {
-    //Input:    
-    //Output:   
-    //Process:  
     public function __construct()
     {
         parent::__construct();
         $this->load->library('session');
     }
 
-    //Input:    session userdata (id)
-    //Output:   list $data -> id nama_nelayan, nama_kapal, jenis_kapal, GT, daerah_tangkap, pelabihan_bongkar, tanda_pas, keterangan
-    //Process:  SELECT list nelayan di table nelayan dan alat
     public function index($isall = TRUE, $limit = NULL, $offset = NULL)
     {
         if ($this->session->userdata('client_id')) {
@@ -25,8 +19,7 @@ class M_nelayan extends ci_Model
             $ses_client = $this->session->userdata('ID');
         }
 
-        $keyword = '';
-        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search')):"";
+        $keyword = str_replace("'", "\'", $this->input->get('table_search'));
 
         $where = array();
         if (!empty($this->input->get('table_search'))) {
@@ -94,9 +87,6 @@ class M_nelayan extends ci_Model
         return $data;
     }
 
-    //Input:    $id -> id nelayan
-    //Output:   
-    //Process:  DELETE data nelayan di table nelayan
     public function hapus_nelayan($id)
     {
         $querylog1   = "DELETE FROM nelayan WHERE id='$id';";
@@ -104,38 +94,23 @@ class M_nelayan extends ci_Model
       
         // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
     }
-
-    //Input:    $id -> id nelayan
-    //Output:   $this -> data nelayan
-    //Process:  SELECT data nealayan di table nelayan
     public function edit($id)
     {
        $this->db->where('id', $id);
        return $this->db->get('nelayan')->row_array();
     }
-
-    //Input:    $id -> id nelayan, $data -> data update
-    //Output:   
-    //Process:  UPDATE data nelayan di table nelayan
     public function update($id, $data)
     {
         $this->db->where('id', $id);
         $this->db->update('nelayan', $data);
     }  
     
-    //Input:    
-    //Output:   $this -> nama,nama_kapal,jenis_kapal,GT,id_alat,daerah_tangkap,tanda_pas,pelabuhan_bongkar,keterangan
-    //Process:  SELECT data nelayan
     public function download_nelayan()
     {
         $query = "SELECT nama,nama_kapal,jenis_kapal,GT,id_alat,daerah_tangkap,tanda_pas,pelabuhan_bongkar,keterangan  FROM `nelayan`
         ";
          return  $this->db->query($query)->result();
     }
-
-    //Input:    
-    //Output:   $client -> list alat
-    //Process:  SELECT alat di table alat
     public function list_alat()
     {
         $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` ;";

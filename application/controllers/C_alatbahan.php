@@ -2,9 +2,7 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class C_alatbahan extends CI_Controller
 {
-    //Input:    
-    //Output:   
-    //Process:  self routing
+
     public function __construct()
     {
         parent::__construct();
@@ -14,9 +12,6 @@ class C_alatbahan extends CI_Controller
         $this->load->model('M_alatbahan');
     }
 
-    //Input:    func M_alatbahan index
-    //Output:   
-    //Process:  Tampilkan halaman valatbahan
     public function index()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -32,9 +27,6 @@ class C_alatbahan extends CI_Controller
         }
     }
 
-    //Input:    
-    //Output:   
-    //Process:  Tampilkan halaman vform_alatbahan
     public function form_alatbahan()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -48,19 +40,16 @@ class C_alatbahan extends CI_Controller
         }
     }
 
-    //Input:    post id_alat, nama, jenis, satuan, harga_per_unit
-    //Output:   
-    //Process:  INSERT data alat ke tbale alat
     public function simpan_alatbahan()
     {
         $daerah = $this->session->userdata('asal');
         $data = array( 
-            'id_alat'                    => $this->input->post('id_alat'),
+            'id_alat'                   => $this->input->post('id_alat'),
             'nama'                       => $this->input->post('nama'),
             'jenis'                      => $this->input->post('jenis'),
             'satuan'                     => $this->input->post('satuan'),
             'harga_per_unit'             => $this->input->post('harga_per_unit'),
-            'lokasi'                     => $daerah
+            'lokasi'                       => $daerah
             // 'created_date'               => $this->input->post('created_date'),
             // 'created_by'                 => $this->input->post('created_by'),
             // 'modified_date'              => $this->input->post('modified_date'),
@@ -76,11 +65,6 @@ class C_alatbahan extends CI_Controller
             redirect('C_alatbahan');
         }
     }
-
-    //Input:    $id -> id alat
-    //          func M_alat edit()
-    //Output:   
-    //Process:  Tampilakn halamn vformedit_alatbahan
     public function edit($id)
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -94,23 +78,19 @@ class C_alatbahan extends CI_Controller
             $this->load->view('template/footer');
         }
     }
-
-    //Input:    post id_alat, nama, jenis, satuan, harga_per_unit, created_date, modified_date, created_by, modified_by
-    //Output:   
-    //Process:  update di func M_alatbahan update()
     public function update()
     {
         $id_alat_bahan = $this->input->post('id_alat');
         $data = array(
-                'id_alat'       => $this->input->post('id_alat'),
-                'nama'          => $this->input->post('nama'),
-                'jenis'         => $this->input->post('jenis'),
-                'satuan'        => $this->input->post('satuan'),
-                'harga_per_unit'=> $this->input->post('harga_per_unit'),
-                'created_date'  => $this->input->post('created_date'),
-                'modified_date' => $this->input->post('modified_date'),
-                'created_by'    => $this->input->post('created_by'),
-                'modified_by'   => $this->input->post('modified_by'),
+                'id_alat'                => $this->input->post('id_alat'),
+                'nama'              => $this->input->post('nama'),
+                'jenis'        => $this->input->post('jenis'),
+                'satuan'         => $this->input->post('satuan'),
+                'harga_per_unit'         => $this->input->post('harga_per_unit'),
+                'created_date'         => $this->input->post('created_date'),
+                'modified_date'         => $this->input->post('modified_date'),
+                'created_by'         => $this->input->post('created_by'),
+                'modified_by'         => $this->input->post('modified_by'),
                 
             );
         $query = $this->M_alatbahan->update($id_alat_bahan, $data);
@@ -119,10 +99,6 @@ class C_alatbahan extends CI_Controller
             redirect('C_alatbahan');
         }
     }
-
-    //Input:    $id -> id alat
-    //Output:   
-    //Process:  hapus di func M_alatbahan hapus_alatbahan()
     public function hapus_alatbahan($id)
     {
         $a = $this->M_alatbahan->hapus_alatbahan($id);

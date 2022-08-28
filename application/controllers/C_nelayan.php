@@ -12,9 +12,7 @@ use Box\Spout\Writer\Style\BorderBuilder;
 use Box\Spout\Common\Entity\Style\Color;
 class C_nelayan extends CI_Controller
 {
-    //Input:    
-    //Output:   
-    //Process:  Self Routing
+
     public function __construct()
     {
         parent::__construct();
@@ -24,9 +22,6 @@ class C_nelayan extends CI_Controller
         $this->load->model('M_nelayan');
     }
 
-    //Input:    func M_nelayan index()
-    //Output:   
-    //Process:  Tampilkan halaman vnelayan
     public function index()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -44,9 +39,6 @@ class C_nelayan extends CI_Controller
         }
     }
 
-    //Input:    func M_nelayan list_alat()
-    //Output:   
-    //Process:  TAmpilkan halamn vform_nelayan
     public function form_nelayan()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -61,9 +53,6 @@ class C_nelayan extends CI_Controller
         }
     }
 
-    //Input:    POST id nama, nama_kapal,jenis_kapal,id_alat,GT, daerah_tangkap, tanda_pas, pelabuhan_bongkar, keterangan, status
-    //Output:   
-    //Process:  INSERT to table nelayan
     public function tambah_nelayan()
     {
         $data = array(
@@ -86,11 +75,6 @@ class C_nelayan extends CI_Controller
         }
     }
     
-    //Input:    $id -> id nelayan, 
-    //          func M_nelayan edit(), 
-    //          func M_nelayan list_alat()
-    //Output:   
-    //Process:  Tampilkan halaman vformedit_nelayan
     public function edit($id)
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -105,10 +89,6 @@ class C_nelayan extends CI_Controller
             $this->load->view('template/footer');
         }
     }
-
-    //Input:    post id, nama, nama_kapal, jenis_kapal, id_alat, GT, daerah_tangkap, tanda_pas, pelabuhan_bongkar, keterangan, status 
-    //Output:   
-    //Process:  update data nelayan
     public function update()
     {
         $id = $this->input->post('id');
@@ -131,19 +111,12 @@ class C_nelayan extends CI_Controller
             redirect('C_nelayan');
         }
     }
-
-    //Input:    $id -> id nelayan
-    //Output:   
-    //Process:  hapus data nelayan
     public function hapus_nelayan($id)
     {
         $a = $this->M_nelayan->hapus_nelayan($id);
         redirect('C_nelayan');
     }
 
-    //Input:    func M_nelayan download_nelayan()
-    //Output:   
-    //Process:  Print xlsx nelayan
     public function download_nelayan()
     {
         

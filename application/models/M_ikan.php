@@ -6,18 +6,12 @@ use phpDocumentor\Reflection\Types\This;
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class M_ikan extends ci_Model
 {
-    //Input:    
-    //Output:   
-    //Process:  
     public function __construct()
     {
         parent::__construct();
         $this->load->library('session');
     }
 
-    //Input:    
-    //Output:   $data -> data ikan sama count 
-    //Process:  SELECT data ikan di table ikan
     public function index($isall = true, $limit = null, $offset = null)
     {
         if ($this->session->userdata('client_id')) {
@@ -26,8 +20,7 @@ class M_ikan extends ci_Model
             $ses_client = $this->session->userdata('ID');
         }
 
-        $keyword = '';
-        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search')):"";
+        $keyword = str_replace("'", "\'", $this->input->get('table_search'));
 
         $where = array();
         if (!empty($this->input->get('table_search'))) {
@@ -78,9 +71,6 @@ class M_ikan extends ci_Model
         return $data;
     }
 
-    //Input:    $id_ikan -> id ikan
-    //Output:   
-    //Process:  DELETE data ikan di table ikan
     public function hapus_ikan($id_ikan)
     {
         $querylog1   = "DELETE FROM ikan WHERE id_ikan='$id_ikan';";
@@ -88,25 +78,17 @@ class M_ikan extends ci_Model
       
         // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
     }
-
-    //Input:    $id -> id ikan
-    //Output:   $this -> data ikan di table ikan
-    //Process:  SELECT data ikan di table ikan
     public function edit($id)
     {
         $this->db->where('id_ikan', $id);
         return $this->db->get('ikan')->row_array();
     }
-    
     public function update($id_ikan, $data)
     {
         $this->db->where('id_ikan', $id_ikan);
         $this->db->update('ikan', $data);
     }
 
-    //Input:    
-    //Output:   $this -> count row
-    //Process:  SELECT data ikan di table ikan
     public function count_allikan()
     {
         return $this->db->get('ikan')->num_rows();

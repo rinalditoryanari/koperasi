@@ -5,27 +5,21 @@ use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class M_laporan extends ci_Model
 {
-    //Input:    
-    //Output:   
-    //Process:  
     public function __construct()
     {
         parent::__construct();
         $this->load->library('session');
     }
 
-    //Input:    session userdata clien_id / ID
-    //Output:   list $data -> tanggal, nama ikan, jumlah, total, harga/kg
-    //Process:  SELECT data penjualan di table penjualan_header, penjualan_detail, ikan
-    public function index($asal, $isall = true, $limit = null, $offset = null)
+    public function index($isall = true, $limit = null, $offset = null)
     {
         if ($this->session->userdata('client_id')) {
             $ses_client = $this->session->userdata('client_id');
         } else {
             $ses_client = $this->session->userdata('ID');
         }
-        $keyword = '';
-        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search')):"";
+
+        $keyword = str_replace("'", "\'", $this->input->get('table_search'));
 
         $where = array();
         if (!empty($this->input->get('table_search'))) {
@@ -48,7 +42,6 @@ class M_laporan extends ci_Model
                     LEFT JOIN penjualan_detail b on a.`id_penjualan_header` =  b.`id_penjualan`
                     LEFT JOIN ikan c on b.`id_ikan` = c.`id_ikan`
                     WHERE 1=1
-                    AND a.`lokasi` = '$asal'
                     $stringwhere 
                     -- AND a.'created_date 
                     GROUP BY a.`created_date`,c.`nama_ikan`;
@@ -79,10 +72,7 @@ class M_laporan extends ci_Model
         return $data;
     }
 
-    //Input:    session userdata clien_id / ID
-    //Output:   list $data -> bulan, nama ikan, jumlah, total, harga/kg
-    //Process:  SELECT data penjualan di table penjualan_header, penjualan_detail, ikan
-    public function bulan($asal, $isall = true, $limit = null, $offset = null)
+    public function bulan($isall = true, $limit = null, $offset = null)
     {
         if ($this->session->userdata('client_id')) {
             $ses_client = $this->session->userdata('client_id');
@@ -90,8 +80,7 @@ class M_laporan extends ci_Model
             $ses_client = $this->session->userdata('ID');
         }
 
-        $keyword = '';
-        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search_bulan')):"";
+        $keyword = str_replace("'", "\'", $this->input->get('table_search_bulan'));
 
         $where = array();
         if (!empty($this->input->get('table_search_bulan'))) {
@@ -113,8 +102,7 @@ class M_laporan extends ci_Model
         FROM penjualan_header a
         LEFT JOIN penjualan_detail b on a.`id_penjualan_header` =  b.`id_penjualan`
         LEFT JOIN ikan c on b.`id_ikan` = c.`id_ikan`
-        WHERE 1=1
-        AND a.`lokasi` = '$asal' 
+        WHERE 1=1 
         $stringwhere
         GROUP BY DATE_FORMAT(a.`created_date`, '%M %Y'),c.`nama_ikan`;;
                     ";
@@ -144,10 +132,7 @@ class M_laporan extends ci_Model
         return $data;
     }
 
-    //Input:    session userdata clien_id / ID
-    //Output:   list $data -> tahun, nama ikan, jumlah, total, harga/kg
-    //Process:  SELECT data penjualan di table penjualan_header, penjualan_detail, ikan
-    public function tahun($asal, $isall = true, $limit = null, $offset = null)
+    public function tahun($isall = true, $limit = null, $offset = null)
     {
         if ($this->session->userdata('client_id')) {
             $ses_client = $this->session->userdata('client_id');
@@ -155,8 +140,7 @@ class M_laporan extends ci_Model
             $ses_client = $this->session->userdata('ID');
         }
 
-        $keyword = '';
-        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search_tahun')):"";
+        $keyword = str_replace("'", "\'", $this->input->get('table_search_tahun'));
 
         $where = array();
         if (!empty($this->input->get('table_search_tahun'))) {
@@ -179,7 +163,6 @@ class M_laporan extends ci_Model
         LEFT JOIN penjualan_detail b on a.`id_penjualan_header` =  b.`id_penjualan`
         LEFT JOIN ikan c on b.`id_ikan` = c.`id_ikan`
         WHERE 1=1 
-        AND a.`lokasi` = '$asal'
         $stringwhere
         GROUP BY DATE_FORMAT(a.`created_date`, '%Y'),c.`nama_ikan`;
                     ";
@@ -209,7 +192,7 @@ class M_laporan extends ci_Model
         return $data;
     }
 
-    public function download_laporan_per_hari($select_date, $asal)
+    public function download_laporan_per_hari($select_date)
     {
         $query = "  SELECT
                         a.`created_date` AS tanggal,
@@ -223,7 +206,6 @@ class M_laporan extends ci_Model
                     LEFT JOIN penjualan_detail b ON a.`id_penjualan_header` = b.`id_penjualan`
                     LEFT JOIN ikan c ON b.`id_ikan` = c.`id_ikan`
                     WHERE 1 = 1
-                    AND a.`lokasi` = '$asal'
                     AND a.`created_date` = '$select_date'
                     GROUP BY a.`created_date`, c.`nama_ikan`
                     UNION ALL
@@ -245,7 +227,6 @@ class M_laporan extends ci_Model
                         LEFT JOIN penjualan_detail b ON a.`id_penjualan_header` = b.`id_penjualan`
                         LEFT JOIN ikan c ON b.`id_ikan` = c.`id_ikan`
                         WHERE 1 = 1
-                        AND a.`lokasi` = '$asal'
                         AND a.`created_date` = '$select_date'
                         GROUP BY a.`created_date`, c.`nama_ikan`
                         ) a";
@@ -253,7 +234,7 @@ class M_laporan extends ci_Model
         return  $this->db->query($query)->result();
     }
 
-    public function chart_laporan_per_hari($select_date, $asal)
+    public function chart_laporan_per_hari($select_date)
     {
         $query = "  SELECT
                         c.`nama_ikan`,
@@ -265,7 +246,6 @@ class M_laporan extends ci_Model
                     LEFT JOIN penjualan_detail b ON a.`id_penjualan_header` = b.`id_penjualan`
                     LEFT JOIN ikan c ON b.`id_ikan` = c.`id_ikan`
                     WHERE 1 = 1
-                    AND a. `lokasi` = '$asal'
                     AND a.`created_date` = '$select_date'
                     GROUP BY c.`nama_ikan`
                     ";
@@ -273,7 +253,7 @@ class M_laporan extends ci_Model
         return  $this->db->query($query)->result_array();
     }
 
-    public function chart_laporan_per_bulan($select_date, $asal)
+    public function chart_laporan_per_bulan($select_date)
     {
         $query = "  SELECT
                         c.`nama_ikan`,
@@ -285,7 +265,6 @@ class M_laporan extends ci_Model
                     LEFT JOIN penjualan_detail b ON a.`id_penjualan_header` = b.`id_penjualan`
                     LEFT JOIN ikan c ON b.`id_ikan` = c.`id_ikan`
                     WHERE 1 = 1
-                    AND a.`lokasi` = '$asal'
                     AND DATE_FORMAT(a.`created_date`, '%M %Y') = '$select_date'
                     GROUP BY c.`nama_ikan`
                     ";
@@ -293,7 +272,7 @@ class M_laporan extends ci_Model
         return  $this->db->query($query)->result_array();
     }
 
-    public function chart_laporan_per_tahun($select_date, $asal)
+    public function chart_laporan_per_tahun($select_date)
     {
         $query = "  SELECT
                         c.`nama_ikan`,
@@ -305,7 +284,6 @@ class M_laporan extends ci_Model
                     LEFT JOIN penjualan_detail b ON a.`id_penjualan_header` = b.`id_penjualan`
                     LEFT JOIN ikan c ON b.`id_ikan` = c.`id_ikan`
                     WHERE 1 = 1
-                    AND a.`lokasi` = '$asal'
                     AND DATE_FORMAT(a.`created_date`, '%Y') = '$select_date'
                     GROUP BY c.`nama_ikan`
                     ";
@@ -313,7 +291,7 @@ class M_laporan extends ci_Model
         return  $this->db->query($query)->result_array();
     }
 
-    public function download_perbekalan_per_hari($select_date, $asal)
+    public function download_perbekalan_per_hari($select_date)
     {
         $query_total_penjualan = " SELECT
                                         'Total Penjualan' AS tanggal,
@@ -328,7 +306,6 @@ class M_laporan extends ci_Model
                                         LEFT JOIN penjualan_detail b ON a.`id_penjualan_header` = b.`id_penjualan`
                                         LEFT JOIN ikan c ON b.`id_ikan` = c.`id_ikan`
                                         WHERE 1 = 1
-                                        AND a.`lokasi` = '$asal'
                                         AND a.`created_date` = '$select_date'
                                         GROUP BY a.`created_date`, c.`nama_ikan`
                                         ) a";
@@ -342,9 +319,7 @@ class M_laporan extends ci_Model
                                     '' AS `harga/kg`,
                                     SUM(total_pinjam) - SUM(total_kembali) AS total
                                 FROM peminjaman_header a
-                                WHERE a.`modified_date` = '$select_date'
-                                AND a.`lokasi` = '$asal'
-                                ;";
+                                WHERE a.`modified_date` = '$select_date';";
         $exec_total_perbekalan = $this->db->query($query_total_perbekalan)->result_array();
         $total_perbekalan = $exec_total_perbekalan[0]['total'];
 
@@ -372,34 +347,26 @@ class M_laporan extends ci_Model
         return  $this->db->query($q)->result();
     }
 
-    //Input:    
-    //Output:  list -> select month
-    //Process:  SELECT bulan di penjualan_header
-    public function list_bulan_tersedia($asal)
+    public function list_bulan_tersedia()
     {
         $query = "  SELECT
                         date_format(a.created_date, '%M ' '%Y')	as select_month
                     FROM penjualan_header a
-                    WHERE a.`lokasi` = '$asal'
                     GROUP by date_format(a.created_date, '%M', '%Y');";
         return  $this->db->query($query)->result_array();
     }
 
-    //Input:    
-    //Output:  list -> select_year
-    //Process:  SELECT tahun  di penjualan_header
-    public function list_tahun_tersedia($asal)
+    public function list_tahun_tersedia()
     {
         $query = "  SELECT
                         date_format(a.created_date, '%Y')	as select_year
                     FROM penjualan_header a
-                    WHERE a.`lokasi` = '$asal'
                     GROUP by date_format(a.created_date, '%Y');";
         return  $this->db->query($query)->result_array();
     }
 
 
-    public function download_laporan_per_bulan($select_month, $asal)
+    public function download_laporan_per_bulan($select_month)
     {
         $query = "  SELECT
             a.created_date,
@@ -416,7 +383,6 @@ class M_laporan extends ci_Model
                 SUM(a.total) AS total
             FROM penjualan_header a
             WHERE DATE_FORMAT(a.`created_date`, '%M %Y') = '$select_month'
-            AND a.`lokasi` = '$asal'
             GROUP BY DATE(a.created_date)
         ) a
         LEFT JOIN 
@@ -426,7 +392,6 @@ class M_laporan extends ci_Model
                 SUM(a.total_pinjam) - SUM(a.total_kembali) AS total
                 FROM peminjaman_header a
                 WHERE DATE_FORMAT(a.`created_date`, '%M %Y') = '$select_month'
-                AND a.`lokasi` = '$asal'
                 GROUP BY DATE(a.created_date)
             ) b ON a.created_date = b.created_date
         UNION ALL
@@ -454,7 +419,6 @@ class M_laporan extends ci_Model
                     SUM(a.total) AS total
                 FROM penjualan_header a
                 WHERE DATE_FORMAT(a.`created_date`, '%M %Y') = '$select_month'
-                AND a.`lokasi` = '$asal'
                 GROUP BY DATE(a.created_date)
             ) a
         LEFT JOIN 
@@ -464,14 +428,13 @@ class M_laporan extends ci_Model
                     SUM(a.total_pinjam) - SUM(a.total_kembali) AS total
                 FROM peminjaman_header a
                 WHERE DATE_FORMAT(a.`created_date`, '%M %Y') = '$select_month'
-                AND a.`lokasi` = '$asal'
                 GROUP BY DATE(a.created_date)
             ) b ON a.created_date = b.created_date)a";
 
         return  $this->db->query($query)->result();
     }
 
-    public function download_laporan_per_tahun($select_year, $asal)
+    public function download_laporan_per_tahun($select_year)
     {
         $query = " SELECT
                 date_format(a.created_date, '%M') AS Bulan,
@@ -488,7 +451,6 @@ class M_laporan extends ci_Model
                     SUM(a.total) AS total
                 FROM penjualan_header a
                 WHERE DATE_FORMAT(a.`created_date`, '%Y') = '$select_year'
-                AND a.`lokasi` = '$asal'
                 GROUP BY DATE_FORMAT(a.`created_date`, '%Y %M')
             ) a
             LEFT JOIN 
@@ -498,7 +460,6 @@ class M_laporan extends ci_Model
                     SUM(a.total_pinjam) - SUM(a.total_kembali) AS total
                 FROM peminjaman_header a
                 WHERE DATE_FORMAT(a.`created_date`, '%Y') = '$select_year'
-                AND a.`lokasi` = '$asal'
                 GROUP BY DATE_FORMAT(a.`created_date`, '%Y %M')
             ) b ON a.created_date = b.created_date
             UNION ALL
@@ -526,7 +487,6 @@ class M_laporan extends ci_Model
                     SUM(a.total) AS total
                 FROM penjualan_header a
                 WHERE DATE_FORMAT(a.`created_date`, '%Y') = '$select_year'
-                AND a.`lokasi` = '$asal'
                 GROUP BY DATE_FORMAT(a.`created_date`, '%Y %M')
             ) a
             LEFT JOIN 
@@ -536,7 +496,6 @@ class M_laporan extends ci_Model
                     SUM(a.total_pinjam) - SUM(a.total_kembali) AS total
                 FROM peminjaman_header a
                 WHERE DATE_FORMAT(a.`created_date`, '%Y') = '$select_year'
-                AND a.`lokasi` = '$asal'
                 GROUP BY DATE_FORMAT(a.`created_date`, '%Y %M')
             ) b ON a.created_date = b.created_date)a;
                 ";
