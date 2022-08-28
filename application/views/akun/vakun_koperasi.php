@@ -27,7 +27,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Data Koperasi</h3>
                             <div class="card-tools">
-                                <form method="GET" action="<?= base_url('C_akun'); ?>">
+                                <form method="GET" action="<?= base_url('C_akunMaster/allkoperasi'); ?>">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control float-right"
                                             placeholder="Username">

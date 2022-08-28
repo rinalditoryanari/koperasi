@@ -34,6 +34,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Data Akun</h3>
                             <div class="card-tools">
+                            <?php if ($this->session->userdata('tipe_akun') == '2') : ?>
                                 <form method="GET" action="<?= base_url('C_akun'); ?>">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control float-right"
@@ -45,6 +46,20 @@
                                         </div>
                                     </div>
                                 </form>
+                            <?php endif;?>
+                            <?php if ($this->session->userdata('tipe_akun') == '3') : ?>
+                                <form method="GET" action="<?= base_url('C_akunMaster/alluser'); ?>">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="table_search" class="form-control float-right"
+                                            placeholder="Username">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-default">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <?php endif;?>
                             </div>
                         </div>
                         <!-- /.card-header -->

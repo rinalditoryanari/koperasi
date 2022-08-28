@@ -38,7 +38,9 @@ class M_ikanMaster extends ci_Model
         $query = "  SELECT
                       * 
                     FROM `ikan` 
+                    WHERE 1=1
                     $stringwhere 
+                    
 
                     ORDER BY `lokasi` ASC
 

@@ -48,7 +48,8 @@ class M_nelayanMaster extends ci_Model
                             a.`id`,a.`nama` as nama_nelayan, a.`nama_kapal`, a.`jenis_kapal`, a.`GT`, a.`daerah_tangkap`, a.`pelabuhan_bongkar`, a.`tanda_pas`,a.`keterangan`,    					  
                              a.`status`,  b.`nama` as alat_tangkap 
                         FROM `nelayan` a
-                        JOIN `alat` b on a.`id_alat` = b.`id_alat` 
+                        JOIN `alat` b on a.`id_alat` = b.`id_alat`
+                        WHERE 1=1
                         $stringwhere 
                         ORDER BY a.`id` DESC;
                   ";

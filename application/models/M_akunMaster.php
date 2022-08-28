@@ -92,7 +92,7 @@ class M_akunMaster extends ci_Model
                             a.`akun_id`, a.`username`, a.`password`, a.`code`, a.`tipe`,a.`asal`, b.`nama` as nama_nelayan
                         FROM `akun` a
                         LEFT JOIN `nelayan` b on a.`id_nelayan` = b.`id`
-                        where a.`tipe`!= '2' AND a.`tipe`!= '3'
+                        where a.`tipe`!= '2' AND a.`tipe`!= '3' 
                         $stringwhere 
                         ORDER BY a.`akun_id` DESC;";
 
