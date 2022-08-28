@@ -2,7 +2,9 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class C_penjualan extends CI_Controller
 {
-
+    //Input:    
+    //Output:   
+    //Process:  Self Routing
     public function __construct()
     {
         parent::__construct();
@@ -13,6 +15,9 @@ class C_penjualan extends CI_Controller
         $this->load->model('M_penjualan');
     }
 
+    //Input:    func M_penjualan index
+    //Output:   
+    //Process:  Menampilkan Halaman vpenjualan 
     public function index()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -20,6 +25,7 @@ class C_penjualan extends CI_Controller
             redirect(site_url('CLogin'));
         } else {
             $data['all_penjualan']   = $this->M_penjualan->index();
+
             $this->load->view('template/header');
             $this->load->view('template/vsidebar');
             $this->load->view('penjualan/vpenjualan', $data);
@@ -33,14 +39,18 @@ class C_penjualan extends CI_Controller
         return $hasil_rupiah;
     }
 
+    //Input:    func M_penjualan list_nelayan(), func M_penjualan list_ikan(), func M_penjualan code_penjualan()
+    //Output:   
+    //Process:  Menampilkan Halaman vform_prnjualan
     public function form_penjualan()
     {
         if ($this->session->userdata("akun_id") == "") {
             $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
             redirect(site_url('CLogin'));
         } else {
-            $data['list_nelayan'] = $this->M_penjualan->list_nelayan();
-            $data['list_ikan'] = $this->M_penjualan->list_ikan();
+            $asal = $this->session->userdata('asal');
+            $data['list_nelayan'] = $this->M_penjualan->list_nelayan($asal);
+            $data['list_ikan'] = $this->M_penjualan->list_ikan($asal);
             $data['code_penjualan'] = $this->M_penjualan->code_penjualan();
 
             $this->load->view('template/header');
@@ -50,6 +60,9 @@ class C_penjualan extends CI_Controller
         }
     }
 
+    //Input:    post kode_penjualan, nealyan, ikan, nama_ikan, jumlah, harga_ikan
+    //Output:   
+    //Process:  set session ikan_keranjang
     public function simpan_ikan()
     {
         $kode_penjualan     = $_POST['kode_penjualan'];
@@ -57,6 +70,7 @@ class C_penjualan extends CI_Controller
         $ikan               = $_POST['ikan'];
         $nama_ikan          = $_POST['nama_ikan'];
         $jumlah             = $_POST['jumlah'];
+        $lokasi             = $this->session->userdata('asal');
         $harga              = $_POST['harga_ikan'];
         $harga123           = str_replace('.', '', $harga);
         $harga_ikan         = str_replace('Rp ', '', $harga123);
@@ -86,7 +100,8 @@ class C_penjualan extends CI_Controller
             "nama_ikan"     => $nama_ikan,
             "jumlah"        => $jumlah,
             "harga_ikan"    => $harga_ikan,
-            "total"         => $harga_ikan * $jumlah
+            "total"         => $harga_ikan * $jumlah,
+            "lokasi"        => $lokasi
         );
 
         if ($this->session->userdata('ikan_keranjang')) {
@@ -101,7 +116,8 @@ class C_penjualan extends CI_Controller
                     'nama_ikan'         => $as['nama_ikan'],
                     'jumlah'            => $as['jumlah'],
                     'harga_ikan'        => $as['harga_ikan'],
-                    'total'             => $as['total']
+                    'total'             => $as['total'],
+                    'lokasi'            => $as['lokasi']
                 ];
             }
             $keranjang[$i]        = [
@@ -111,7 +127,8 @@ class C_penjualan extends CI_Controller
                 'nama_ikan'         => $nama_ikan,
                 'jumlah'            => $jumlah,
                 'harga_ikan'        => $harga_ikan,
-                'total'             => $harga_ikan * $jumlah
+                'total'             => $harga_ikan * $jumlah,
+                'lokasi'            => $lokasi
             ];
             $this->session->set_userdata('ikan_keranjang', $keranjang);
         } else {
@@ -125,8 +142,12 @@ class C_penjualan extends CI_Controller
         die(json_encode($this->session->userdata('ikan_keranjang')));
     }
 
+    //Input:    post kode_penjualan, nealyan, ikan, nama_ikan, jumlah, harga_ikan
+    //Output:   
+    //Process:  re-set session ikan_keranjang
     public function hapus_ikan($kode_penjualan, $nelayan, $ikan, $nama_ikan, $jumlah, $harga_ikan, $total)
     {
+        $lokasi = $this->session->userdata('lokasi');
         $params = array(
             "kode_penjualan" => $kode_penjualan,
             "nelayan"       => $nelayan,
@@ -134,7 +155,8 @@ class C_penjualan extends CI_Controller
             "nama_ikan"     => $nama_ikan,
             "jumlah"        => $jumlah,
             "harga_ikan"    => $harga_ikan,
-            "total"         => $total
+            "total"         => $total,
+            "lokasi"        => $this->session->userdata('lokasi')
         );
 
         $all    = $this->session->userdata('ikan_keranjang');
@@ -149,6 +171,7 @@ class C_penjualan extends CI_Controller
                 $as['jumlah'] == $jumlah &&
                 $as['harga_ikan'] == $harga_ikan &&
                 $as['total'] == $total &&
+                $as['lokasi'] == $lokasi &&
                 $loop == 0
             ) {
                 $loop = 1;
@@ -161,7 +184,8 @@ class C_penjualan extends CI_Controller
                     'nama_ikan'         => $as['nama_ikan'],
                     'jumlah'            => $as['jumlah'],
                     'harga_ikan'        => $as['harga_ikan'],
-                    'total'             => $as['total']
+                    'total'             => $as['total'],
+                    'lokasi'            => $as['lokasi']
                 ];
             }
         };
@@ -169,6 +193,9 @@ class C_penjualan extends CI_Controller
         die(json_encode($this->session->userdata('ikan_keranjang')));
     }
 
+    //Input:    session userdata, func M_penjualan total_pembayaran, func M_penjualan get_nelayan
+    //Output:   
+    //Process:  Tampilkan halaman vform_pemabayaran
     public function form_bayar_nelayan()
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -188,6 +215,10 @@ class C_penjualan extends CI_Controller
         }
     }
 
+    //Input:    session userdata
+    //Output:   
+    //Process:  ke M_penjualan simpan_penjualan_ikan
+    //          set userdata ikan keranjang null
     public function bayar_nelayan()
     {
         $all = $this->session->userdata('ikan_keranjang');
@@ -196,12 +227,18 @@ class C_penjualan extends CI_Controller
         redirect("C_penjualan");
     }
 
+    //Input:    $id -> id penjualan    
+    //Output:   
+    //Process:  DELETE penjualan
     public function hapus_penjualan($id)
     {
         $a = $this->M_penjualan->hapus_penjualan($id);
         redirect('C_penjualan');
     }
 
+    //Input:    $id -> id penjualan, func M_penjualan view_detail_penjualan(), func M_penjualan total_penjualan()
+    //Output:   
+    //Process:  menamilkan halaman vdetail_penjualan
     public function view_detail_penjualan($id)
     {
         if ($this->session->userdata("akun_id") == "") {
@@ -259,6 +296,9 @@ class C_penjualan extends CI_Controller
         return $hasil;
     }
 
+    //Input:    $id -> id penjualan
+    //Output:   pdf
+    //Process:  print laporan penjualan pdf 
     public function download_pdf_penjualan($id)
     {
         $ses_user       = $this->session->userdata('username');

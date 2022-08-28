@@ -3,6 +3,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class CLogin extends CI_Controller
 {
 
+    //Input:    
+    //Output:   
+    //Process:  Selft Routing
     public function __construct()
     {
         parent::__construct();
@@ -10,9 +13,13 @@ class CLogin extends CI_Controller
         $this->load->library('session');
         $this->load->library('form_validation');
         $this->load->model('M_alatbahan');
+        $this->load->model('M_akun');
 
     }
 
+    //Input:    
+    //Output:   
+    //Process:  Penampilan Halaman
     public function index()
     {
 
@@ -20,6 +27,10 @@ class CLogin extends CI_Controller
         $this->load->view('vlogin');
     }
 
+    //Input:    post username, post password 
+    //Output:   TRUE -> C_menu, FALSE -> CLogin
+    //Process:  Proses Autentifikasi akun di table akun
+    //          set session set_userdata
     public function cekLogin()
     {
         $user = $this->input->post("username");
@@ -54,6 +65,10 @@ class CLogin extends CI_Controller
         }
     }
 
+    //Input:    
+    //Output:   
+    //Process:  unset session unset_userdata
+    //          log out
     public function logout()
     {
         $this->session->unset_userdata('akun_id');
@@ -65,18 +80,29 @@ class CLogin extends CI_Controller
         redirect(site_url());
     }
     
+
+    //Input:    func code_guest(), fun M_alatbahan list_alat_regist()
+    //Output:   
+    //Process:  tampilan vregistrasi
     public function form_registrasi()
     {
         $data['guest_code'] = $this->code_guest();
         $data['pilih_alat'] = $this->M_alatbahan->list_alat_regist();
+        $data['lokasi']     = $this->M_akun->list_lokasi();
         $this->load->view('template/header');
         $this->load->view('vregistrasi', $data);
     }
 
+    //Input:    post nama, post id_alat, post username, post password, post password2
+    //Output:   
+    //Process:  cek kesamaan password
+    //          SELECT di table akun where username
+    //          INSERT akun
     public function cekRegistrasi()
     {
         $nama               = $this->input->post("nama");
         $id_alat            = $this->input->post("id_alat");
+        $lokasi             = $this->input->post("lokasi");
         $user               = $this->input->post("username");
         $pass               = $this->input->post("password");
         $pass2              = $this->input->post("password2");
@@ -124,7 +150,7 @@ class CLogin extends CI_Controller
                 '',
                 '',
                 '',
-                '',
+                '" . $lokasi ."',
                 '',
                 1
                 );
@@ -135,13 +161,16 @@ class CLogin extends CI_Controller
         $execambilid    = $this->db->query($ambilid)->result_array();
         $id_nelayan     = $execambilid[0]['id'];
 
-        $masukanakun        = "INSERT INTO `akun` ( `username`, `password`, `code`, `tipe`, `id_nelayan` ) VALUES ( '$user', '$pass', '$nama', 4, '$id_nelayan' );";
+        $masukanakun        = "INSERT INTO `akun` ( `username`, `password`, `code`, `tipe`, `id_nelayan`, `asal` ) VALUES ( '$user', '$pass', '$nama', 4, '$id_nelayan', '$lokasi' );";
         $execmasukanakun    = $this->db->query($masukanakun);
 
         $this->session->set_flashdata('flash2', 'asdas');
         redirect(site_url('CLogin'));
     }
 
+    //Input:    
+    //Output:   $code -> code guest
+    //Process:  generate code guest
     public function code_guest()
     {
         $bulan = date('m');

@@ -6,6 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Laporan Per Bulan</h1>
+                    <h4>Pelabuhan <?php echo $this->session->userdata('asal')?></h4>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -164,7 +165,7 @@
 <script>
     function select_date1() {
         var select_date = $("#select_month").val();
-        uri = 'https://koperasinelayan.com/C_laporan/report_monthly';
+        uri = '<?= base_url('C_laporan/report_monthly')?>';
         $.ajax({
             url: uri + "/" + select_date,
             async: true,

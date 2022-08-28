@@ -44,12 +44,12 @@ class C_alatbahanMaster extends CI_Controller
     {
         $daerah = $this->session->userdata('asal');
         $data = array( 
-            'id_alat'                   => $this->input->post('id_alat'),
-            'nama'                       => $this->input->post('nama'),
-            'jenis'                      => $this->input->post('jenis'),
-            'satuan'                     => $this->input->post('satuan'),
-            'harga_per_unit'             => $this->input->post('harga_per_unit'),
-            'lokasi'                       => $daerah
+            'id_alat'           => $this->input->post('id_alat'),
+            'nama'              => $this->input->post('nama'),
+            'jenis'             => $this->input->post('jenis'),
+            'satuan'            => $this->input->post('satuan'),
+            'harga_per_unit'    => $this->input->post('harga_per_unit'),
+            'lokasi'            => $daerah
             // 'created_date'               => $this->input->post('created_date'),
             // 'created_by'                 => $this->input->post('created_by'),
             // 'modified_date'              => $this->input->post('modified_date'),
@@ -57,7 +57,6 @@ class C_alatbahanMaster extends CI_Controller
             
             
             
-          
         );
         $query = $this->db->insert('alat', $data);
         if ($query = true) {
@@ -82,15 +81,15 @@ class C_alatbahanMaster extends CI_Controller
     {
         $id_alat_bahan = $this->input->post('id_alat');
         $data = array(
-                'id_alat'                => $this->input->post('id_alat'),
+                'id_alat'           => $this->input->post('id_alat'),
                 'nama'              => $this->input->post('nama'),
-                'jenis'        => $this->input->post('jenis'),
-                'satuan'         => $this->input->post('satuan'),
-                'harga_per_unit'         => $this->input->post('harga_per_unit'),
-                'created_date'         => $this->input->post('created_date'),
-                'modified_date'         => $this->input->post('modified_date'),
-                'created_by'         => $this->input->post('created_by'),
-                'modified_by'         => $this->input->post('modified_by'),
+                'jenis'             => $this->input->post('jenis'),
+                'satuan'            => $this->input->post('satuan'),
+                'harga_per_unit'    => $this->input->post('harga_per_unit'),
+                'created_date'      => $this->input->post('created_date'),
+                'modified_date'     => $this->input->post('modified_date'),
+                'created_by'        => $this->input->post('created_by'),
+                'modified_by'       => $this->input->post('modified_by'),
                 
             );
         $query = $this->M_alatbahanMaster->update($id_alat_bahan, $data);

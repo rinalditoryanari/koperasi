@@ -61,14 +61,13 @@ class C_akunMaster extends CI_Controller
         $tipe = 2;
         $id_nelayan = "";
         $data = array(
-            'akun_id'            => $this->input->post('akun_id'),
-            'username'          => $this->input->post('username'),
-            'password'         => $this->input->post('password'),
-            'code'         => $this->input->post('code'),
-            'tipe'         => $tipe,
-            'id_nelayan'         => $id_nelayan,
-            'asal'     => $this->input->post('asal'),
-           
+            'akun_id'       => $this->input->post('akun_id'),
+            'username'      => $this->input->post('username'),
+            'password'      => $this->input->post('password'),
+            'code'          => $this->input->post('code'),
+            'tipe'          => $tipe,
+            'id_nelayan'    => $id_nelayan,
+            'asal'          => $this->input->post('asal'),
 
         );
         $query = $this->db->insert('akun', $data);
@@ -98,12 +97,12 @@ class C_akunMaster extends CI_Controller
         $id_nelayan = "";
         $tipe = 2;
         $data = array(
-            'akun_id'                => $this->input->post('akun_id'),
-            'username'              => $this->input->post('username'),
-            'password'        => $this->input->post('password'),
-            'code'        => $this->input->post('code'),
-            'tipe'        => $tipe,
-            'id_nelayan'        => $id_nelayan,
+            'akun_id'       => $this->input->post('akun_id'),
+            'username'      => $this->input->post('username'),
+            'password'      => $this->input->post('password'),
+            'code'          => $this->input->post('code'),
+            'tipe'          => $tipe,
+            'id_nelayan'    => $id_nelayan,
 
         );
         $query = $this->M_akunMaster->update($akun_id, $data);
