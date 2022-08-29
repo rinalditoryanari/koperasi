@@ -3,8 +3,7 @@ $(document).ready(function() {
     //Output:   
     //Process:  POST ke C_penjualan/simpan_alat_bahan
 	//			Add row di table 'Ikan Yang Dijual Oleh Nelayan'
-    $("#tambah_alat_bahan").click(function() {
-		console.log('as')
+    $("#tambah_alat_bahan").click(function(e) {
 		e.preventDefault();
 		var formDataUpload = $('#formDataUpload');
 		var formAction = $('#formDataUpload').data('url');
