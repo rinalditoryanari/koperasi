@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Tambah Peminjaman</h1>
+                    <h1>Tambah Peminjaaman</h1>
                     <h4>Pelabuhan <?php echo $this->session->userdata('asal')?></h4>
 
                 </div>
@@ -112,6 +112,7 @@
                                 <thead>
                                     <tr>
                                         <th align="center">Nama Alat/Bahan</th>
+                                        <th align="center">Lokasi</th>
                                         <th align="center">Jumlah</th>
                                         <th align="center">Harga per unit</th>
                                         <th align="center">Total</th>

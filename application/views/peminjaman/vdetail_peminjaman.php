@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Peminjaman</h1>
+                    <h1>Peminjamann</h1>
                     <h4>Pelabuhan <?php echo $this->session->userdata('asal')?></h4>
 
                 </div>

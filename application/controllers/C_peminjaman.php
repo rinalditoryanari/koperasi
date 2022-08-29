@@ -218,6 +218,7 @@ class C_peminjaman extends CI_Controller
             $datanama               = $this->M_peminjaman->get_nelayan($data['keranjang_pinjam'][0]['id_nelayan']);
             $data['nelayan']        = $datanama[0]['nama'];
 
+            // var_dump($data);
             $this->load->view('template/header');
             $this->load->view('template/vsidebar');
             $this->load->view('peminjaman/vform_pinjamkan', $data);
