@@ -121,39 +121,46 @@ class M_akunMaster extends ci_Model
         return $data;
     }
 
-    public function hapus_akun($akun_id)
-    {
-        $querylog1   = "DELETE FROM akun WHERE akun_id='$akun_id';";
-        $run2       = $this->db->query($querylog1);
+    // public function hapus_akun($akun_id)
+    // {
+    //     $querylog1   = "DELETE FROM akun WHERE akun_id='$akun_id';";
+    //     $run2       = $this->db->query($querylog1);
       
-        // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
-    }
-    public function hapus_akunkoperasi($akun_id)
+    //     // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
+    // }
+    public function hapus_akunkoperasi($code)
     {
-        $querylog1   = "DELETE FROM koperasi WHERE id='$akun_id';";
-        $run2       = $this->db->query($querylog1);
-      
-        // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
+        $querylog1  = "DELETE FROM koperasi WHERE code='$code';";
+        $run1       = $this->db->query($querylog1);
+        $querylog2  = "DELETE FROM akun WHERE code='$code';";
+        $run2       = $this->db->query($querylog2);
     }
-    public function edit($akun_id)
+    // public function edit($akun_id)
+    // {
+    //     $this->db->where('akun_id', $akun_id);
+    //     return $this->db->get('akun')->row_array();
+    // }
+    
+    public function editkoperasi($code)
     {
-        $this->db->where('akun_id', $akun_id);
-        return $this->db->get('akun')->row_array();
+        $query = "SELECT a.`akun_id`, b.id,
+                a.`username`, a.`code`, a.password, b.ketua,
+                b.alamat, b.kecamatan, b.kota, b.provinsi
+                FROM `akun` a JOIN koperasi b on a.code = b.code
+                WHERE a.code = '$code'
+                ORDER BY a.`code` DESC;";
+        $data = $this->db->query($query)->row_array();
+        return $data;
     }
-    public function editkoperasi($akun_id)
+    public function update($code, $data)
     {
-        $this->db->where('id', $akun_id);
-        return $this->db->get('koperasi')->row_array();
+        $this->db->where('code', $code);
+        return $this->db->update('akun', $data);
     }
-    public function update($akun_id, $data)
+    public function updatekoperasi($code, $data)
     {
-        $this->db->where('akun_id', $akun_id);
-        $this->db->update('akun', $data);
-    }
-    public function updatekoperasi($akun_id, $data)
-    {
-        $this->db->where('id', $akun_id);
-        $this->db->update('koperasi', $data);
+        $this->db->where('code', $code);
+        return $this->db->update('koperasi', $data);
     }
 
     public function list_nelayan()
@@ -191,12 +198,11 @@ class M_akunMaster extends ci_Model
         $stringwhere = implode(" AND ", $where);
         $lokasi = $this->session->userdata('asal');
 
-        $query = "  SELECT
-                        a.`id`, a.`nama`, a.`kecamatan`, a.`alamat`, a.`ketua`
-                    FROM `koperasi` a
-                    where 1=1
-                    $stringwhere 
-                    ORDER BY a.`id` DESC;";
+        $query = "  SELECT 
+        a.`username`, a.`code`, a.password, b.ketua,
+        b.alamat, b.kecamatan, b.kota, b.provinsi
+        FROM `akun` a JOIN koperasi b on a.code = b.code
+        ORDER BY a.`code` DESC;";
 
         // echo $query;
         // die();

@@ -21,7 +21,7 @@
                     <div class="card">
                         <div class="col-sm-12">
                             <div class="content-header">
-                                <?php
+                            <?php
                                 if ($this->session->flashdata('flash4')) :
                                 ?>
                                 <div class="alert alert-danger alert-dismissible">
@@ -39,37 +39,28 @@
                                 <div class="alert alert-danger alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert"
                                         aria-hidden="true">&times;</button>
-                                    <h5><i class="icon fas fa-ban"></i>Data Salah!</h5>
-                                    Pastikan jumlah tidak 0
+                                    <h5><i class="icon fas fa-ban"></i>Proses Gagal</h5>
                                 </div>
                                 <?php
                                 endif;
                                 ?>
                                 <!-- select -->
                                 <?php if ($this->session->userdata('tipe_akun')==3) : ?>
-                                    <form method="post" action="<?= base_url('C_akunMaster/tambah_koperasi') ?>"
+                                    <form method="post" action="<?= base_url('C_akunMaster/tambah_akun') ?>"
                                         class="form-horizontal">
                                         <div class="form-group row">
-                                            <label for="nama" class="col-sm-2 col-form-label">Nama Koperasi</label>
+                                            <label for="username" class="col-sm-2 col-form-label">Nama Koperasi</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="nama" class="form-control" id="nama"
-                                                    placeholder="nama" required>
+                                                <input type="text" name="username" class="form-control" id="username"
+                                                    placeholder="Koperasi ...." required>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="kecamatan" class="col-sm-2 col-form-label">Kecamatan</label>
+                                            <label for="password" class="col-sm-2 col-form-label">Password</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="kecamatan" class="form-control" id="kecamatan"
-                                                    placeholder="kecamatan" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="alamat" class="form-control" id="alamat"
-                                                    placeholder="alamat" required>
+                                                <input type="password" name="password" class="form-control" id="password"
+                                                    placeholder="Password" required>
                                             </div>
                                         </div>
 
@@ -77,13 +68,63 @@
                                             <label for="ketua" class="col-sm-2 col-form-label">Ketua</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="ketua" class="form-control" id="ketua"
-                                                    placeholder="ketua" required>
+                                                    placeholder="Ketua" required>
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <label for="code" class="col-sm-2 col-form-label">Code</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="code" class="form-control" id="code"
+                                                    placeholder="Code" value="<?php echo $code ?>"  readonly="true">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="tipe" class="col-sm-2 col-form-label">Type</label>
+                                            <div class="col-sm-10">
+                                                <select name="tipe" id="tipe" class="form-control" disabled>
+                                                    <option value="2">Super Admin</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="alamat" class="form-control" id="alamat"
+                                                    placeholder="Alamat" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="kecamatan" class="col-sm-2 col-form-label">Kecamatan</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="kecamatan" class="form-control" id="kecamatan"
+                                                    placeholder="Kecamatan" required>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="form-group row">
+                                            <label for="kota" class="col-sm-2 col-form-label">Kota/Kabupaten</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="kota" class="form-control" id="kota"
+                                                    placeholder="Kota/Kabupaten" required>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="form-group row">
+                                            <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="provinsi" class="form-control" id="provinsi"
+                                                    placeholder="Provinsi" required>
+                                            </div>
+                                        </div>
 
                                         <div class="box-footer">
-                                            <a href="<?= base_url('C_akunMaster/allkoperasi')?>" class="btn btn-warning">Cancel</a>
+                                            <a href="<?= base_url('C_akunMaster')?>" class="btn btn-warning">Cancel</a>
                                             <button type="submit" class="btn btn-primary">Simpan</button>
 
                                         </div>
@@ -103,4 +144,4 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<script src="<?= base_url(); ?>assets/js/penjualan.js"></script>
+<script src="<?= base_url(); ?>assets/js/koperasi.js"></script>

@@ -47,9 +47,13 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Koperasi</th>
-                                        <th>Kecamatan</th>
-                                        <th>Alamat</th>
+                                        <th>Code</th>
+                                        <th>Password</th>
                                         <th>Ketua</th>
+                                        <th>Alamat</th>
+                                        <th>Kecamatan</th>
+                                        <th>Kota/Kabupaten</th>
+                                        <th>Provinsi</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -69,16 +73,20 @@
                                     ?>
                                     <tr>
                                         <td align=""><?= ++$no; ?></td>
-                                        <td><?= $a['nama']; ?></td>
-                                        <td align=""><?= $a['kecamatan']; ?></td>
-                                        <td align=""><?= $a['alamat']; ?></td>
-                                        <td align=""><?= $a['ketua']; ?></td>
+                                        <td><?= $a['username']; ?></td>
+                                        <td><?= $a['code']; ?></td>
+                                        <td><?= $a['password']; ?></td>
+                                        <td><?= $a['ketua']; ?></td>
+                                        <td><?= $a['alamat']; ?></td>
+                                        <td><?= $a['kecamatan']; ?></td>
+                                        <td><?= $a['kota']; ?></td>
+                                        <td align=""><?= $a['provinsi']; ?></td>
                                         <td align="">
                                             <a class="tombol-edit"
-                                                href="<?= base_url('C_akunMaster/editkoperasi/' . $a['id']); ?>"><i
+                                                href="<?= base_url('C_akunMaster/editkoperasi/' . $a['code']); ?>"><i
                                                     class="fas fa-edit"></i></a>
                                             <a class="tombol-hapus"
-                                                href="<?= base_url('C_akunMaster/hapus_akunkoperasi/' . $a['id']); ?>"
+                                                href="<?= base_url('C_akunMaster/hapus_akunkoperasi/' . $a['code']); ?>"
                                                 onclick="return confirm('Yakin Mau Di Hapus?');"><i
                                                     class="fas fa-trash-alt"></i></a>
                                         </td>
