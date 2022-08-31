@@ -353,6 +353,23 @@ class M_peminjaman extends ci_Model
                     WHERE `id_peminjaman_detail` = '$id_peminjaman_detail';";
         $client1 = $this->db->query($update_detail);
 
+        $cek_status = "SELECT `status` FROM `peminjaman_detail` where `id_peminjaman_header` = '$id_peminjaman_header'";
+        $res = $this->db->query($cek_status)->result_array();
+        $data = array(
+            "data" => $res,
+        );
+        $count = 3;
+        foreach($data as $status){
+            if($status == 0 ){
+                $count = $count +1 ;
+            };
+        };
+        if ($count > 0){
+            $status = 0;
+        }else{
+            $status = 1;
+        };
+
         $total_kembali = $this->total_pengembalian($id_peminjaman_header);
         $total_kembali = $total_kembali[0]['total_kembali'];
 
@@ -365,6 +382,7 @@ class M_peminjaman extends ci_Model
                         `modified_by` = '$ses_username'
                     WHERE `id_peminjaman_header` = '$id_peminjaman_header';";
         $client2 = $this->db->query($update_header);
+        // return $res;
     }
 
     //Input:    $id -> id peminjaman

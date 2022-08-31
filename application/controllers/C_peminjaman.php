@@ -340,8 +340,8 @@ class C_peminjaman extends CI_Controller
         // var_dump($params);
         // die;
 
-        $this->M_peminjaman->simpan_pengembalian($params);
-
+        $test = $this->M_peminjaman->simpan_pengembalian($params);
+        // var_dump($test);
         redirect(site_url('C_peminjaman/form_pengembalian_dan_pembayaran/' . $id_peminjaman_header));
     }
 
