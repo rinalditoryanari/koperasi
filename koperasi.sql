@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2022 at 01:22 PM
+-- Generation Time: Aug 31, 2022 at 03:05 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -251,7 +251,9 @@ INSERT INTO `peminjaman_detail` (`id_peminjaman_detail`, `id_peminjaman_header`,
 (46, 34, 'Cilincing', 4, 2, 20000, 1, 20000, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
 (47, 34, 'Cilincing', 9, 1, 50000, 1, 50000, 1, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
 (48, 35, 'Cilincing', 1, 1, 1000, 1, 1000, 1, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
-(49, 35, 'Cilincing', 4, 1, 0, 0, 20000, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop');
+(49, 35, 'Cilincing', 4, 1, 0, 0, 20000, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
+(50, 36, 'Cilincing', 4, 2, 20000, 2, 20000, 1, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
+(51, 36, 'Cilincing', 12, 12, 25000, 1, 25000, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop');
 
 -- --------------------------------------------------------
 
@@ -306,7 +308,7 @@ INSERT INTO `peminjaman_header` (`id_peminjaman_header`, `id_nelayan`, `lokasi`,
 (32, 6, 'CILINCING', 'PJ08220002', 9000, 9000, 1, 0, '2022-08-24', 'adminkop', '2022-08-24', 'adminkop'),
 (33, 6, 'CILINCING', 'PJ08220003', 100000, 100000, 1, 0, '2022-08-24', 'rizaldi', '2022-08-24', 'rizaldi'),
 (34, 7, 'Cilincing', 'PJ08220004', 90000, 70000, 1, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
-(35, 6, 'Cilincing', 'PJ08220005', 21000, 1000, 0, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop');
+(36, 7, 'Cilincing', 'PJ08220005', 340000, 65000, 0, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop');
 
 -- --------------------------------------------------------
 
@@ -381,7 +383,9 @@ INSERT INTO `penjualan_detail` (`id_penjualan_detail`, `id_penjualan`, `id_ikan`
 (54, 33, 10, 3, 50000, '2022-07-24', 'rizaldi', '2022-07-24', 'rizaldi'),
 (55, 34, 16, 5, 65000, '2022-08-02', 'rizaldi', '2022-08-02', 'rizaldi'),
 (56, 34, 8, 2, 35000, '2022-08-02', 'rizaldi', '2022-08-02', 'rizaldi'),
-(58, 36, 10, 10, 50000, '2022-08-22', 'rizaldi', '2022-08-22', 'rizaldi');
+(58, 36, 10, 10, 50000, '2022-08-22', 'rizaldi', '2022-08-22', 'rizaldi'),
+(59, 37, 7, 56, 21000, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
+(60, 37, 8, 9, 35000, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop');
 
 -- --------------------------------------------------------
 
@@ -431,7 +435,8 @@ INSERT INTO `penjualan_header` (`id_penjualan_header`, `id_nelayan`, `code`, `to
 (32, 8, 'JL07220019', 93000, '2022-07-24', 'rizaldi', '2022-07-24', 'rizaldi', 'CILINCING'),
 (33, 14, 'JL07220020', 150000, '2022-07-24', 'rizaldi', '2022-07-24', 'rizaldi', 'CILINCING'),
 (34, 7, 'JL08220001', 395000, '2022-08-02', 'rizaldi', '2022-08-02', 'rizaldi', 'CILINCING'),
-(36, 8, 'JL08220002', 500000, '2022-08-22', 'rizaldi', '2022-08-22', 'rizaldi', '');
+(36, 8, 'JL08220002', 500000, '2022-08-22', 'rizaldi', '2022-08-22', 'rizaldi', ''),
+(37, 6, 'JL08220003', 1491000, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop', 'Cilincing');
 
 --
 -- Indexes for dumped tables
@@ -535,25 +540,25 @@ ALTER TABLE `nelayan`
 -- AUTO_INCREMENT for table `peminjaman_detail`
 --
 ALTER TABLE `peminjaman_detail`
-  MODIFY `id_peminjaman_detail` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id_peminjaman_detail` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `peminjaman_header`
 --
 ALTER TABLE `peminjaman_header`
-  MODIFY `id_peminjaman_header` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_peminjaman_header` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `penjualan_detail`
 --
 ALTER TABLE `penjualan_detail`
-  MODIFY `id_penjualan_detail` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id_penjualan_detail` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `penjualan_header`
 --
 ALTER TABLE `penjualan_header`
-  MODIFY `id_penjualan_header` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_penjualan_header` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Constraints for dumped tables
