@@ -112,37 +112,52 @@ class C_akunMaster extends CI_Controller
     {
         $tipe = 2;
         $id_nelayan = "";
-        $data = array(
-            'akun_id'       => $this->input->post('akun_id'),
-            'username'      => $this->input->post('username'),
-            'password'      => $this->input->post('password'),
-            'code'          => $this->input->post('code'),
-            'tipe'          => $tipe,
-            'id_nelayan'    => $id_nelayan,
-            'asal'          => $this->input->post('kecamatan'),
+        $username = $this->input->post('username');
 
-        );
-        $query = $this->db->insert('akun', $data);
-
-        $data1 = array(
-            'id'            => $this->input->post('id'),
-            'nama'          => $this->input->post('username'),
-            'ketua'         => $this->input->post('ketua'),
-            'code'          => $this->input->post('code'),
-            'alamat'        => $this->input->post('alamat'),
-            'kecamatan'     => $this->input->post('kecamatan'),
-            'kota'          => $this->input->post('kota'),
-            'provinsi'      => $this->input->post('provinsi'),
-        );
-        $query1 = $this->db->insert('koperasi', $data1);
-
-        if ($query == true && $query1 == true ) {
-            $this->session->set_flashdata('info', 'Data Berhasil Di Simpan');
-            redirect('C_akunMaster/');
+        $this->db->select('nama');
+        $panggilnama = " SELECT
+                `nama`
+                FROM `koperasi`
+                WHERE `nama`='$username'";
+        
+        $listname = $this->db->query($panggilnama)->num_rows();
+        if($listname == 0){
+            $data = array(
+                'akun_id'       => $this->input->post('akun_id'),
+                'username'      => $this->input->post('username'),
+                'password'      => $this->input->post('password'),
+                'code'          => $this->input->post('code'),
+                'tipe'          => $tipe,
+                'id_nelayan'    => $id_nelayan,
+                'asal'          => $this->input->post('kecamatan'),
+    
+            );
+            $query = $this->db->insert('akun', $data);
+    
+            $data1 = array(
+                'id'            => $this->input->post('id'),
+                'nama'          => $this->input->post('username'),
+                'ketua'         => $this->input->post('ketua'),
+                'code'          => $this->input->post('code'),
+                'alamat'        => $this->input->post('alamat'),
+                'kecamatan'     => $this->input->post('kecamatan'),
+                'kota'          => $this->input->post('kota'),
+                'provinsi'      => $this->input->post('provinsi'),
+            );
+            $query1 = $this->db->insert('koperasi', $data1);
+    
+            if ($query == true && $query1 == true ) {
+                $this->session->set_flashdata('info', 'Data Berhasil Di Simpan');
+                redirect('C_akunMaster/');
+            } else {
+                $this->session->set_flashdata('flash3', 'Prosess Gagal');
+                redirect('C_akunMaster/form_koperasi');
+            }
         } else {
-            $this->session->set_flashdata('flash3', 'Proses Gagal');
+            $this->session->set_flashdata('flash4', 'Nama telah terdaftar');
             redirect('C_akunMaster/form_koperasi');
         }
+
     }
 
 

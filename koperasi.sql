@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2022 at 03:05 PM
+-- Generation Time: Aug 31, 2022 at 04:23 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -54,7 +54,8 @@ INSERT INTO `akun` (`akun_id`, `username`, `password`, `code`, `tipe`, `id_nelay
 (22, 'Usman', 'Usman123', 'aselole', 0, 27, 'ANGKE'),
 (23, 'Im Yoona', 'gg', 'GUEST08220001', 4, 29, 'ANGKE'),
 (24, 'Tzuyu', 'twice', 'GUEST08220002', 4, 30, 'ANGKE'),
-(25, 'master', 'master123', 'master/0001', 3, 0, '');
+(25, 'master', 'master123', 'master/0001', 3, 0, ''),
+(41, 'halo', '1', 'GUEST08220003', 4, 31, 'Cilincing');
 
 -- --------------------------------------------------------
 
@@ -192,7 +193,8 @@ INSERT INTO `nelayan` (`id`, `nama`, `nama_kapal`, `jenis_kapal`, `id_alat`, `GT
 (27, 'AHMAD', 'TITANIC', 'TONGKANG', 1, '3 GT', 'SELAT SUNDA', 'DKI 4 NO 21', 'ANGKE', '', 1),
 (28, 'BOAZ', 'CONQUEROR OF SEAS', 'TONGKANG', 6, '3 GT', 'SELAT SUNDA', 'DKI 4 NO 21', 'ANGKE', '', 1),
 (29, 'GUEST08220001', '', '', 1, '', '', '', 'ANGKE', '', 1),
-(30, 'GUEST08220002', '', '', 6, '', '', '', 'ANGKE', '', 1);
+(30, 'GUEST08220002', '', '', 6, '', '', '', 'ANGKE', '', 1),
+(31, 'GUEST08220003', '', '', 12, '', '', '', 'Cilincing', '', 1);
 
 -- --------------------------------------------------------
 
@@ -253,7 +255,9 @@ INSERT INTO `peminjaman_detail` (`id_peminjaman_detail`, `id_peminjaman_header`,
 (48, 35, 'Cilincing', 1, 1, 1000, 1, 1000, 1, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
 (49, 35, 'Cilincing', 4, 1, 0, 0, 20000, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
 (50, 36, 'Cilincing', 4, 2, 20000, 2, 20000, 1, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
-(51, 36, 'Cilincing', 12, 12, 25000, 1, 25000, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop');
+(51, 36, 'Cilincing', 12, 12, 25000, 12, 25000, 1, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
+(52, 37, 'Cilincing', 1, 9, 0, 0, 1000, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
+(53, 37, 'Cilincing', 3, 9, 50000, 9, 50000, 1, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop');
 
 -- --------------------------------------------------------
 
@@ -308,7 +312,8 @@ INSERT INTO `peminjaman_header` (`id_peminjaman_header`, `id_nelayan`, `lokasi`,
 (32, 6, 'CILINCING', 'PJ08220002', 9000, 9000, 1, 0, '2022-08-24', 'adminkop', '2022-08-24', 'adminkop'),
 (33, 6, 'CILINCING', 'PJ08220003', 100000, 100000, 1, 0, '2022-08-24', 'rizaldi', '2022-08-24', 'rizaldi'),
 (34, 7, 'Cilincing', 'PJ08220004', 90000, 70000, 1, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
-(36, 7, 'Cilincing', 'PJ08220005', 340000, 65000, 0, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop');
+(36, 7, 'Cilincing', 'PJ08220005', 340000, 340000, 1, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop'),
+(37, 23, 'Cilincing', 'PJ08220006', 459000, 450000, 0, 0, '2022-08-31', 'adminkop', '2022-08-31', 'adminkop');
 
 -- --------------------------------------------------------
 
@@ -510,7 +515,7 @@ ALTER TABLE `penjualan_header`
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `akun_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `akun_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `alat`
@@ -528,25 +533,25 @@ ALTER TABLE `ikan`
 -- AUTO_INCREMENT for table `koperasi`
 --
 ALTER TABLE `koperasi`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `nelayan`
 --
 ALTER TABLE `nelayan`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `peminjaman_detail`
 --
 ALTER TABLE `peminjaman_detail`
-  MODIFY `id_peminjaman_detail` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id_peminjaman_detail` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `peminjaman_header`
 --
 ALTER TABLE `peminjaman_header`
-  MODIFY `id_peminjaman_header` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_peminjaman_header` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `penjualan_detail`

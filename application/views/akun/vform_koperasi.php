@@ -27,8 +27,7 @@
                                 <div class="alert alert-danger alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert"
                                         aria-hidden="true">&times;</button>
-                                    <h5><i class="icon fas fa-ban"></i>Lengkapi Semua Data!</h5>
-                                    Isi semua data yang dibutuhkan
+                                    <h5><i class="icon fas fa-ban"></i>Nama Telah Terdaftar</h5>
                                 </div>
                                 <?php
                                 endif;

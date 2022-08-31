@@ -358,7 +358,7 @@ class M_peminjaman extends ci_Model
         $data = array(
             "data" => $res,
         );
-        $count = 3;
+        $count = 0;
         foreach($data as $status){
             if($status == 0 ){
                 $count = $count +1 ;
