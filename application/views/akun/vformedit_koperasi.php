@@ -84,6 +84,33 @@
                                     </div>
 
                                     <div class="form-group row">
+                                        <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectProvinsi" name="provinsi" class="form-control" onchange="getKota()">
+                                                <option selected hidden value="<?= $data['provinsi'];?>"><?= $data['provinsi'];?> (Terkini)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="kota" class="col-sm-2 col-form-label">Kota/Kabupaten</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectKota" name="kota" class="form-control" onchange="getKecamatan()">
+                                                <option selected hidden value="<?= $data['kota'];?>"><?= $data['kota'];?> (Terkini)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="kecamatan" class="col-sm-2 col-form-label">Kecamatan</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectKecamatan" name="kecamatan" class="form-control">
+                                                <option selected hidden value="<?= $data['kecamatan'];?>"><?= $data['kecamatan'];?> (Terkini)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
                                         <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="alamat" value="<?= $data['alamat'];?>"
@@ -91,32 +118,8 @@
                                         </div>
                                     </div>    
 
-                                    <div class="form-group row">
-                                        <label for="kecamatan" class="col-sm-2 col-form-label">Kecamatan</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="kecamatan" value="<?= $data['kecamatan'];?>"
-                                                class="form-control" id="kecamatan" placeholder="Kecamatan" required>
-                                        </div>
-                                    </div>
-                                                                        
-                                    <div class="form-group row">
-                                        <label for="kota" class="col-sm-2 col-form-label">Kota/Kabupaten</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="kota" value="<?= $data['kota'];?>"
-                                                class="form-control" id="kota" placeholder="Kota/Kabupaten" required>
-                                        </div>
-                                    </div>
-                                                                        
-                                    <div class="form-group row">
-                                        <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="provinsi" value="<?= $data['provinsi'];?>"
-                                                class="form-control" id="provinsi" placeholder="Provinsi" required>
-                                        </div>
-                                    </div>
-
                                     <div class="box-footer">
-                                        <a href="<?= base_url('C_akunMaster/allkoperasi')?>" class="btn btn-warning">Cancel</a>
+                                        <a href="<?= base_url('C_akunMaster/')?>" class="btn btn-warning">Cancel</a>
                                         <button type="submit" class="btn btn-primary">Update</button>
 
                                     </div>
@@ -133,4 +136,4 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<script src="<?= base_url(); ?>assets/js/penjualan.js"></script>
+<script src="<?= base_url(); ?>assets/js/koperasi-edit.js"></script>

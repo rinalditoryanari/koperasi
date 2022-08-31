@@ -18,36 +18,6 @@ class C_akunMaster extends CI_Controller
             $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
             redirect(site_url('CLogin'));
         } else {
-            $data['all_akun']   = $this->M_akunMaster->index();
-
-            $this->load->view('template/header');
-            $this->load->view('template/vsidebar');
-            $this->load->view('akun/vakun', $data);
-            $this->load->view('template/footer');
-        }
-    }
-
-    // public function alluser()
-    // {
-    //     if ($this->session->userdata("akun_id") == "") {
-    //         $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
-    //         redirect(site_url('CLogin'));
-    //     } else {
-    //         $data['all_akun']   = $this->M_akunMaster->alluser();
-
-    //         $this->load->view('template/header');
-    //         $this->load->view('template/vsidebar');
-    //         $this->load->view('akun/vakun', $data);
-    //         $this->load->view('template/footer');
-    //     }
-    // }
-
-    public function allkoperasi()
-    {
-        if ($this->session->userdata("akun_id") == "") {
-            $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
-            redirect(site_url('CLogin'));
-        } else {
             $data['all_akun']   = $this->M_akunMaster->allkoperasi();
 
             $this->load->view('template/header');
@@ -57,19 +27,49 @@ class C_akunMaster extends CI_Controller
         }
     }
 
-    // public function form_akun()
+    public function alluser()
+    {
+        if ($this->session->userdata("akun_id") == "") {
+            $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
+            redirect(site_url('CLogin'));
+        } else {
+            $data['all_akun']   = $this->M_akunMaster->alluser();
+
+            $this->load->view('template/header');
+            $this->load->view('template/vsidebar');
+            $this->load->view('akun/vakun', $data);
+            $this->load->view('template/footer');
+        }
+    }
+
+    // public function allkoperasi()
     // {
     //     if ($this->session->userdata("akun_id") == "") {
     //         $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
     //         redirect(site_url('CLogin'));
     //     } else {
-    //         $data['list_nelayan'] = $this->M_akunMaster->list_nelayan();
+    //         $data['all_akun']   = $this->M_akunMaster->allkoperasi();
+
     //         $this->load->view('template/header');
     //         $this->load->view('template/vsidebar');
-    //         $this->load->view('akun/vform_akun', $data);
+    //         $this->load->view('akun/vakun_koperasi', $data);
     //         $this->load->view('template/footer');
     //     }
     // }
+
+    public function form_akun()
+    {
+        if ($this->session->userdata("akun_id") == "") {
+            $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
+            redirect(site_url('CLogin'));
+        } else {
+            $data['list_nelayan'] = $this->M_akunMaster->list_nelayan();
+            $this->load->view('template/header');
+            $this->load->view('template/vsidebar');
+            $this->load->view('akun/vform_akun', $data);
+            $this->load->view('template/footer');
+        }
+    }
 
     public function form_koperasi()
     {
@@ -88,6 +88,28 @@ class C_akunMaster extends CI_Controller
 
     public function tambah_akun()
     {   
+        $tipe = 2;
+        $id_nelayan = "";
+        $data = array(
+            'akun_id'            => $this->input->post('akun_id'),
+            'username'          => $this->input->post('username'),
+            'password'         => $this->input->post('password'),
+            'code'         => $this->input->post('code'),
+            'tipe'         => $tipe,
+            'id_nelayan'    => $id_nelayan,
+            'asal'          => $this->input->post('asal'),
+           
+
+        );
+        $query = $this->db->insert('akun', $data);
+        if ($query = true) {
+            $this->session->set_flashdata('info', 'Data Berhasil Di Simpan');
+            redirect('C_akunMaster');
+        }
+    }
+
+    public function tambah_koperasi()
+    {
         $tipe = 2;
         $id_nelayan = "";
         $data = array(
@@ -116,7 +138,7 @@ class C_akunMaster extends CI_Controller
 
         if ($query == true && $query1 == true ) {
             $this->session->set_flashdata('info', 'Data Berhasil Di Simpan');
-            redirect('C_akunMaster/allkoperasi');
+            redirect('C_akunMaster/');
         } else {
             $this->session->set_flashdata('flash3', 'Proses Gagal');
             redirect('C_akunMaster/form_koperasi');
@@ -206,24 +228,24 @@ class C_akunMaster extends CI_Controller
 
         if ($query == true AND $query1 == true) {
             $this->session->set_flashdata('info', 'Data Berhasil Di Update');
-            redirect('C_akunMaster/allkoperasi/');
+            redirect('C_akunMaster/');
         } else {
             $this->session->set_flashdata('flash3', 'Proses Gagal');
-            redirect('C_akunMaster/allkoperasi/'+strval($code));
+            redirect('C_akunMaster/vformedit_koperasi/'.strval($code));
         }
     }
 
 
-    // public function hapus_akun($id)
-    // {
-    //     $a = $this->M_akunMaster->hapus_akun($id);
-    //     redirect('C_akunMaster');
-    // }
+    public function hapus_akun($id)
+    {
+        $a = $this->M_akunMaster->hapus_akun($id);
+        redirect('C_akunMaster');
+    }
 
     public function hapus_akunkoperasi($code)
     {
         $a = $this->M_akunMaster->hapus_akunkoperasi($code);
-        redirect('C_akunMaster/allkoperasi');
+        redirect('C_akunMaster/');
     }
 
     //Input:    

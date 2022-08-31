@@ -46,7 +46,7 @@
                                 ?>
                                 <!-- select -->
                                 <?php if ($this->session->userdata('tipe_akun')==3) : ?>
-                                    <form method="post" action="<?= base_url('C_akunMaster/tambah_akun') ?>"
+                                    <form method="post" action="<?= base_url('C_akunMaster/tambah_koperasi') ?>"
                                         class="form-horizontal">
                                         <div class="form-group row">
                                             <label for="username" class="col-sm-2 col-form-label">Nama Koperasi</label>
@@ -90,6 +90,32 @@
                                         </div>
 
                                         <div class="form-group row">
+                                            <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+                                            <div class="col-sm-10">
+                                                <select id="selectProvinsi" name="provinsi" class="form-control" onchange="getKota()">
+                                                    <option>-</option></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="kota" class="col-sm-2 col-form-label">Kota/Kabupaten</label>
+                                            <div class="col-sm-10">
+                                                <select id="selectKota" name="kota" class="form-control" onchange="getKecamatan()">
+                                                    <option disabled selected hidden>Pilih Kota</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="kecamatan" class="col-sm-2 col-form-label">Kecamatan</label>
+                                            <div class="col-sm-10">
+                                                <select id="selectKecamatan" name="kecamatan" class="form-control">
+                                                    <option disabled selected hidden>Pilih Kecamatan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
                                             <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="alamat" class="form-control" id="alamat"
@@ -97,31 +123,14 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
-                                            <label for="kecamatan" class="col-sm-2 col-form-label">Kecamatan</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="kecamatan" class="form-control" id="kecamatan"
-                                                    placeholder="Kecamatan" required>
-                                            </div>
-                                        </div>
-
                                         
-                                        <div class="form-group row">
-                                            <label for="kota" class="col-sm-2 col-form-label">Kota/Kabupaten</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="kota" class="form-control" id="kota"
-                                                    placeholder="Kota/Kabupaten" required>
-                                            </div>
-                                        </div>
-
-                                        
-                                        <div class="form-group row">
+                                        <!-- <div class="form-group row">
                                             <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="provinsi" class="form-control" id="provinsi"
                                                     placeholder="Provinsi" required>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="box-footer">
                                             <a href="<?= base_url('C_akunMaster')?>" class="btn btn-warning">Cancel</a>
