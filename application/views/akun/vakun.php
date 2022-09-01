@@ -22,12 +22,6 @@
             <br>
             <br>
             <?php endif;?>
-            <?php if ($this->session->userdata('tipe_akun')==3) : ?>
-            <a href="<?= base_url('C_akunMaster/form_akun') ?>"><button type="button" class="btn btn-primary">+ Data
-                    Akun</button></a>
-            <br>
-            <br>
-            <?php endif;?>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -73,7 +67,9 @@
                                         <th>Code</th>
                                         <th>Type</th>
                                         <th>Nama Nelayan</th>
+                                        <?php if ($this->session->userdata('tipe_akun') != '3') : ?>
                                         <th>Action</th>
+                                        <?php endif;?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,6 +93,7 @@
                                         <td align=""><?= $a['code']; ?></td>
                                         <td align=""><?= $a['tipe']; ?></td>
                                         <td align=""><?= $a['nama_nelayan']; ?></td>
+                                        <?php if ($this->session->userdata('tipe_akun') != '3') : ?>
                                         <td align="">
                                             <a class="tombol-edit"
                                                 href="<?= base_url('C_akunMaster/edit/' . $a['akun_id']); ?>"><i
@@ -106,6 +103,7 @@
                                                 onclick="return confirm('Yakin Mau Di Hapus?');"><i
                                                     class="fas fa-trash-alt"></i></a>
                                         </td>
+                                        <?php endif;?>
                                     </tr>
                                     </tfoot>
                                     <?php

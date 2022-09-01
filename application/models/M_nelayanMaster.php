@@ -18,8 +18,9 @@ class M_nelayanMaster extends ci_Model
         } else {
             $ses_client = $this->session->userdata('ID');
         }
-
-        $keyword = str_replace("'", "\'", $this->input->get('table_search'));
+        
+        $keyword = '';
+        $keyword = $keyword ? str_replace("'", "\'", $this->input->get('table_search')):"";
 
         $where = array();
         if (!empty($this->input->get('table_search'))) {

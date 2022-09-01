@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2022 at 04:23 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.3.29
+-- Generation Time: Sep 01, 2022 at 03:43 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,17 +43,17 @@ CREATE TABLE `akun` (
 
 INSERT INTO `akun` (`akun_id`, `username`, `password`, `code`, `tipe`, `id_nelayan`, `asal`) VALUES
 (1, 'rizaldi', 'adaw', 'admin/00001', 1, 0, 'CILINCING'),
-(3, 'test', 'test', 'adasda', 0, 6, 'ANGKE'),
+(3, 'test', 'test', 'adasda', 0, 6, 'Penjaringan'),
 (4, 'adminkop', 'admin123', 'SUPER08220001', 2, 0, 'Cilincing'),
 (16, 'Adaws', 'adaws', 'GUEST08220001', 4, 23, 'CILINCING'),
-(17, 'rofiudin', 'rofiudin', 'aa', 0, 7, 'ANGKE'),
-(18, 'dito', '12345678', 'GUEST08220002', 3, 6, 'ANGKE'),
+(17, 'rofiudin', 'rofiudin', 'aa', 0, 7, 'Penjaringan'),
+(18, 'dito', '12345678', 'GUEST08220002', 3, 6, 'Penjaringan'),
 (19, 'Asep ', '123', 'GUEST08220003', 4, 25, 'CILINCING'),
 (20, 'ujang', 'ujang123', 'GUEST08220004', 4, 26, 'CILINCING'),
 (21, 'Koperasi Angke', 'admin123as', 'SUPER08220002', 2, 0, 'Penjaringan'),
-(22, 'Usman', 'Usman123', 'aselole', 0, 27, 'ANGKE'),
-(23, 'Im Yoona', 'gg', 'GUEST08220001', 4, 29, 'ANGKE'),
-(24, 'Tzuyu', 'twice', 'GUEST08220002', 4, 30, 'ANGKE'),
+(22, 'Usman', 'Usman123', 'aselole', 0, 27, 'Penjaringan'),
+(23, 'Im Yoona', 'gg', 'GUEST08220001', 4, 29, 'Penjaringan'),
+(24, 'Tzuyu', 'twice', 'GUEST08220002', 4, 30, 'Penjaringan'),
 (25, 'master', 'master123', 'master/0001', 3, 0, ''),
 (41, 'halo', '1', 'GUEST08220003', 4, 31, 'Cilincing');
 
@@ -93,9 +93,9 @@ INSERT INTO `alat` (`id_alat`, `nama`, `jenis`, `satuan`, `harga_per_unit`, `cre
 (13, 'Milenium', 'Alat', 'pcs', 30000, '0000-00-00', '', '0000-00-00', '', 'CILINCING'),
 (14, 'Uang', 'Bahan', 'Rupiah', 1, '0000-00-00', '', '0000-00-00', '', 'CILINCING'),
 (15, 'Sembako', 'Bahan', 'set', 100000, '0000-00-00', '', '0000-00-00', '', 'CILINCING'),
-(16, 'kail', 'Alat', 'pcs', 500, '0000-00-00', '', '0000-00-00', '', 'ANGKE'),
-(17, 'Dogol', 'Alat', 'pcs', 40000, '2022-07-03', 'adminkop', '2022-07-03', 'adminkop', 'ANGKE'),
-(18, 'Pukat Harimau', 'Alat', 'pcs', 100000, '0000-00-00', '', '0000-00-00', '', 'ANGKE');
+(16, 'kail', 'Alat', 'pcs', 500, '0000-00-00', '', '0000-00-00', '', 'Penjaringan'),
+(17, 'Dogol', 'Alat', 'pcs', 40000, '2022-07-03', 'adminkop', '2022-07-03', 'adminkop', 'Penjaringan'),
+(18, 'Pukat Harimau', 'Alat', 'pcs', 100000, '0000-00-00', '', '0000-00-00', '', 'Penjaringan');
 
 -- --------------------------------------------------------
 
@@ -131,9 +131,9 @@ INSERT INTO `ikan` (`id_ikan`, `nama_ikan`, `harga_ikan`, `gambar`, `lokasi`) VA
 (19, 'REMANG', 18000, '', 'CILINCING'),
 (20, 'PAYUS', 10000, '', 'CILINCING'),
 (21, 'MANYUNG', 12000, 'WhatsApp_Image_2022-07-10_at_18_24_10.jpeg', 'CILINCING'),
-(30, 'MANYUNG', 13000, 'WhatsApp_Image_2022-07-10_at_18_24_10.jpeg', 'ANGKE'),
+(30, 'MANYUNG', 13000, 'WhatsApp_Image_2022-07-10_at_18_24_10.jpeg', 'Penjaringan'),
 (31, 'Tuna Blue Fin', 5000000, '', 'CILINCING'),
-(32, 'Tuna Blue Fin', 6000000, 'tuna.jpeg', 'ANGKE');
+(32, 'Tuna Blue Fin', 6000000, 'tuna.jpeg', 'Penjaringan');
 
 -- --------------------------------------------------------
 
@@ -190,10 +190,10 @@ INSERT INTO `nelayan` (`id`, `nama`, `nama_kapal`, `jenis_kapal`, `id_alat`, `GT
 (8, 'SUEB', 'LANGGENG JAYA 11', 'NELAYAN', 3, '3 GT', 'TELUK JAKARTA dan KARAWANG', 'DKI 3 NO.14', 'CILINCING', '-', 1),
 (9, 'CASMADI', 'ADELIA PUTRI ', 'NELAYAN', 4, '3 GT', 'TELUK JAKARTA dan KARAWANG', 'DKI 3 NO.79', 'CILINCING', '-', 1),
 (23, 'JUNAEDI', 'HEART OF THE SEA', 'TONGKANG', 1, '3 GT', 'TELUK JAKARTA dan KARAWANG', 'DKI 3 NO.79', 'CILINCING', '', 1),
-(27, 'AHMAD', 'TITANIC', 'TONGKANG', 1, '3 GT', 'SELAT SUNDA', 'DKI 4 NO 21', 'ANGKE', '', 1),
-(28, 'BOAZ', 'CONQUEROR OF SEAS', 'TONGKANG', 6, '3 GT', 'SELAT SUNDA', 'DKI 4 NO 21', 'ANGKE', '', 1),
-(29, 'GUEST08220001', '', '', 1, '', '', '', 'ANGKE', '', 1),
-(30, 'GUEST08220002', '', '', 6, '', '', '', 'ANGKE', '', 1),
+(27, 'AHMAD', 'TITANIC', 'TONGKANG', 1, '3 GT', 'SELAT SUNDA', 'DKI 4 NO 21', 'Penjaringan', '', 1),
+(28, 'BOAZ', 'CONQUEROR OF SEAS', 'TONGKANG', 6, '3 GT', 'SELAT SUNDA', 'DKI 4 NO 21', 'Penjaringan', '', 1),
+(29, 'GUEST08220001', '', '', 1, '', '', '', 'Penjaringan', '', 1),
+(30, 'GUEST08220002', '', '', 6, '', '', '', 'Penjaringan', '', 1),
 (31, 'GUEST08220003', '', '', 12, '', '', '', 'Cilincing', '', 1);
 
 -- --------------------------------------------------------
