@@ -213,7 +213,7 @@
                                                 Bongkar</label>
                                             <div class="col-sm-10">
                                                 <input value="<?php echo $this->session->userdata('asal')?>" name="pelabuhan_bongkar" class="form-control"
-                                                    id="pelabuhan_bongkar" placeholder="Pelabuhan Bongkar" disabled>
+                                                    id="pelabuhan_bongkar" placeholder="Pelabuhan Bongkar" readonly>
                                             </div>
                                         </div>
 
