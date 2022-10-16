@@ -97,7 +97,7 @@
                                     <?php
                                     if (empty($all_nelayan['data'])) : ?>
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="12">
                                             <div class="alert alert-danger" role="alert">Data Not Found!</div>
                                         </td>
                                     </tr>
@@ -136,7 +136,7 @@
                                     <?php
                                     if (empty($all_nelayan['data'])) : ?>
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="12">
                                             <div class="alert alert-danger" role="alert">Data Not Found!</div>
                                         </td>
                                     </tr>

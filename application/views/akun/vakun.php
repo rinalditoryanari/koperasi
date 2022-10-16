@@ -77,7 +77,7 @@
                                     <?php
                                     if (empty($all_akun['data'])) : ?>
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="7">
                                             <div class="alert alert-danger" role="alert">Data Not Found!</div>
                                         </td>
                                     </tr>
@@ -113,7 +113,7 @@
                                     <?php
                                     if (empty($all_akun['data'])) : ?>
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="7">
                                             <div class="alert alert-danger" role="alert">Data Not Found!</div>
                                         </td>
                                     </tr>
