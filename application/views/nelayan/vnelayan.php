@@ -86,6 +86,7 @@
                                         <th>Alat</th>
                                         <th>GT</th>
                                         <th>Daerah</th>
+                                        <th>Koperasi</th>
                                         <th>PAS</th>
                                         <th>Ket</th>
                                         <th>Status</th>
@@ -115,6 +116,7 @@
                                         <td><?= $a['alat_tangkap']; ?></td>
                                         <td><?= $a['GT']; ?></td>
                                         <td><?= $a['daerah_tangkap']; ?></td>
+                                        <td><?= $a['koperasi']; ?></td>
                                         <td><?= $a['tanda_pas']; ?></td>
                                         <td><?= $a['keterangan']; ?></td>
                                         <td><?= $a['status']; ?></td>

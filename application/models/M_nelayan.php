@@ -40,7 +40,7 @@ class M_nelayan extends ci_Model
         $stringwhere = implode(" AND ", $where);
 
         // $lokasi_admin = $this->db->where('asal', );
-        $lokasi = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_akun');
 
         // $lokasi = "  SELECT
         //                 a.`id`,a.`nama` as nama_nelayan, a.`nama_kapal`, a.`jenis_kapal`, a.`GT`, a.`daerah_tangkap`, a.`pelabuhan_bongkar`, a.`tanda_pas`,a.`keterangan`,    					  
@@ -56,7 +56,7 @@ class M_nelayan extends ci_Model
                              a.`status`,  b.`nama` as alat_tangkap 
                         FROM `nelayan` a
                         JOIN `alat` b on a.`id_alat` = b.`id_alat` 
-                        where a.`pelabuhan_bongkar`= '$lokasi'
+                        where a.`id_koperasi`= '$code'
                         $stringwhere 
                         ORDER BY a.`id` DESC;
                   ";

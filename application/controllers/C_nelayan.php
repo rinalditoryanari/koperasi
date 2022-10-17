@@ -64,6 +64,8 @@ class C_nelayan extends CI_Controller
     //Process:  INSERT to table nelayan
     public function tambah_nelayan()
     {
+        $code = $this->session->userdata('code_akun');
+
         $data = array(
             'id'            => $this->input->post('id'),
             'nama'              => $this->input->post('nama'),
@@ -75,8 +77,10 @@ class C_nelayan extends CI_Controller
             'tanda_pas'         => $this->input->post('tanda_pas'),
             'pelabuhan_bongkar' => $this->input->post('pelabuhan_bongkar'),
             'keterangan'        => $this->input->post('keterangan'),
-            'status'            => $this->input->post('status')
+            'status'            => $this->input->post('status'),
+            'id_koperasi'       => $code,
         );
+
         $query = $this->db->insert('nelayan', $data);
         if ($query = true) {
         $this->session->set_flashdata('info', 'Data Berhasil Di Simpan');

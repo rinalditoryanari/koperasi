@@ -217,7 +217,7 @@
                                             <div class="col-sm-10">
                                                 <input type="text" name="pelabuhan_bongkar" class="form-control"
                                                     value="<?= $data['pelabuhan_bongkar'];?>" id="pelabuhan_bongkar"
-                                                    placeholder="Pelabuhan Bongkar" disabled>
+                                                    placeholder="Pelabuhan Bongkar" readonly>
                                             </div>
                                         </div>
 
