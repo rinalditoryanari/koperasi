@@ -32,19 +32,12 @@ class M_ikanMaster extends ci_Model
         isLimit:
 
         $stringwhere = implode(" AND ", $where);
-
-        $lokasi = $this->session->userdata('asal');
-
+        
         $query = "  SELECT
-                      * 
-                    FROM `ikan` 
-                    WHERE 1=1
-                    $stringwhere 
-                    
-
-                    ORDER BY `lokasi` ASC
-
-                   
+                      a.`id_ikan`, a.`nama_ikan`, a.`harga_ikan`, a.`gambar`, a.`code_koperasi`, b.`nama` as koperasi 
+                    FROM `ikan` a 
+                    JOIN `koperasi` b on a.`code_koperasi` = b.`code`
+                    ORDER BY b.`nama` DESC
                   ";
 
         // echo $query;
