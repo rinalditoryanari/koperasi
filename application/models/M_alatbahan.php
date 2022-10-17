@@ -39,12 +39,12 @@ class M_alatbahan extends ci_Model
 
         $stringwhere = implode(" AND ", $where);
 
-        $lokasi = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_akun');
 
         $query = "  SELECT
                         * 
                     FROM `alat` 
-                    WHERE `lokasi`= '$lokasi'
+                    WHERE `code_koperasi`= '$code'
                     $stringwhere
                     ORDER BY nama ASC";
 

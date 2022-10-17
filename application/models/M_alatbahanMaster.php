@@ -35,13 +35,22 @@ class M_alatbahanMaster extends ci_Model
 
         $lokasi = $this->session->userdata('asal');
 
-        $query = "  SELECT
-                        * 
-                    FROM `alat` 
-                    where 1=1
-                    $stringwhere
-                    ORDER BY lokasi ASC";
+        // $query = "  SELECT
+        //                 * 
+        //             FROM `alat` 
+        //             where 1=1
+        //             $stringwhere
+        //             ORDER BY lokasi ASC";
 
+        $query = "  SELECT
+                            a.`id_alat`,a.`nama`, a.`jenis`, a.`satuan`, a.`harga_per_unit`, a.`created_by`, a.`modified_by`, a.`lokasi`,
+                             c.`nama` as koperasi
+                        FROM `alat` a
+                        JOIN `koperasi` c on a.`code_koperasi` = c.`code`
+                        WHERE 1=1
+                        $stringwhere 
+                        ORDER BY a.`id_alat` DESC;
+                  ";
         // echo $query;
         // die();
         if ($is_limit) {

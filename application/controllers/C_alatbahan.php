@@ -53,23 +53,18 @@ class C_alatbahan extends CI_Controller
     //Process:  INSERT data alat ke tbale alat
     public function simpan_alatbahan()
     {
-        $daerah = $this->session->userdata('asal');
+        // $daerah = $this->session->userdata('asal');
         $data = array( 
             'id_alat'                    => $this->input->post('id_alat'),
             'nama'                       => $this->input->post('nama'),
             'jenis'                      => $this->input->post('jenis'),
             'satuan'                     => $this->input->post('satuan'),
             'harga_per_unit'             => $this->input->post('harga_per_unit'),
-            'lokasi'                     => $daerah
-            // 'created_date'               => $this->input->post('created_date'),
-            // 'created_by'                 => $this->input->post('created_by'),
-            // 'modified_date'              => $this->input->post('modified_date'),
-            // 'modified_by'                => $this->input->post('modified_by'),
-            
-            
-            
-          
+            'lokasi'                     => $this->session->userdata('asal'),
+            'code_koperasi'              => $this->session->userdata('code_akun'),
         );
+        // echo '<pre>' . var_export($data, true) . '</pre>';
+
         $query = $this->db->insert('alat', $data);
         if ($query = true) {
             $this->session->set_flashdata('info', 'Data Berhasil Di Simpan');
