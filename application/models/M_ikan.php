@@ -40,17 +40,15 @@ class M_ikan extends ci_Model
 
         $stringwhere = implode(" AND ", $where);
 
-        $lokasi = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_akun');
 
         $query = "  SELECT
                       * 
                     FROM `ikan` 
-                    where `lokasi`= '$lokasi'
+                    where `code_koperasi`= '$code'
                     $stringwhere 
 
                     ORDER BY `id_ikan` DESC
-
-                   
                   ";
 
         // echo $query;

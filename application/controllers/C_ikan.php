@@ -83,14 +83,14 @@ class C_ikan extends CI_Controller
                 
                 $nama_ikan = $this->input->post('nama_ikan', TRUE);
                 $harga_ikan = $this->input->post('harga_ikan', TRUE);
-                $daerah = $this->session->userdata('asal');
-                $lokasi = $this->input->post('$daerah', TRUE);
+                $code = $this->session->userdata('code_akun');
+                $lokasi = $this->input->post('$code', TRUE);
 
                 $data = array(
                         
                         'nama_ikan'  => $nama_ikan,
                         'harga_ikan' => $harga_ikan,
-                        'lokasi'     => $daerah
+                        'code_koperasi'     => $code,
                 );
             
                $this->db->insert('ikan', $data);
@@ -106,15 +106,15 @@ class C_ikan extends CI_Controller
                 
                 $nama_ikan = $this->input->post('nama_ikan', TRUE);
                 $harga_ikan = $this->input->post('harga_ikan', TRUE);
-                $daerah = $this->session->userdata('asal');
-                $lokasi = $this->input->post('$daerah', TRUE);
+                $code = $this->session->userdata('code_akun');
+                $lokasi = $this->input->post('$code', TRUE);
 
                 $data = array(
                         
                         'nama_ikan'  => $nama_ikan,
                         'harga_ikan' => $harga_ikan,
                         'gambar'     => $gambar,
-                        'lokasi'     => $daerah
+                        'code_koperasi'     => $code,
                 );
             
                $this->db->insert('ikan', $data);

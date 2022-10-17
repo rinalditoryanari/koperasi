@@ -6,7 +6,6 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Data Ikan</h1>
-                    <h4>Pelabuhan <?php echo $this->session->userdata('asal')?></h4>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -67,7 +66,7 @@
                                         <th>Harga/Kg</th>
                                         <th>Gambar</th>
                                         <?php if($this->session->userdata('tipe_akun') == '3') : ?>
-                                        <th>lokasi</th>
+                                        <th>koperasi</th>
                                         <?php endif;?>
                                         <?php if ($this->session->userdata('tipe_akun') == '2') { ?>
                                         <th>Action</th>
@@ -95,7 +94,7 @@
                                                 100">
                                         </td>
                                         <?php if($this->session->userdata('tipe_akun') == '3') : ?>
-                                        <td><?= $a['lokasi']; ?></td>
+                                        <td><?= $a['koperasi']; ?></td>
                                         <?php endif;?>
                                         <?php if ($this->session->userdata('tipe_akun') == '2') { ?>
                                         <td align="">
