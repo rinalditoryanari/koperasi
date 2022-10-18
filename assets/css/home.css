@@ -1,0 +1,30 @@
+/* .container.nelayan{
+    background-image: url('../../gambar/gambar-pemandangan-indah-Taman-Laut-Bunaken-3.jpg');
+    max-width: 100%;
+    background-size: cover;
+    background-position: center;
+} */
+.container.perahu{
+    background-image: url('../../gambar/gambar-pemandangan-indah-Taman-Laut-Bunaken-3.jpg');
+    max-width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+.container.jaring{
+    background-image: url('../../gambar/gambar-pemandangan-indah-Taman-Laut-Bunaken-3.jpg');
+    max-width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.foto-pnj{
+    height: 500px;
+    width: 500px;
+}
+.foto-profile{
+    height: 300px;
+    width: 300px;
+}
+.nama-dosen{
+    min-height: 97px;
+}

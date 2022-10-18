@@ -6,7 +6,7 @@ function getProvinsi() {
   $(document).ready(function () {
     $.ajax({
       method: "GET",
-      url: "http://dev.farizdotid.com/api/daerahindonesia/provinsi",
+      url: "https://dev.farizdotid.com/api/daerahindonesia/provinsi",
       success: function (response) {
         data = response;
         var listPreview = $("#selectProvinsi");
@@ -37,7 +37,7 @@ function getKota() {
   $.ajax({
     method: "GET",
     url:
-      "http://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=" +
+      "https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=" +
       provinsi,
     success: function (response) {
       data = response.kota_kabupaten;
@@ -68,7 +68,7 @@ function getKecamatan() {
   $.ajax({
     method: "GET",
     url:
-      "http://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=" + kota,
+      "https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=" + kota,
     success: function (response) {
       data = response.kecamatan;
       console.log(data);

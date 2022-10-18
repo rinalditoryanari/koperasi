@@ -38,7 +38,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="#" class="brand-link" style="margin-left: 5%;">
-                <span class="brand-text font-weight-light">Koperasi Nelayan</span>
+                <?php echo $this->session->userdata('username') ?>
             </a>
 
             <!-- Sidebar -->
