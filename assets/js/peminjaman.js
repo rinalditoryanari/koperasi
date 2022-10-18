@@ -16,13 +16,13 @@ $(document).ready(function() {
 			var nama_alat_bahan = active.options[active.selectedIndex].getAttribute('data-nama_alat_bahan');
 			var jumlah = $("#jumlah").val();
 			var harga_alat_bahan = $("#harga_alat_bahan").val();
-			var lokasi = $("#lokasi").val();
+			var id_koperasi = $("#koperasi").val();
 			
 			var formData = new FormData();
 			
 			formData.append("kode_peminjaman", kode_peminjaman);
 			formData.append("id_nelayan", id_nelayan);
-			formData.append("lokasi", lokasi);
+			formData.append("id_koperasi", id_koperasi);
 			formData.append("alat_bahan", alat_bahan);
 			formData.append("nama_alat_bahan", nama_alat_bahan);
 			formData.append("jumlah", jumlah);
@@ -52,11 +52,11 @@ $(document).ready(function() {
 						var strContent;
 						tablePreview.empty();
 						for (let i = 0; i < res.length; i++) {
-							fungsi2 = "delete_detail("+res[i].kode_peminjaman+","+res[i].id_nelayan +","+ res[i].lokasi +","+  res[i].alat_bahan +","+ res[i].nama_alat_bahan +","+ res[i].jumlah +","+ res[i].harga_alat_bahan +","+ res[i].total+")";
+							fungsi2 = "delete_detail("+res[i].kode_peminjaman+","+res[i].id_nelayan +","+ res[i].id_koperasi +","+  res[i].alat_bahan +","+ res[i].nama_alat_bahan +","+ res[i].jumlah +","+ res[i].harga_alat_bahan +","+ res[i].total+")";
 							// alert(fungsi2);
 							strContent = "<tr>";
 							strContent = strContent + "<td align='center'>" + res[i].nama_alat_bahan + "</td>";
-							strContent = strContent + "<td align='center'>" + res[i].lokasi + "</td>";
+							strContent = strContent + "<td align='center'>" + res[i].id_koperasi + "</td>";
 							strContent = strContent + "<td align='center'>" + res[i].jumlah + "</td>";
 							strContent = strContent + "<td align='right'>" + formatRupiah(res[i].harga_alat_bahan, "Rp. ") + "</td>";
 							strContent = strContent + "<td align='right'>" + formatRupiah(res[i].total, "Rp. ") + "</td>";
@@ -79,13 +79,13 @@ $(document).ready(function() {
 		var mdl = $(this);
 		var kode_peminjaman = mdl.data('kode_peminjaman');
 		var id_nelayan = mdl.data('id_nelayan');
-		var lokasi = mdl.data('lokasi');
+		var id_koperasi = mdl.data('koperasi');
 		var alat_bahan = mdl.data('alat_bahan');
 		var nama_alat_bahan = mdl.data('nama_alat_bahan');
 		var jumlah = mdl.data('jumlah');
 		var harga_alat_bahan = mdl.data('harga_alat_bahan');
 		var total = mdl.data('total');
-		delete_detail(kode_peminjaman,id_nelayan,lokasi,alat_bahan,nama_alat_bahan,jumlah,harga_alat_bahan,total);
+		delete_detail(kode_peminjaman,id_nelayan,id_koperasi,alat_bahan,nama_alat_bahan,jumlah,harga_alat_bahan,total);
 	});
 });
 

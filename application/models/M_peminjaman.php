@@ -18,7 +18,7 @@ class M_peminjaman extends ci_Model
     //Output:   list $data -> id_peminjaman_header, id_nelayan, nama_nelayan, code_peminjaman, 
     //                         total_pinjam, status, tanggal_pinjam, created_by, tanggal_kembali, modified_by
     //Process:  SELECT data peminjaman di table peminjaman_header
-    public function index($asal, $isall = TRUE, $limit = NULL, $offset = NULL)
+    public function index($code, $isall = TRUE, $limit = NULL, $offset = NULL)
     {
         if ($this->session->userdata('tipe_akun') == '0') {
             $id_nelayan  = $this->session->userdata('id_nelayan');
@@ -57,7 +57,7 @@ class M_peminjaman extends ci_Model
                     JOIN nelayan b ON a.`id_nelayan` = b.`id`
                     $stringwhere
                     $ses_nelayan
-                    WHERE a.`lokasi` = '$asal'
+                    WHERE a.`id_koperasi` = '$code'
                     AND a.`status` = 0
                     ORDER BY a.`id_peminjaman_header` DESC
                     
@@ -91,14 +91,14 @@ class M_peminjaman extends ci_Model
     //Input:    
     //Output:   list $client -> id_nelayan, nama_nelayan, kapal_nelayan 
     //Process:  SELECT di table nelayan
-    public function list_nelayan($asal)
+    public function list_nelayan($code)
     {
         $pilih_client = "SELECT	
                             `id` as id_nelayan,
                             `nama` as nama_nelayan,
                             `nama_kapal` as kapal_nelayan
                         FROM `nelayan`
-                        WHERE `status` = 1 AND `pelabuhan_bongkar` = '$asal';";
+                        WHERE `status` = 1 AND `id_koperasi` = '$code';";
         $client = $this->db->query($pilih_client)->result_array();
 
         return $client;
@@ -107,9 +107,9 @@ class M_peminjaman extends ci_Model
     //Input:    
     //Output:   list $client -> id_alat, nama_alat, jenis, satuan harga_per_unit
     //Process:  SELECT di alat
-    public function list_alat($asal)
+    public function list_alat($code)
     {
-        $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` WHERE `lokasi` = '$asal';";
+        $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` WHERE `code_koperasi` = '$code';";
         
         $client = $this->db->query($pilih_client)->result_array();
         return $client;
@@ -180,70 +180,73 @@ class M_peminjaman extends ci_Model
     //Process:  INSERT into peminjaman header, peminjaman detail
     public function simpan_peminjaman_alat_bahan($all)
     {
+        // echo '<pre>' . var_export($all, true) . '</pre>';
+
         // var_dump($all);
         // die;
-        $ses_username   = $this->session->userdata('username');
-        $total          = $this->total_peminjaman();
-        $kode_peminjaman = $all[0]['kode_peminjaman'];
-        $nelayan        = $all[0]['id_nelayan'];
-        $lokasi        = $all[0]['lokasi'];
-        $insertheader = "INSERT INTO `peminjaman_header` (
-                            `id_nelayan`,
-                            `code`,
-                            `lokasi`,
-                            `total_pinjam`,
-                            `created_date`,
-                            `created_by`,
-                            `modified_date`,
-                            `modified_by`
-                            )
-                            VALUES
-                            (
-                            $nelayan,
-                            '$kode_peminjaman',
-                            '$lokasi',
-                            $total,
-                            now(),
-                            '$ses_username',
-                            now(),
-                            '$ses_username'
-                            );
-                        ";
-        $q = $this->db->query($insertheader);
 
-        $querypeminjaman_id      = "SELECT `id_peminjaman_header` FROM `peminjaman_header` WHERE `code` = '$kode_peminjaman';";
-        $execpeminjaman_id       = $this->db->query($querypeminjaman_id)->result_array();
-        $id_peminjaman_header    = $execpeminjaman_id[0]['id_peminjaman_header'];
+        // $ses_username   = $this->session->userdata('username');
+        // $total          = $this->total_peminjaman();
+        // $kode_peminjaman = $all[0]['kode_peminjaman'];
+        // $nelayan        = $all[0]['id_nelayan'];
+        // $id_koperasi        = $all[0]['id_koperasi'];
+        // $insertheader = "INSERT INTO `peminjaman_header` (
+        //                     `id_nelayan`,
+        //                     `code`,
+        //                     `id_koperasi`,
+        //                     `total_pinjam`,
+        //                     `created_date`,
+        //                     `created_by`,
+        //                     `modified_date`,
+        //                     `modified_by`
+        //                     )
+        //                     VALUES
+        //                     (
+        //                     $nelayan,
+        //                     '$kode_peminjaman',
+        //                     '$id_koperasi',
+        //                     $total,
+        //                     now(),
+        //                     '$ses_username',
+        //                     now(),
+        //                     '$ses_username'
+        //                     );
+        //                 ";
+        // $q = $this->db->query($insertheader);
 
-        foreach ($all as $a) {
-            $insertdetail = "INSERT INTO `peminjaman_detail` (
-                `id_peminjaman_header`,
-                `id_alat`,
-                `lokasi`,
-                `jumlah_pinjam`,
-                `harga/unit_pinjam`,
-                `status`,
-                `created_date`,
-                `created_by`,
-                `modified_date`,
-                `modified_by`
-                )
-                VALUES
-                (
-                '$id_peminjaman_header',
-                '" . $a['alat_bahan'] . "',
-                '" . $lokasi . "',
-                '" . $a['jumlah'] . "',
-                '" . $a['harga_alat_bahan'] . "',
-                0,
-                now(),
-                '$ses_username',
-                now(),
-                '$ses_username'
-                );
-                ";
-            $w = $this->db->query($insertdetail);
-        }
+        // $querypeminjaman_id      = "SELECT `id_peminjaman_header` FROM `peminjaman_header` WHERE `code` = '$kode_peminjaman';";
+        // $execpeminjaman_id       = $this->db->query($querypeminjaman_id)->result_array();
+        // $id_peminjaman_header    = $execpeminjaman_id[0]['id_peminjaman_header'];
+
+        // foreach ($all as $a) {
+        //     $insertdetail = "INSERT INTO `peminjaman_detail` (
+        //         `id_peminjaman_header`,
+        //         `id_alat`,
+        //         `id_koperasi`,
+        //         `jumlah_pinjam`,
+        //         `harga/unit_pinjam`,
+        //         `status`,
+        //         `created_date`,
+        //         `created_by`,
+        //         `modified_date`,
+        //         `modified_by`
+        //         )
+        //         VALUES
+        //         (
+        //         '$id_peminjaman_header',
+        //         '" . $a['alat_bahan'] . "',
+        //         '" . $id_koperasi . "',
+        //         '" . $a['jumlah'] . "',
+        //         '" . $a['harga_alat_bahan'] . "',
+        //         0,
+        //         now(),
+        //         '$ses_username',
+        //         now(),
+        //         '$ses_username'
+        //         );
+        //         ";
+        //     $w = $this->db->query($insertdetail);
+        // }
         // die;
     }
 
@@ -252,8 +255,9 @@ class M_peminjaman extends ci_Model
     //Process:  DELETE peminjaman dari table peminjmaan header, detail
     public function hapus_peminjaman($id)
     {
-        $querylog1   = "DELETE FROM peminjaman_detail WHERE id_peminjaman='$id';";
-        $run2       = $this->db->query($querylog1);
+        // echo '<pre>' . var_export($id, true) . '</pre>';
+        $querylog1   = "DELETE FROM peminjaman_detail WHERE id_peminjaman_header='$id';";
+        $run1       = $this->db->query($querylog1);
         $querylog2   = "DELETE FROM peminjaman_header WHERE id_peminjaman_header='$id';";
         $run2       = $this->db->query($querylog2);
         // $this->session->set_flashdata('flash', 'Berhasil Dihapus');
@@ -359,15 +363,15 @@ class M_peminjaman extends ci_Model
             "data" => $res,
         );
         $count = 0;
-        foreach($data as $status){
+        foreach($res as $status){
             if($status == 0 ){
                 $count = $count +1 ;
             };
         };
         if ($count > 0){
-            $status = 0;
-        }else{
             $status = 1;
+        }else{
+            $status = 0;
         };
 
         $total_kembali = $this->total_pengembalian($id_peminjaman_header);
@@ -382,7 +386,7 @@ class M_peminjaman extends ci_Model
                         `modified_by` = '$ses_username'
                     WHERE `id_peminjaman_header` = '$id_peminjaman_header';";
         $client2 = $this->db->query($update_header);
-        // return $res;
+        return $res;
     }
 
     //Input:    $id -> id peminjaman

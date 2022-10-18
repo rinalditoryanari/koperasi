@@ -20,7 +20,7 @@ class M_pengembalian extends ci_Model
     //Process:  SELECT data peminjaman di table peminjaman header
     public function index($isall = TRUE, $limit = NULL, $offset = NULL)
     {
-        $asal = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_akun');
         if ($this->session->userdata('tipe_akun') == '0') {
             $id_nelayan  = $this->session->userdata('id_nelayan');
             $ses_nelayan = "AND a.`id_nelayan` = '$id_nelayan'";
@@ -59,7 +59,7 @@ class M_pengembalian extends ci_Model
                     JOIN nelayan b ON a.`id_nelayan` = b.`id`
                     $stringwhere
                     $ses_nelayan
-                    WHERE a.`lokasi` = '$asal'
+                    WHERE a.`id_koperasi` = '$code'
                     AND a.`status` = 1
                     ORDER BY a.`id_peminjaman_header` DESC
                     
@@ -163,71 +163,72 @@ class M_pengembalian extends ci_Model
     {
         // var_dump($all);
         // die;
-        $ses_username   = $this->session->userdata('username');
-        $total          = $this->total_peminjaman();
-        $kode_peminjaman = $all[0]['kode_peminjaman'];
-        $nelayan        = $all[0]['id_nelayan'];
-        $insertheader = "INSERT INTO `peminjaman_header` (
-                            `id_nelayan`,
-                            `code`,
-                            `total_pinjam`,
-                            `created_date`,
-                            `created_by`,
-                            `modified_date`,
-                            `modified_by`
-                            )
-                            VALUES
-                            (
-                            $nelayan,
-                            '$kode_peminjaman',
-                            $total,
-                            now(),
-                            '$ses_username',
-                            now(),
-                            '$ses_username'
-                            );
-                        ";
-        $q = $this->db->query($insertheader);
+       
+        // $ses_username   = $this->session->userdata('username');
+        // $total          = $this->total_peminjaman();
+        // $kode_peminjaman = $all[0]['kode_peminjaman'];
+        // $nelayan        = $all[0]['id_nelayan'];
+        // $insertheader = "INSERT INTO `peminjaman_header` (
+        //                     `id_nelayan`,
+        //                     `code`,
+        //                     `total_pinjam`,
+        //                     `created_date`,
+        //                     `created_by`,
+        //                     `modified_date`,
+        //                     `modified_by`
+        //                     )
+        //                     VALUES
+        //                     (
+        //                     $nelayan,
+        //                     '$kode_peminjaman',
+        //                     $total,
+        //                     now(),
+        //                     '$ses_username',
+        //                     now(),
+        //                     '$ses_username'
+        //                     );
+        //                 ";
+        // $q = $this->db->query($insertheader);
 
-        $querypeminjaman_id      = "SELECT `id_peminjaman_header` FROM `peminjaman_header` WHERE `code` = '$kode_peminjaman';";
-        $execpeminjaman_id       = $this->db->query($querypeminjaman_id)->result_array();
-        $id_peminjaman_header    = $execpeminjaman_id[0]['id_peminjaman_header'];
+        // $querypeminjaman_id      = "SELECT `id_peminjaman_header` FROM `peminjaman_header` WHERE `code` = '$kode_peminjaman';";
+        // $execpeminjaman_id       = $this->db->query($querypeminjaman_id)->result_array();
+        // $id_peminjaman_header    = $execpeminjaman_id[0]['id_peminjaman_header'];
 
-        foreach ($all as $a) {
-            $insertdetail = "INSERT INTO `peminjaman_detail` (
-                `id_peminjaman_header`,
-                `id_alat`,
-                `jumlah_pinjam`,
-                `harga/unit_pinjam`,
-                `status`,
-                `created_date`,
-                `created_by`,
-                `modified_date`,
-                `modified_by`
-                )
-                VALUES
-                (
-                '$id_peminjaman_header',
-                '" . $a['alat_bahan'] . "',
-                '" . $a['jumlah'] . "',
-                '" . $a['harga_alat_bahan'] . "',
-                0,
-                now(),
-                '$ses_username',
-                now(),
-                '$ses_username'
-                );
-                ";
-            // echo $insertdetail;
-            // echo '<br>';
-            $w = $this->db->query($insertdetail);
-        }
-        // die;
+        // foreach ($all as $a) {
+        //     $insertdetail = "INSERT INTO `peminjaman_detail` (
+        //         `id_peminjaman_header`,
+        //         `id_alat`,
+        //         `jumlah_pinjam`,
+        //         `harga/unit_pinjam`,
+        //         `status`,
+        //         `created_date`,
+        //         `created_by`,
+        //         `modified_date`,
+        //         `modified_by`
+        //         )
+        //         VALUES
+        //         (
+        //         '$id_peminjaman_header',
+        //         '" . $a['alat_bahan'] . "',
+        //         '" . $a['jumlah'] . "',
+        //         '" . $a['harga_alat_bahan'] . "',
+        //         0,
+        //         now(),
+        //         '$ses_username',
+        //         now(),
+        //         '$ses_username'
+        //         );
+        //         ";
+        //     // echo $insertdetail;
+        //     // echo '<br>';
+        //     $w = $this->db->query($insertdetail);
+        // }
+        // // die;
     }
 
     public function hapus_peminjaman($id)
     {
-        $querylog1   = "DELETE FROM peminjaman_detail WHERE id_peminjaman='$id';";
+        $querylog1   = "DELETE FROM peminjaman_detail WHERE id_peminjaman_header='$id';";
         $run2       = $this->db->query($querylog1);
         $querylog2   = "DELETE FROM peminjaman_header WHERE id_peminjaman_header='$id';";
         $run2       = $this->db->query($querylog2);

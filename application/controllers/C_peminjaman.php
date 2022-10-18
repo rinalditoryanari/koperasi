@@ -24,8 +24,8 @@ class C_peminjaman extends CI_Controller
             $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
             redirect(site_url('CLogin'));
         } else {
-            $asal = $this->session->userdata('asal');
-            $data['all_peminjaman']   = $this->M_peminjaman->index($asal);
+            $code = $this->session->userdata('code_akun');
+            $data['all_peminjaman']   = $this->M_peminjaman->index($code);
 
             $this->load->view('template/header');
             $this->load->view('template/vsidebar');
@@ -49,9 +49,11 @@ class C_peminjaman extends CI_Controller
             $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
             redirect(site_url('CLogin'));
         } else {
-            $asal = $this->session->userdata('asal');
-            $data['list_nelayan'] = $this->M_peminjaman->list_nelayan($asal);
-            $data['list_alat_bahan'] = $this->M_peminjaman->list_alat($asal);
+            $this->session->set_userdata('keranjang_pinjam', null);
+
+            $code = $this->session->userdata('code_akun');
+            $data['list_nelayan'] = $this->M_peminjaman->list_nelayan($code);
+            $data['list_alat_bahan'] = $this->M_peminjaman->list_alat($code);
             $data['code_peminjaman'] = $this->M_peminjaman->code_peminjaman();
 
             $this->load->view('template/header');
@@ -71,7 +73,7 @@ class C_peminjaman extends CI_Controller
         $alat_bahan         = $_POST['alat_bahan'];
         $nama_alat_bahan    = $_POST['nama_alat_bahan'];
         $jumlah             = $_POST['jumlah'];
-        $lokasi             = $this->session->userdata('asal');
+        $code             = $this->session->userdata('code_akun');
         $harga              = $_POST['harga_alat_bahan'];
         $harga123           = str_replace('.', '', $harga);
         $harga_alat_bahan   = str_replace('Rp ', '', $harga123);
@@ -102,7 +104,7 @@ class C_peminjaman extends CI_Controller
             "jumlah"            => $jumlah,
             "harga_alat_bahan"  => $harga_alat_bahan,
             "total"             => $harga_alat_bahan * $jumlah,
-            "lokasi"            => $lokasi,
+            "id_koperasi"            => $code,
         );
 
         if ($this->session->userdata('keranjang_pinjam')) {
@@ -118,7 +120,7 @@ class C_peminjaman extends CI_Controller
                     'jumlah'             => $as['jumlah'],
                     'harga_alat_bahan'   => $as['harga_alat_bahan'],
                     'total'              => $as['total'],
-                    'lokasi'             => $as['lokasi'],
+                    'id_koperasi'             => $as['id_koperasi'],
                 ];
             }
             $keranjang[$i]        = [
@@ -129,7 +131,7 @@ class C_peminjaman extends CI_Controller
                 'jumlah'                => $jumlah,
                 'harga_alat_bahan'      => $harga_alat_bahan,
                 'total'                 => $harga_alat_bahan * $jumlah,
-                'lokasi'                => $lokasi,
+                'id_koperasi'                => $code,
             ];
             $this->session->set_userdata('keranjang_pinjam', $keranjang);
         } else {
@@ -257,7 +259,10 @@ class C_peminjaman extends CI_Controller
             $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
             redirect(site_url('CLogin'));
         } else {
-            $data['keranjang_pinjam']   = $this->M_peminjaman->keranjang_pinjam($id);
+            $keranjang   = $this->M_peminjaman->keranjang_pinjam($id);
+            $this->session->set_userdata('keranjang_pinjam', $keranjang);
+
+            $data['keranjang_pinjam']   = $keranjang;
             $data['kode_peminjaman']    = $data['keranjang_pinjam'][0]['kode_peminjaman'];
             $data['nelayan']            = $data['keranjang_pinjam'][0]['nama_nelayan'];
             $data['total_biaya_pinjam'] = $data['keranjang_pinjam'][0]['total_peminjaman'];
