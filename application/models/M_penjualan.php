@@ -39,6 +39,7 @@ class M_penjualan extends ci_Model
         isLimit:
 
         $stringwhere = implode(" AND ", $where);
+        $code = $this->session->userdata('code_akun');
 
         $query = "  SELECT
                         a.`id_penjualan_header`,
@@ -49,6 +50,7 @@ class M_penjualan extends ci_Model
                         a.`created_date`
                     FROM `penjualan_header` a
                     JOIN nelayan b ON a.`id_nelayan` = b.`id`
+                    WHERE a.`id_koperasi` = '$code'
                     $stringwhere
                     $ses_nelayan
 
@@ -83,14 +85,14 @@ class M_penjualan extends ci_Model
     //Input:    
     //Output:   list $client -> id, nama, nama_kapal
     //Process:  SELECT daftar nelayan, status 1
-    public function list_nelayan($asal)
+    public function list_nelayan($id_koperasi)
     {
         $pilih_client = "SELECT	
                             `id` as id_nelayan,
                             `nama` as nama_nelayan,
                             `nama_kapal` as kapal_nelayan
                         FROM `nelayan`
-                        WHERE `status` = 1 AND `pelabuhan_bongkar` = '$asal';";
+                        WHERE `status` = 1 AND `id_koperasi` = '$id_koperasi';";
         $client = $this->db->query($pilih_client)->result_array();
 
         return $client;
@@ -99,13 +101,13 @@ class M_penjualan extends ci_Model
     //Input:    
     //Output:   list $client -> id_ikan, nama_ikan, harga_ikan
     //Process:  SELECT daftar ikan di table ikan
-    public function list_ikan($asal)
+    public function list_ikan($id_koperasi)
     {
         $pilih_client = "SELECT
                             `id_ikan`,
                             `nama_ikan`,
                             `harga_ikan`
-                        FROM `ikan` WHERE `lokasi` = '$asal';";
+                        FROM `ikan` WHERE `code_koperasi` = '$id_koperasi';";
         $client = $this->db->query($pilih_client)->result_array();
 
         return $client;
@@ -179,6 +181,7 @@ class M_penjualan extends ci_Model
         $kode_penjualan = $all[0]['kode_penjualan'];
         $nelayan        = $all[0]['nelayan'];
         $lokasi        = $all[0]['lokasi'];
+        $code           = $this->session->userdata('code_akun');
         $insertheader = "INSERT INTO `penjualan_header` (
                             `id_nelayan`,
                             `code`,
@@ -187,7 +190,8 @@ class M_penjualan extends ci_Model
                             `created_date`,
                             `created_by`,
                             `modified_date`,
-                            `modified_by`
+                            `modified_by`,
+                            `id_koperasi`
                         )
                         VALUES
                             (
@@ -198,7 +202,8 @@ class M_penjualan extends ci_Model
                             now(),
                             '$ses_username',
                             now(),
-                            '$ses_username'
+                            '$ses_username',
+                            '$code'
                             );
                         ";
         $q = $this->db->query($insertheader);
@@ -208,7 +213,7 @@ class M_penjualan extends ci_Model
         $id_penjualan_header    = $execpenjualan_id[0]['id_penjualan_header'];
 
         foreach ($all as $a) {
-            $insertdetail = "INSERT INTO `penjualan_detail` ( `id_penjualan`, `id_ikan`, `berat`, `harga/kg`, `created_date`, `created_by`, `modified_date`, `modified_by` ) VALUES ( '$id_penjualan_header', " . $a['ikan'] . ", " . $a['jumlah'] . ", " . $a['harga_ikan'] . ", now(), '$ses_username', now(), '$ses_username' ); ";
+            $insertdetail = "INSERT INTO `penjualan_detail` ( `id_penjualan`, `id_ikan`, `berat`, `harga/kg`, `created_date`, `created_by`, `modified_date`, `modified_by` ) VALUES ( '$id_penjualan_header', " . $a['ikan'] . ", " . $a['jumlah'] . ", " . $a['harga_ikan'] . ", now(), '$ses_username', now(), '$ses_username', '$code' ); ";
             $w = $this->db->query($insertdetail);
         }
     }

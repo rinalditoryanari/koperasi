@@ -49,8 +49,10 @@ class C_penjualan extends CI_Controller
             redirect(site_url('CLogin'));
         } else {
             $asal = $this->session->userdata('asal');
-            $data['list_nelayan'] = $this->M_penjualan->list_nelayan($asal);
-            $data['list_ikan'] = $this->M_penjualan->list_ikan($asal);
+            $id_koperasi =$this->session->userdata('code_akun');
+            // $code = $this->session->userdata('code_koperasi');
+            $data['list_nelayan'] = $this->M_penjualan->list_nelayan($id_koperasi);
+            $data['list_ikan'] = $this->M_penjualan->list_ikan($id_koperasi);
             $data['code_penjualan'] = $this->M_penjualan->code_penjualan();
 
             $this->load->view('template/header');
@@ -148,6 +150,7 @@ class C_penjualan extends CI_Controller
     public function hapus_ikan($kode_penjualan, $nelayan, $ikan, $nama_ikan, $jumlah, $harga_ikan, $total)
     {
         $lokasi = $this->session->userdata('lokasi');
+        $id_koperasi = $this->session->userdata('code_akun');
         $params = array(
             "kode_penjualan" => $kode_penjualan,
             "nelayan"       => $nelayan,
@@ -156,7 +159,8 @@ class C_penjualan extends CI_Controller
             "jumlah"        => $jumlah,
             "harga_ikan"    => $harga_ikan,
             "total"         => $total,
-            "lokasi"        => $this->session->userdata('lokasi')
+            "lokasi"        => $this->session->userdata('lokasi'),
+            "id_koperasi"   => $this->session->userdata('code_akun')
         );
 
         $all    = $this->session->userdata('ikan_keranjang');
@@ -172,6 +176,8 @@ class C_penjualan extends CI_Controller
                 $as['harga_ikan'] == $harga_ikan &&
                 $as['total'] == $total &&
                 $as['lokasi'] == $lokasi &&
+                $as('id_koperasi') == $id_koperasi &&
+
                 $loop == 0
             ) {
                 $loop = 1;
@@ -185,7 +191,8 @@ class C_penjualan extends CI_Controller
                     'jumlah'            => $as['jumlah'],
                     'harga_ikan'        => $as['harga_ikan'],
                     'total'             => $as['total'],
-                    'lokasi'            => $as['lokasi']
+                    'lokasi'            => $as['lokasi'],
+                    'id_koperasi' => $as['id_koperasi']
                 ];
             }
         };
