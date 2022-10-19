@@ -109,7 +109,7 @@ class M_peminjaman extends ci_Model
     //Process:  SELECT di alat
     public function list_alat($code)
     {
-        $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` WHERE `code_koperasi` = '$code';";
+        $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` WHERE `id_koperasi` = '$code';";
         
         $client = $this->db->query($pilih_client)->result_array();
         return $client;

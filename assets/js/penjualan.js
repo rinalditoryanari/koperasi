@@ -45,7 +45,7 @@ $(document).ready(function() {
 					}else{
 						document.getElementById("ikan").value = '';
 						document.getElementById("jumlah").value = '';
-						document.getElementById("harga_ikan").value = '';
+						// document.getElementById("harga_ikan").value = '';
 						
 						var tablePreview = $("#ikan_form_input tbody");
 						var strContent;
