@@ -12,7 +12,6 @@ $(document).ready(function() {
 			var kode_penjualan = $("#kode_penjualan").val();
 			var id_nelayan = $("#nelayan").val();
 			var id_ikan = $("#ikan").val();
-			// var nama_ikan = $("#ikan").getAttribute('data-nama_ikan');
 			var jumlah = $("#jumlah").val();
 			var harga_ikan = $("#harga_ikan").val();
 			var active = document.getElementById("ikan");
@@ -52,7 +51,8 @@ $(document).ready(function() {
 						var strContent;
 						tablePreview.empty();
 						for (let i = 0; i < res.length; i++) {
-							fungsi2 = "delete_detail("+res[i].kode_penjualan+","+res[i].nelayan +","+ res[i].ikan +","+ res[i].nama_ikan +","+ res[i].jumlah +","+ res[i].harga_ikan +","+ res[i].total+")";
+							// fungsi2 = "delete_detail("+res[i].kode_penjualan+","+res[i].nelayan +","+ res[i].ikan +","+ res[i].nama_ikan +","+ res[i].jumlah +","+ res[i].harga_ikan +","+ res[i].total+")";
+							fungsi2 = "delete_detail("+i+")";
 							// alert(fungsi2);
 							strContent = "<tr>";
 							strContent = strContent + "<td align='center'>" + res[i].nama_ikan + "</td>";
@@ -60,7 +60,7 @@ $(document).ready(function() {
 							strContent = strContent + "<td align='right'>" + formatRupiah(res[i].harga_ikan, "Rp. ") + "</td>";
 							strContent = strContent + "<td align='right'>" + formatRupiah(res[i].total, "Rp. ") + "</td>";
 							strContent = strContent + "<td align='center'>";
-							strContent = strContent + '<a class="tombol-hapus" name="detail_data" data-kode_penjualan="'+res[i].kode_penjualan+'" data-nelayan="'+res[i].nelayan+'" data-ikan="'+res[i].ikan+'" data-nama_ikan="'+res[i].nama_ikan+'" data-jumlah="'+res[i].jumlah+'" data-harga_ikan="'+res[i].harga_ikan+'" data-total="'+res[i].total+'" href ="javascript:;" onclick="'+fungsi2+'"  style="color : blue;"><i class="fas fa-trash"></i></a>';
+							strContent = strContent + '<a class="tombol-hapus" name="detail_data" href ="javascript:;" onclick="'+fungsi2+'"  style="color : blue;"><i class="fas fa-trash"></i></a>';
 
 							// strContent = strContent + '<a class="tombol-hapus" href ="javascript:;"  style="color : blue;" onclick="'+fungsi2+'"><i class="fas fa-trash"></i></a>';
 							strContent = strContent + "</td>";
@@ -92,13 +92,14 @@ $(document).ready(function() {
 //Output:   
 //Process:  POST ke C_penjualan/hapus_ikan
 //			Re-Add row di table 'Ikan Yang Dijual Oleh Nelayan'
-function delete_detail(kode_penjualan,nelayan,ikan,nama_ikan,jumlah,harga_ikan,total){
+function delete_detail(id){
 	if(confirm('Are you sure?'))
 	{
 		var uri = document.baseURI;
 		var nexturi = uri.replace("form_penjualan", "hapus_ikan");
 		var nexturi1 = nexturi.replace("#", "");
-		var urladaw = nexturi1+'/'+kode_penjualan+'/'+nelayan+'/'+ikan+'/'+nama_ikan+'/'+jumlah+'/'+harga_ikan+'/'+total;
+		// var urladaw = nexturi1;
+		var urladaw = nexturi1+'/'+id;
 
 		// alert(kode_penjualan);
 		$.ajax({
@@ -106,13 +107,7 @@ function delete_detail(kode_penjualan,nelayan,ikan,nama_ikan,jumlah,harga_ikan,t
 			async: false,
 			cache: false,
 			data: {
-				kode_penjualan:kode_penjualan,
-				nelayan:nelayan,
-				ikan:ikan,
-				nama_ikan:nama_ikan,
-				jumlah:jumlah,
-				harga_ikan:harga_ikan,
-				total:total
+				'id': id 
 			},
 			type: 'POST',
 			processData: false,
@@ -122,7 +117,8 @@ function delete_detail(kode_penjualan,nelayan,ikan,nama_ikan,jumlah,harga_ikan,t
 				$('.preloader').fadeIn();
 			},
 			success: function(res) {
-				// alert('a');
+				console.log(res);
+				alert('a');
 				document.getElementById("ikan").value = '';
 				document.getElementById("jumlah").value = '';
 				// document.getElementById("harga_ikan").value = '';
@@ -131,7 +127,7 @@ function delete_detail(kode_penjualan,nelayan,ikan,nama_ikan,jumlah,harga_ikan,t
 				var strContent;
 				tablePreview.empty();
 				for (let i = 0; i < res.length; i++) {
-					fungsi2 = "delete_detail("+res[i].kode_penjualan+","+res[i].nelayan +","+ res[i].ikan +","+ res[i].nama_ikan +","+ res[i].jumlah +","+ res[i].harga_ikan +","+ res[i].total+")";
+					fungsi2 = "delete_detail("+i+")";
 					strContent = "<tr>";
 					strContent = strContent + "<td align='center'>" + res[i].nama_ikan + "</td>";
 					strContent = strContent + "<td align='center'>" + res[i].jumlah + "</td>";

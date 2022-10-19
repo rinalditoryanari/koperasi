@@ -48,7 +48,7 @@ class C_penjualan extends CI_Controller
             $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
             redirect(site_url('CLogin'));
         } else {
-            $asal = $this->session->userdata('asal');
+            $this->session->set_userdata('ikan_keranjang', null);
             $id_koperasi =$this->session->userdata('code_akun');
             // $code = $this->session->userdata('code_koperasi');
             $data['list_nelayan'] = $this->M_penjualan->list_nelayan($id_koperasi);
@@ -72,7 +72,7 @@ class C_penjualan extends CI_Controller
         $ikan               = $_POST['ikan'];
         $nama_ikan          = $_POST['nama_ikan'];
         $jumlah             = $_POST['jumlah'];
-        $lokasi             = $this->session->userdata('asal');
+        $code               = $this->session->userdata('code_akun');
         $harga              = $_POST['harga_ikan'];
         $harga123           = str_replace('.', '', $harga);
         $harga_ikan         = str_replace('Rp ', '', $harga123);
@@ -103,7 +103,7 @@ class C_penjualan extends CI_Controller
             "jumlah"        => $jumlah,
             "harga_ikan"    => $harga_ikan,
             "total"         => $harga_ikan * $jumlah,
-            "lokasi"        => $lokasi
+            "id_koperasi"        => $code
         );
 
         if ($this->session->userdata('ikan_keranjang')) {
@@ -119,7 +119,7 @@ class C_penjualan extends CI_Controller
                     'jumlah'            => $as['jumlah'],
                     'harga_ikan'        => $as['harga_ikan'],
                     'total'             => $as['total'],
-                    'lokasi'            => $as['lokasi']
+                    'id_koperasi'            => $as['id_koperasi']
                 ];
             }
             $keranjang[$i]        = [
@@ -130,7 +130,7 @@ class C_penjualan extends CI_Controller
                 'jumlah'            => $jumlah,
                 'harga_ikan'        => $harga_ikan,
                 'total'             => $harga_ikan * $jumlah,
-                'lokasi'            => $lokasi
+                'id_koperasi'            => $code
             ];
             $this->session->set_userdata('ikan_keranjang', $keranjang);
         } else {
@@ -140,6 +140,7 @@ class C_penjualan extends CI_Controller
             );
             $this->session->set_userdata('ikan_keranjang', $keranjang);
         }
+
         // return $this->session->userdata('ikan_keranjang');
         die(json_encode($this->session->userdata('ikan_keranjang')));
     }
@@ -147,56 +148,14 @@ class C_penjualan extends CI_Controller
     //Input:    post kode_penjualan, nealyan, ikan, nama_ikan, jumlah, harga_ikan
     //Output:   
     //Process:  re-set session ikan_keranjang
-    public function hapus_ikan($kode_penjualan, $nelayan, $ikan, $nama_ikan, $jumlah, $harga_ikan, $total)
+    public function hapus_ikan($idd)
     {
-        $lokasi = $this->session->userdata('lokasi');
-        $id_koperasi = $this->session->userdata('code_akun');
-        $params = array(
-            "kode_penjualan" => $kode_penjualan,
-            "nelayan"       => $nelayan,
-            "ikan"          => $ikan,
-            "nama_ikan"     => $nama_ikan,
-            "jumlah"        => $jumlah,
-            "harga_ikan"    => $harga_ikan,
-            "total"         => $total,
-            "lokasi"        => $this->session->userdata('lokasi'),
-            "id_koperasi"   => $this->session->userdata('code_akun')
-        );
-
-        $all    = $this->session->userdata('ikan_keranjang');
-        $keranjang              = [];
-        $loop                   = 0;
-        foreach ($all as $as) {
-            if (
-                $as['kode_penjualan'] == $kode_penjualan &&
-                $as['nelayan'] == $nelayan &&
-                $as['ikan'] == $ikan &&
-                $as['nama_ikan'] == $nama_ikan &&
-                $as['jumlah'] == $jumlah &&
-                $as['harga_ikan'] == $harga_ikan &&
-                $as['total'] == $total &&
-                $as['lokasi'] == $lokasi &&
-                $as('id_koperasi') == $id_koperasi &&
-
-                $loop == 0
-            ) {
-                $loop = 1;
-                continue;
-            } else {
-                $keranjang[]        = [
-                    'kode_penjualan'    => $as['kode_penjualan'],
-                    'nelayan'           => $as['nelayan'],
-                    'ikan'              => $as['ikan'],
-                    'nama_ikan'         => $as['nama_ikan'],
-                    'jumlah'            => $as['jumlah'],
-                    'harga_ikan'        => $as['harga_ikan'],
-                    'total'             => $as['total'],
-                    'lokasi'            => $as['lokasi'],
-                    'id_koperasi' => $as['id_koperasi']
-                ];
-            }
-        };
-        $this->session->set_userdata('ikan_keranjang', $keranjang);
+        $keranjang = $this->session->userdata('ikan_keranjang');
+        $id = $this->input->post('id');
+        // $keranjangg = array_slice($keranjang,$idd,1);
+        unset($keranjang[$idd]);
+        $keranjangg = array_values($keranjang);
+        $this->session->set_userdata('ikan_keranjang', $keranjangg);
         die(json_encode($this->session->userdata('ikan_keranjang')));
     }
 
