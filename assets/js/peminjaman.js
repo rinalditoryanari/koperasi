@@ -4,7 +4,6 @@ $(document).ready(function() {
     //Process:  POST ke C_penjualan/simpan_alat_bahan
 	//			Add row di table 'Ikan Yang Dijual Oleh Nelayan'
     $("#tambah_alat_bahan").click(function(e) {
-		console.log('as')
 		e.preventDefault();
 		var formDataUpload = $('#formDataUpload');
 		var formAction = $('#formDataUpload').data('url');
@@ -27,7 +26,6 @@ $(document).ready(function() {
 			formData.append("nama_alat_bahan", nama_alat_bahan);
 			formData.append("jumlah", jumlah);
 			formData.append("harga_alat_bahan", harga_alat_bahan);
-			console.log(formData);
 			$.ajax({
 				url: formAction,
 				async: false,
@@ -47,12 +45,13 @@ $(document).ready(function() {
 					}else{
 						document.getElementById("alat_bahan").value = '';
 						document.getElementById("jumlah").value = '';
+						document.getElementById("harga_alat_bahan").value = '';
 						
 						var tablePreview = $("#alat_bahan_form_input tbody");
 						var strContent;
 						tablePreview.empty();
 						for (let i = 0; i < res.length; i++) {
-							fungsi2 = "delete_detail("+res[i].kode_peminjaman+","+res[i].id_nelayan +","+ res[i].id_koperasi +","+  res[i].alat_bahan +","+ res[i].nama_alat_bahan +","+ res[i].jumlah +","+ res[i].harga_alat_bahan +","+ res[i].total+")";
+							fungsi2 = "delete_detail("+i+")";
 							// alert(fungsi2);
 							strContent = "<tr>";
 							strContent = strContent + "<td align='center'>" + res[i].nama_alat_bahan + "</td>";
@@ -61,10 +60,9 @@ $(document).ready(function() {
 							strContent = strContent + "<td align='right'>" + formatRupiah(res[i].harga_alat_bahan, "Rp. ") + "</td>";
 							strContent = strContent + "<td align='right'>" + formatRupiah(res[i].total, "Rp. ") + "</td>";
 							strContent = strContent + "<td align='center'>";
-							strContent = strContent + '<a class="tombol-hapus" name="detail_data" data-kode_peminjaman="'+res[i].kode_peminjaman+'" data-id_nelayan="'+res[i].id_nelayan+'" data-alat_bahan="'+res[i].alat_bahan+'" data-nama_alat_bahan="'+res[i].nama_alat_bahan+'" data-jumlah="'+res[i].jumlah+'" data-harga_alat_bahan="'+res[i].harga_alat_bahan+'" data-total="'+res[i].total+'" href ="javascript:;" onclick="'+fungsi2+'"  style="color : blue;"><i class="fas fa-trash"></i></a>';
+							strContent = strContent + '<a class="tombol-hapus" name="detail_data" href ="javascript:;" onclick="'+fungsi2+'"  style="color : blue;"><i class="fas fa-trash"></i></a>';
 							strContent = strContent + "</td>";
 							strContent = strContent + "</tr>";
-							console.log(strContent);							
 							tablePreview.append(strContent);
 						}
 						document.getElementById("nelayan").setAttribute("disabled", "disabled");
@@ -113,7 +111,6 @@ function tambah() {
 			formData.append("nama_alat_bahan", nama_alat_bahan);
 			formData.append("jumlah", jumlah);
 			formData.append("harga_alat_bahan", harga_alat_bahan);
-			console.log(formData);
 			// $.ajax({
 			// 	url: formAction,
 			// 	async: false,
@@ -223,6 +220,60 @@ function delete_detail(kode_peminjaman,id_nelayan,lokasi,alat_bahan,nama_alat_ba
 		});
 	}
 }
+
+function delete_detail(id){
+	if(confirm('Are you sure?'))
+	{
+		var uri = document.baseURI;
+		var nexturi = uri.replace("form_peminjaman", "hapus_alat_bahan");
+		var nexturi1 = nexturi.replace("#", "");
+		var urladaw = nexturi1+'/'+id;
+
+		// alert(kode_penjualan);
+		$.ajax({
+			url: urladaw,
+			async: false,
+			cache: false,
+			data: {
+				'id': id
+			},
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			beforeSend: function() {
+				$('.preloader').fadeIn();
+			},
+			success: function(res) {
+				console.log(res);
+
+				document.getElementById("alat_bahan").value = '';
+				document.getElementById("jumlah").value = '';
+				
+				var tablePreview = $("#alat_bahan_form_input tbody");
+				var strContent;
+				tablePreview.empty();
+				for (let i = 0; i < res.length; i++) {
+					fungsi2 = "delete_detail("+i+")";
+					strContent = "<tr>";
+					strContent = strContent + "<td align='center'>" + res[i].nama_alat_bahan + "</td>";
+					strContent = strContent + "<td align='center'>" + res[i].lokasi + "</td>";
+					strContent = strContent + "<td align='center'>" + res[i].jumlah + "</td>";
+					strContent = strContent + "<td align='right'>" + formatRupiah(res[i].harga_alat_bahan, "Rp. ") + "</td>";
+					strContent = strContent + "<td align='right'>" + formatRupiah(res[i].total, "Rp. ") + "</td>";
+					strContent = strContent + "<td align='center'>";
+					strContent = strContent + '<a class="tombol-hapus" name="detail_data" href ="javascript:;" onclick="'+fungsi2+'"  style="color : blue;"><i class="fas fa-trash"></i></a>';
+					strContent = strContent + "</td>";
+					strContent = strContent + "</tr>";							
+					tablePreview.append(strContent);
+				}
+				document.getElementById("nelayan").setAttribute("disabled", "disabled");
+				alert("Berhasil Hapus Alat/Bahan!\nKlik Finish Untuk Lanjut Pembayaran");        
+			}
+		});
+	}
+}
+
 
 //Input:    evt -> event
 //Output:   boolean

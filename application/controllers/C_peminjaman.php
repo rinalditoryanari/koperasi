@@ -148,59 +148,16 @@ class C_peminjaman extends CI_Controller
     //Input:    $kode_peminjaman, $id_nelayan, $alat_bahan, $nama_alat_bahan, $jumlah, $harga_alat_bahan, $total
     //Output:   
     //Process:  re set session userdata keranjang_pinjam
-    public function hapus_alat_bahan($kode_peminjaman, $id_nelayan, $alat_bahan, $nama_alat_bahan, $jumlah, $harga_alat_bahan, $total)
+
+    public function hapus_ikan($idd)
     {
-        $lokasi = $this->session->userdata('lokasi');
-        $params = array(
-            "kode_peminjaman"   => $kode_peminjaman,
-            "id_nelayan"        => $id_nelayan,
-            "alat_bahan"        => $alat_bahan,
-            "nama_alat_bahan"   => $nama_alat_bahan,
-            "jumlah"            => $jumlah,
-            "harga_alat_bahan"  => $harga_alat_bahan,
-            "total"             => $total,
-            "lokasi"            => $this->session->userdata('lokasi'),
-        );
-
-        $params = str_replace('%20', ' ', $params);
-        $nama_alat_bahan = str_replace('%20', ' ', $nama_alat_bahan);
-
-        // var_dump($params);
-
-        $all    = $this->session->userdata('keranjang_pinjam');
-        $keranjang              = [];
-        $loop                   = 0;
-        foreach ($all as $as) {
-            // var_dump($as);
-            // die;
-            if (
-                $as['kode_peminjaman'] == $kode_peminjaman &&
-                $as['id_nelayan'] == $id_nelayan &&
-                $as['alat_bahan'] == $alat_bahan &&
-                $as['nama_alat_bahan'] == $nama_alat_bahan &&
-                $as['jumlah'] == $jumlah &&
-                $as['harga_alat_bahan'] == $harga_alat_bahan &&
-                $as['total'] == $total &&
-                $as['lokasi'] == $lokasi &&
-                $loop == 0
-            ) {
-                $loop = 1;
-                continue;
-            } else {
-                $keranjang[]        = [
-                    'kode_peminjaman'       => $as['kode_peminjaman'],
-                    'id_nelayan'            => $as['id_nelayan'],
-                    'alat_bahan'            => $as['alat_bahan'],
-                    'nama_alat_bahan'       => $as['nama_alat_bahan'],
-                    'jumlah'                => $as['jumlah'],
-                    'harga_alat_bahan'      => $as['harga_alat_bahan'],
-                    'total'                 => $as['total'],
-                    'lokasi'                => $as['lokasi']
-                ];
-            }
-        };
-        $this->session->set_userdata('keranjang_pinjam', $keranjang);
-        die(json_encode($this->session->userdata('keranjang_pinjam')));
+        $keranjang = $this->session->userdata('ikan_keranjang');
+        $id = $this->input->post('id');
+        // $keranjangg = array_slice($keranjang,$idd,1);
+        unset($keranjang[$idd]);
+        $keranjangg = array_values($keranjang);
+        $this->session->set_userdata('ikan_keranjang', $keranjangg);
+        die(json_encode($this->session->userdata('ikan_keranjang')));
     }
 
     //Input:    func M_peminjaman total_peminjaman(), func M_peminjaman get_nelayan

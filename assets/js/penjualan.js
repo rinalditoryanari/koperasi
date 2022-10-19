@@ -45,13 +45,12 @@ $(document).ready(function() {
 					}else{
 						document.getElementById("ikan").value = '';
 						document.getElementById("jumlah").value = '';
-						// document.getElementById("harga_ikan").value = '';
+						document.getElementById("harga_ikan").value = '';
 						
 						var tablePreview = $("#ikan_form_input tbody");
 						var strContent;
 						tablePreview.empty();
 						for (let i = 0; i < res.length; i++) {
-							// fungsi2 = "delete_detail("+res[i].kode_penjualan+","+res[i].nelayan +","+ res[i].ikan +","+ res[i].nama_ikan +","+ res[i].jumlah +","+ res[i].harga_ikan +","+ res[i].total+")";
 							fungsi2 = "delete_detail("+i+")";
 							// alert(fungsi2);
 							strContent = "<tr>";
@@ -61,8 +60,6 @@ $(document).ready(function() {
 							strContent = strContent + "<td align='right'>" + formatRupiah(res[i].total, "Rp. ") + "</td>";
 							strContent = strContent + "<td align='center'>";
 							strContent = strContent + '<a class="tombol-hapus" name="detail_data" href ="javascript:;" onclick="'+fungsi2+'"  style="color : blue;"><i class="fas fa-trash"></i></a>';
-
-							// strContent = strContent + '<a class="tombol-hapus" href ="javascript:;"  style="color : blue;" onclick="'+fungsi2+'"><i class="fas fa-trash"></i></a>';
 							strContent = strContent + "</td>";
 							strContent = strContent + "</tr>";							
 							tablePreview.append(strContent);

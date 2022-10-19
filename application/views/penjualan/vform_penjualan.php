@@ -89,7 +89,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Harga Ikan Per Kg</label>
                                         <div class="col-sm-8">
-                                            <input style="text-align: right;" type="text" class="form-control" id="harga_ikan" name="harga_ikan" disabled>
+                                            <input style="text-align: right;" type="text" class="form-control" id="harga_ikan" name="harga_ikan" readonly>
                                         </div>
                                     </div>
                                     <div class="card">
