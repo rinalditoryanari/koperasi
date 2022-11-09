@@ -61,7 +61,7 @@ class C_alatbahan extends CI_Controller
             'satuan'                     => $this->input->post('satuan'),
             'harga_per_unit'             => $this->input->post('harga_per_unit'),
             'lokasi'                     => $this->session->userdata('asal'),
-            'code_koperasi'              => $this->session->userdata('code_akun'),
+            'id_koperasi'              => $this->session->userdata('code_akun'),
         );
         // echo '<pre>' . var_export($data, true) . '</pre>';
 

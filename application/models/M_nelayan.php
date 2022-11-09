@@ -128,7 +128,8 @@ class M_nelayan extends ci_Model
     //Process:  SELECT data nelayan
     public function download_nelayan()
     {
-        $query = "SELECT nama,nama_kapal,jenis_kapal,GT,id_alat,daerah_tangkap,tanda_pas,pelabuhan_bongkar,keterangan  FROM `nelayan`
+        $code = $this->session->userdata('code_akun');
+        $query = "SELECT nama,nama_kapal,jenis_kapal,GT,id_alat,daerah_tangkap,tanda_pas,pelabuhan_bongkar,keterangan  FROM `nelayan` WHERE `id_koperasi` = '$code';
         ";
          return  $this->db->query($query)->result();
     }
@@ -138,7 +139,8 @@ class M_nelayan extends ci_Model
     //Process:  SELECT alat di table alat
     public function list_alat()
     {
-        $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` ;";
+        $code = $this->session->userdata('code_akun');
+        $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat`  WHERE `id_koperasi` = '$code';";
         $client = $this->db->query($pilih_client)->result_array();
         return $client;
     }

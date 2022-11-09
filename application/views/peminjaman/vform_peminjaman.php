@@ -54,9 +54,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">Koperasi</label>
+                                        <label class="col-sm-4 col-form-label">Lokasi</label>
                                         <div class="col-sm-8">
-                                            <input value="<?php echo $this->session->userdata('code_akun') ?>" type="text" class="form-control" id="koperasi" name="koperasi" disabled>
+                                            <input value="<?php echo $this->session->userdata('asal') ?>" type="text" class="form-control" id="lokasi" name="lokasi" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -112,7 +112,7 @@
                                 <thead>
                                     <tr>
                                         <th align="center">Nama Alat/Bahan</th>
-                                        <th align="center">Koperasi</th>
+                                        <th align="center">Lokasi</th>
                                         <th align="center">Jumlah</th>
                                         <th align="center">Harga per unit</th>
                                         <th align="center">Total</th>

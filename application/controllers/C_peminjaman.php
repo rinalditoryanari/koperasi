@@ -25,7 +25,8 @@ class C_peminjaman extends CI_Controller
             redirect(site_url('CLogin'));
         } else {
             $code = $this->session->userdata('code_akun');
-            $data['all_peminjaman']   = $this->M_peminjaman->index($code);
+            $code_koperasi = $this->session->userdata('code_koperasi');
+            $data['all_peminjaman']   = $this->M_peminjaman->index($code_koperasi);
 
             $this->load->view('template/header');
             $this->load->view('template/vsidebar');
@@ -52,8 +53,9 @@ class C_peminjaman extends CI_Controller
             $this->session->set_userdata('keranjang_pinjam', null);
 
             $code = $this->session->userdata('code_akun');
-            $data['list_nelayan'] = $this->M_peminjaman->list_nelayan($code);
-            $data['list_alat_bahan'] = $this->M_peminjaman->list_alat($code);
+            $code_koperasi = $this->session->userdata('code_koperasi');
+            $data['list_nelayan'] = $this->M_peminjaman->list_nelayan($code_koperasi);
+            $data['list_alat_bahan'] = $this->M_peminjaman->list_alat($code_koperasi);
             $data['code_peminjaman'] = $this->M_peminjaman->code_peminjaman();
 
             $this->load->view('template/header');
@@ -149,15 +151,15 @@ class C_peminjaman extends CI_Controller
     //Output:   
     //Process:  re set session userdata keranjang_pinjam
 
-    public function hapus_ikan($idd)
+    public function hapus_alat_bahan($idd)
     {
-        $keranjang = $this->session->userdata('ikan_keranjang');
+        $keranjang = $this->session->userdata('keranjang_pinjam');
         $id = $this->input->post('id');
         // $keranjangg = array_slice($keranjang,$idd,1);
         unset($keranjang[$idd]);
         $keranjangg = array_values($keranjang);
-        $this->session->set_userdata('ikan_keranjang', $keranjangg);
-        die(json_encode($this->session->userdata('ikan_keranjang')));
+        $this->session->set_userdata('keranjang_pinjam', $keranjangg);
+        die(json_encode($this->session->userdata('keranjang_pinjam')));
     }
 
     //Input:    func M_peminjaman total_peminjaman(), func M_peminjaman get_nelayan
@@ -181,6 +183,25 @@ class C_peminjaman extends CI_Controller
             $this->load->view('template/header');
             $this->load->view('template/vsidebar');
             $this->load->view('peminjaman/vform_pinjamkan', $data);
+            $this->load->view('template/footer');
+        }
+    }
+
+    public function balikin(){
+        if ($this->session->userdata("akun_id") == "") {
+            $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
+            redirect(site_url('CLogin'));
+        } else {
+            $data['keranjang_pinjam'] = $this->session->userdata('keranjang_pinjam');
+            // var_dump($data['keranjang_pinjam']);
+            // die;
+            $data['total_biaya']    = $this->M_peminjaman->total_peminjaman();
+            $data['kode_peminjaman'] = $data['keranjang_pinjam'][0]['kode_peminjaman'];
+            $datanama               = $this->M_peminjaman->get_nelayan($data['keranjang_pinjam'][0]['id_nelayan']);
+            $data['nelayan']        = $datanama[0]['nama'];
+            $this->load->view('template/header');
+            $this->load->view('template/vsidebar');
+            $this->load->view('peminjaman/vdetail_peminjaman_after',$data);
             $this->load->view('template/footer');
         }
     }
@@ -217,6 +238,7 @@ class C_peminjaman extends CI_Controller
             redirect(site_url('CLogin'));
         } else {
             $keranjang   = $this->M_peminjaman->keranjang_pinjam($id);
+            // var_dump($keranjang);
             $this->session->set_userdata('keranjang_pinjam', $keranjang);
 
             $data['keranjang_pinjam']   = $keranjang;

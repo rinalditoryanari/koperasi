@@ -21,6 +21,7 @@ class M_pengembalian extends ci_Model
     public function index($isall = TRUE, $limit = NULL, $offset = NULL)
     {
         $code = $this->session->userdata('code_akun');
+        $code_koperasi = $this->session->userdata('code_koperasi');
         if ($this->session->userdata('tipe_akun') == '0') {
             $id_nelayan  = $this->session->userdata('id_nelayan');
             $ses_nelayan = "AND a.`id_nelayan` = '$id_nelayan'";
@@ -59,7 +60,7 @@ class M_pengembalian extends ci_Model
                     JOIN nelayan b ON a.`id_nelayan` = b.`id`
                     $stringwhere
                     $ses_nelayan
-                    WHERE a.`id_koperasi` = '$code'
+                    WHERE a.`id_koperasi` = '$code_koperasi'
                     AND a.`status` = 1
                     ORDER BY a.`id_peminjaman_header` DESC
                     

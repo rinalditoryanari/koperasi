@@ -40,7 +40,8 @@ class M_peminjaman extends ci_Model
         isLimit:
 
         $stringwhere = implode(" AND ", $where);
-
+        $code = $this->session->userdata('code_akun');
+        $code_koperasi = $this->session->userdata('code_koperasi');
         $query = "  SELECT
                         a.`id_peminjaman_header`,
                         a.`id_nelayan`,
@@ -57,7 +58,7 @@ class M_peminjaman extends ci_Model
                     JOIN nelayan b ON a.`id_nelayan` = b.`id`
                     $stringwhere
                     $ses_nelayan
-                    WHERE a.`id_koperasi` = '$code'
+                    WHERE a.`id_koperasi` = '$code_koperasi'
                     AND a.`status` = 0
                     ORDER BY a.`id_peminjaman_header` DESC
                     
@@ -109,7 +110,7 @@ class M_peminjaman extends ci_Model
     //Process:  SELECT di alat
     public function list_alat($code)
     {
-        $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` WHERE `code_koperasi` = '$code';";
+        $pilih_client = "SELECT `id_alat`, `nama` as nama_alat, `jenis`, `satuan`, `harga_per_unit` FROM `alat` WHERE `id_koperasi` = '$code';";
         
         $client = $this->db->query($pilih_client)->result_array();
         return $client;
@@ -185,69 +186,79 @@ class M_peminjaman extends ci_Model
         // var_dump($all);
         // die;
 
-        // $ses_username   = $this->session->userdata('username');
-        // $total          = $this->total_peminjaman();
-        // $kode_peminjaman = $all[0]['kode_peminjaman'];
-        // $nelayan        = $all[0]['id_nelayan'];
-        // $id_koperasi        = $all[0]['id_koperasi'];
-        // $insertheader = "INSERT INTO `peminjaman_header` (
-        //                     `id_nelayan`,
-        //                     `code`,
-        //                     `id_koperasi`,
-        //                     `total_pinjam`,
-        //                     `created_date`,
-        //                     `created_by`,
-        //                     `modified_date`,
-        //                     `modified_by`
-        //                     )
-        //                     VALUES
-        //                     (
-        //                     $nelayan,
-        //                     '$kode_peminjaman',
-        //                     '$id_koperasi',
-        //                     $total,
-        //                     now(),
-        //                     '$ses_username',
-        //                     now(),
-        //                     '$ses_username'
-        //                     );
-        //                 ";
-        // $q = $this->db->query($insertheader);
+        $ses_username   = $this->session->userdata('username');
+        $total          = $this->total_peminjaman();
+        $kode_peminjaman = $all[0]['kode_peminjaman'];
+        $nelayan        = $all[0]['id_nelayan'];
+        $id_koperasi        = $all[0]['id_koperasi'];
+        $lokasi = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_koperasi');
 
-        // $querypeminjaman_id      = "SELECT `id_peminjaman_header` FROM `peminjaman_header` WHERE `code` = '$kode_peminjaman';";
-        // $execpeminjaman_id       = $this->db->query($querypeminjaman_id)->result_array();
-        // $id_peminjaman_header    = $execpeminjaman_id[0]['id_peminjaman_header'];
+        $insertheader = "INSERT INTO `peminjaman_header` (
+                            `id_nelayan`,
+                            `code`,
+                            `lokasi`,
+                            `id_koperasi`,
+                            `total_pinjam`,
+                            `created_date`,
+                            `created_by`,
+                            `modified_date`,
+                            `modified_by`
+                            
+                            )
+                            VALUES
+                            (
+                            $nelayan,
+                            '$kode_peminjaman',
+                            '$lokasi',
+                            '$code',
+                            $total,
+                            now(),
+                            '$ses_username',
+                            now(),
+                            '$ses_username'
+                            
+                            );
+                        ";
+        $q = $this->db->query($insertheader);
 
-        // foreach ($all as $a) {
-        //     $insertdetail = "INSERT INTO `peminjaman_detail` (
-        //         `id_peminjaman_header`,
-        //         `id_alat`,
-        //         `id_koperasi`,
-        //         `jumlah_pinjam`,
-        //         `harga/unit_pinjam`,
-        //         `status`,
-        //         `created_date`,
-        //         `created_by`,
-        //         `modified_date`,
-        //         `modified_by`
-        //         )
-        //         VALUES
-        //         (
-        //         '$id_peminjaman_header',
-        //         '" . $a['alat_bahan'] . "',
-        //         '" . $id_koperasi . "',
-        //         '" . $a['jumlah'] . "',
-        //         '" . $a['harga_alat_bahan'] . "',
-        //         0,
-        //         now(),
-        //         '$ses_username',
-        //         now(),
-        //         '$ses_username'
-        //         );
-        //         ";
-        //     $w = $this->db->query($insertdetail);
-        // }
-        // die;
+        $querypeminjaman_id      = "SELECT `id_peminjaman_header` FROM `peminjaman_header` WHERE `code` = '$kode_peminjaman';";
+        $execpeminjaman_id       = $this->db->query($querypeminjaman_id)->result_array();
+        $id_peminjaman_header    = $execpeminjaman_id[0]['id_peminjaman_header'];
+
+
+        foreach ($all as $a) {
+            $insertdetail = "INSERT INTO `peminjaman_detail` (
+                `id_peminjaman_header`,
+                `lokasi`,
+                `id_alat`,
+                `jumlah_pinjam`,
+                `harga/unit_pinjam`,
+                `status`,
+                `created_date`,
+                `created_by`,
+                `modified_date`,
+                `modified_by`,
+                `id_koperasi`
+                )
+                VALUES
+                (
+                '$id_peminjaman_header',
+                '$lokasi',
+                '" . $a['alat_bahan'] . "',
+                '" . $a['jumlah'] . "',
+                '" . $a['harga_alat_bahan'] . "',
+                0,
+                now(),
+                '$ses_username',
+                now(),
+                '$ses_username',
+                '$code'
+                );
+                ";
+            $w = $this->db->query($insertdetail);
+        }
+        
     }
 
     //Input:    $id -> id peminjaman

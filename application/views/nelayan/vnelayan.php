@@ -152,11 +152,12 @@
                                         <td><?= $a['nama_nelayan']; ?></td>
                                         <td align="center"><?= $a['nama_kapal']; ?></td>
                                         <td><?= $a['jenis_kapal']; ?></td>
+                                        <td><?= $a['pelabuhan_bongkar']; ?></td>
                                         <td><?= $a['alat_tangkap']; ?></td>
                                         <td><?= $a['GT']; ?></td>
                                         <td><?= $a['daerah_tangkap']; ?></td>
+                                        <td><?= $this->session->userdata('username')?></td>
                                         <td><?= $a['tanda_pas']; ?></td>
-                                        <td><?= $a['pelabuhan_bongkar']; ?></td>
                                         <td><?= $a['keterangan']; ?></td>
                                         <td><?= $a['status']; ?></td>
                                         <td align="center">

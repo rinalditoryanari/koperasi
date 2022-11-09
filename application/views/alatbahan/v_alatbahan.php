@@ -69,7 +69,6 @@
                                         <th>Satuan</th>
                                         <th>Harga / Unit</th>
                                         <th>Lokasi</th>
-                                        <th>Koperasi</th>
                                         <?php if ($this->session->userdata('tipe_akun') == '2') { ?>
                                         <th>Action</th>
                                         <?php } ?>
@@ -96,7 +95,6 @@
                                         <td align=""><?= "Rp. " . number_format($a['harga_per_unit'], 0, ',', '.'); ?>
                                         </td>
                                         <td align=""><?= $a['lokasi']; ?></td>
-                                        <td align=""><?= $a['koperasi']; ?></td>
                                         <?php if ($this->session->userdata('tipe_akun') == '2') { ?>
                                         <td align="">
                                             <a class="tombol-edit"

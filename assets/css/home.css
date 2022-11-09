@@ -1,0 +1,41 @@
+.container.tampilan-utama{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6)),url('../../gambar/gambar-pemandangan-indah-Taman-Laut-Bunaken-3.jpg');
+    max-width: 100%;
+    background-size: cover;
+    /* background-position: center; */
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.container.back-black{
+    background-color: #131313;
+    max-width: 100%;
+    color: white;
+}
+.container.back-grey{
+    background-color: #212529;
+    max-width: 100%;
+    color: white;
+}
+.navbar-dark .navbar-nav .nav-item .nav-link {
+    color: rgba(255, 255, 255, 1);
+  }
+.judul h1{
+    font-family: 'Bree Serif', serif;
+    font-size: 60px;
+    color: white;
+}
+.foto-pnj{
+    height: 500px;
+    width: 500px;
+}
+.foto-profile{
+    height: 300px;
+    width: 300px;
+    
+}
+.nama-dosen{
+    min-height: 97px;
+}

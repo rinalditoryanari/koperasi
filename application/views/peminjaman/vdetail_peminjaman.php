@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-12">
                     <form class="form-horizontal" method=POST
-                        action="<?= base_url('C_peminjaman/pinjamkan_nelayan'); ?>">
+                        action="<?= base_url('C_peminjaman'); ?>">
                         <div class="card">
                             <div class="col-sm-12">
                                 <div class="content-header">
@@ -53,14 +53,14 @@
                                         <label class="col-sm-4 col-form-label">Kode Peminjaman</label>
                                         <div class="col-sm-8">
                                             <input value="<?= $kode_peminjaman ?>" type="text" class="form-control"
-                                                id="kode_penjualan" name="kode_penjualan" disabled>
+                                                id="kode_penjualan" name="kode_penjualan" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Nama Nelayan</label>
                                         <div class="col-sm-8">
                                             <input value="<?= $nelayan ?>" type="text" class="form-control" id="nelayan"
-                                                name="nelayan" disabled>
+                                                name="nelayan" readonly>
                                         </div>
                                     </div>
                                 </div>

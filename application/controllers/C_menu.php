@@ -25,16 +25,17 @@ class C_menu extends CI_Controller
             redirect(site_url('CLogin'));
         } else {
             $asal       = $this->session->userdata('asal');
+            $code = $this->session->userdata('code_koperasi');
 
             $data['judul']      = 'SISTEM INFORMASI KOPERASI NELAYAN SUMBER LAUT MANDIRI';
             $data['lokasi']     = $this->M_akun->cek_koperasi($asal);
 
             if ($this->session->userdata('tipe_akun') == '2') {
-                $data['ikan']       = $this->M_akun->count_ikan($asal);
-                $data['alat']       = $this->M_akun->count_alat($asal);
-                $data['nelayan']    = $this->M_akun->count_nelayan($asal);
-                $data['penjualan']  = $this->M_akun->count_penjualan($asal);
-                $data['akun']       = $this->M_akun->count_akun($asal);
+                $data['ikan']       = $this->M_akun->count_ikan($code);
+                $data['alat']       = $this->M_akun->count_alat($code);
+                $data['nelayan']    = $this->M_akun->count_nelayan($code);
+                $data['penjualan']  = $this->M_akun->count_penjualan($code);
+                $data['akun']       = $this->M_akun->count_akun($code);
             }
 
             $this->load->view('template/header');

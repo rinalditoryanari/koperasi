@@ -67,7 +67,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="gambar" class="col-sm-2 col-form-label">Harga Ikan</label>
+                                        <label for="gambar" class="col-sm-2 col-form-label">Gambar Ikan</label>
                                         <div class="col-sm-10">
                                             <input type="file" name="gambar" size="20" class="form-control" id="gambar">
                                         </div>

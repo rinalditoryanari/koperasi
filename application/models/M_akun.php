@@ -39,12 +39,13 @@ class M_akun extends ci_Model
 
         $stringwhere = implode(" AND ", $where);
         $lokasi = $this->session->userdata('asal');
-
+        $code = $this->session->userdata('code_akun');
+        $code_koperasi = $this->session->userdata('code_koperasi');
         $query = "  SELECT
                             a.`akun_id`, a.`username`, a.`password`, a.`code`, a.`tipe`,a.`asal`, b.`nama` as nama_nelayan
                         FROM `akun` a
                         LEFT JOIN `nelayan` b on a.`id_nelayan` = b.`id`
-                        where a.`asal`= '$lokasi'
+                        where a.`code_koperasi`= '$code'
                         $stringwhere 
                         ORDER BY a.`akun_id` DESC;";
 
@@ -108,12 +109,13 @@ class M_akun extends ci_Model
     //Process:  SELECT data nelayan di table nelayan
     public function list_nelayan()
     {
+        $code = $this->session->userdata('code_akun');
         $pilih_client = "SELECT	
                             `id` as id_nelayan,
                             `nama` as nama_nelayan,
                             `nama_kapal` as kapal_nelayan
                         FROM `nelayan`
-                        WHERE `status` = 1";
+                        WHERE `status` = 1 && `id_koperasi` = '$code'";
         $client = $this->db->query($pilih_client)->result_array();
 
         return $client;
@@ -135,33 +137,33 @@ class M_akun extends ci_Model
         return $this->db->get('koperasi')->row_array();
     }
 
-    public function count_ikan($asal)
+    public function count_ikan($code)
     {
-        $this->db->where('lokasi', $asal);
+        $this->db->where('code_koperasi', $code);
         return $this->db->get('ikan')->num_rows();
     }
 
-    public function count_akun($asal)
+    public function count_akun($code)
     {
-        $this->db->where('asal', $asal);
+        $this->db->where('code_koperasi', $code);
         return $this->db->get('akun')->num_rows();
     }
 
-    public function count_alat($asal)
+    public function count_alat($code)
     {
-        $this->db->where('lokasi', $asal);
+        $this->db->where('id_koperasi', $code);
         return $this->db->get('alat')->num_rows();
     }
 
-    public function count_nelayan($asal)
+    public function count_nelayan($code)
     {
-        $this->db->where('pelabuhan_bongkar', $asal);
+        $this->db->where('id_koperasi', $code);
         return $this->db->get('nelayan')->num_rows();
     }
 
-    public function count_penjualan($asal)
+    public function count_penjualan($code)
     {
-        $this->db->where('lokasi', $asal);
+        $this->db->where('id_koperasi', $code);
         return $this->db->get('penjualan_header')->num_rows();
     }
 }
