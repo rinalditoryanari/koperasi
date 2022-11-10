@@ -38,7 +38,8 @@ class C_laporan extends CI_Controller
             redirect(site_url('CLogin'));
         } else {
             $asal = $this->session->userdata('asal');
-            $data['all_laporan']    = $this->M_laporan->index($asal);
+            $code = $this->session->userdata('code_akun');
+            $data['all_laporan']    = $this->M_laporan->index($code);
 
 
             $this->load->view('template/header');
@@ -54,12 +55,13 @@ class C_laporan extends CI_Controller
     public function bulanan()
     {
         $asal = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_akun');
         if ($this->session->userdata("akun_id") == "") {
             $this->session->set_flashdata('flash3', 'Login terlebih dahulu');
             redirect(site_url('CLogin'));
         } else {
-            $data['all_laporan']   = $this->M_laporan->bulan($asal);
-            $data['select_bulan']   = $this->M_laporan->list_bulan_tersedia($asal);
+            $data['all_laporan']   = $this->M_laporan->bulan($code);
+            $data['select_bulan']   = $this->M_laporan->list_bulan_tersedia($code);
             // var_dump($data['select_bulan']);
             // die;
 
@@ -82,8 +84,9 @@ class C_laporan extends CI_Controller
             redirect(site_url('CLogin'));
         } else {
             $asal = $this->session->userdata('asal');
-            $data['all_laporan']   = $this->M_laporan->tahun($asal);
-            $data['select_tahun']   = $this->M_laporan->list_tahun_tersedia($asal);
+            $code = $this->session->userdata('code_akun');
+            $data['all_laporan']   = $this->M_laporan->tahun($code);
+            $data['select_tahun']   = $this->M_laporan->list_tahun_tersedia($code);
 
 
             $this->load->view('template/header');
@@ -186,6 +189,7 @@ class C_laporan extends CI_Controller
     public function download_laporan_per_hari()
     {
         $ses_user       = $this->session->userdata('username');
+        $code = $this->session->userdata('code_akun');
         $asal           = $this->session->userdata('asal');
         if ($ses_user == null) {
             $this->session->set_flashdata('flash', 'Please Login First');
@@ -194,8 +198,8 @@ class C_laporan extends CI_Controller
 
             $select_date = $_GET['select_date'];
 
-            $data_laporan = $this->M_laporan->download_laporan_per_hari($select_date, $asal);
-            $data_perbekalan = $this->M_laporan->download_perbekalan_per_hari($select_date, $asal);
+            $data_laporan = $this->M_laporan->download_laporan_per_hari($select_date, $code);
+            $data_perbekalan = $this->M_laporan->download_perbekalan_per_hari($select_date, $code);
             // var_dump($data_perbekalan);
             // die;
 
@@ -332,6 +336,7 @@ class C_laporan extends CI_Controller
     {
 
         $asal = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_akun');
         $ses_user       = $this->session->userdata('username');
         if ($ses_user == null) {
             $this->session->set_flashdata('flash', 'Please Login First');
@@ -340,7 +345,7 @@ class C_laporan extends CI_Controller
 
             $select_month = $_GET['select_month'];
 
-            $data_laporan = $this->M_laporan->download_laporan_per_bulan($select_month, $asal);
+            $data_laporan = $this->M_laporan->download_laporan_per_bulan($select_month, $code);
 
             // var_dump($data_laporan);
             // die;
@@ -470,6 +475,7 @@ class C_laporan extends CI_Controller
     public function download_laporan_per_tahun()
     {
         $asal = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_akun');
         $ses_user       = $this->session->userdata('username');
         if ($ses_user == null) {
             $this->session->set_flashdata('flash', 'Please Login First');
@@ -477,7 +483,7 @@ class C_laporan extends CI_Controller
             //////// get data /////////
 
             $select_year = $_GET['select_year'];
-            $data_laporan = $this->M_laporan->download_laporan_per_tahun($select_year, $asal);
+            $data_laporan = $this->M_laporan->download_laporan_per_tahun($select_year, $code);
 
             // var_dump($data_laporan);
             // die;
@@ -536,7 +542,8 @@ class C_laporan extends CI_Controller
     public function report_daily($select_date)
     {
         $asal = $this->session->userdata('asal');
-        $report_daily_ikan = $this->M_laporan->chart_laporan_per_hari($select_date, $asal);
+        $code = $this->session->userdata('code_akun');
+        $report_daily_ikan = $this->M_laporan->chart_laporan_per_hari($select_date, $code);
         $nama_ikan = array_column($report_daily_ikan, 'nama_ikan');
         $jumlah_ikan = array_column($report_daily_ikan, 'jumlah');
         $harga_kg = array_column($report_daily_ikan, 'harga/kg');
@@ -553,8 +560,9 @@ class C_laporan extends CI_Controller
     public function report_monthly($select_date)
     {
         $asal = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_akun');
         $select_date = str_replace("%20", " ", $select_date);
-        $report_daily_ikan = $this->M_laporan->chart_laporan_per_bulan($select_date, $asal);
+        $report_daily_ikan = $this->M_laporan->chart_laporan_per_bulan($select_date, $code);
         $nama_ikan = array_column($report_daily_ikan, 'nama_ikan');
         $jumlah_ikan = array_column($report_daily_ikan, 'jumlah');
         $harga_kg = array_column($report_daily_ikan, 'harga/kg');
@@ -571,8 +579,9 @@ class C_laporan extends CI_Controller
     public function report_yearly($select_date)
     {
         $asal = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_akun');
         $select_date = str_replace("%20", " ", $select_date);
-        $report_daily_ikan = $this->M_laporan->chart_laporan_per_tahun($select_date, $asal);
+        $report_daily_ikan = $this->M_laporan->chart_laporan_per_tahun($select_date, $code);
         $nama_ikan = array_column($report_daily_ikan, 'nama_ikan');
         $jumlah_ikan = array_column($report_daily_ikan, 'jumlah');
         $harga_kg = array_column($report_daily_ikan, 'harga/kg');

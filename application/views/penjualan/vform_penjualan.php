@@ -53,16 +53,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">Koperasi</label>
+                                        <label class="col-sm-4 col-form-label">Lokasi</label>
                                         <div class="col-sm-8">
-                                            <input value="<?php echo $this->session->userdata('code_akun') ?>" type="text" class="form-control" id="id_koperasi" name="id_koperasi" disabled>
+                                            <input value="<?php echo $this->session->userdata('asal') ?>" type="text" class="form-control" id="lokasi" name="lokasi" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Nama Nelayan - Nama Kapal</label>
                                         <div class="col-sm-8">
-                                            <select name="nelayan" id="nelayan" class="form-control" required>
-                                                <option hidden value="">Pilih Nama Nelayan - Nama Kapal</option>
+                                            <select name="nelayan" id="nelayan" class="form-control" required="">
+                                                <option value="">Pilih Nama Nelayan - Nama Kapal</option>
                                                 <?php foreach ($list_nelayan as $lc) : ?>
                                                     <option value="<?= $lc['id_nelayan']; ?>"><?= $lc['nama_nelayan']; ?> - <?= $lc['kapal_nelayan']; ?></option>
                                                 <?php endforeach; ?>
@@ -72,8 +72,8 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Nama Ikan</label>
                                         <div class="col-sm-8">
-                                            <select name="ikan" id="ikan" class="form-control" required onchange="ganti_harga()">
-                                                <option value="" hidden>Pilih Ikan</option>
+                                            <select name="ikan" id="ikan" class="form-control" required="" onchange="ganti_harga()">
+                                                <option value="">Pilih Ikan</option>
                                                 <?php foreach ($list_ikan as $lc) : ?>
                                                     <option data-harga="<?= $lc['harga_ikan']; ?>" data-nama_ikan="<?= $lc['nama_ikan']; ?>" value="<?= $lc['id_ikan']; ?>"><?= $lc['nama_ikan']; ?></option>
                                                 <?php endforeach; ?>
@@ -89,7 +89,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Harga Ikan Per Kg</label>
                                         <div class="col-sm-8">
-                                            <input style="text-align: right;" type="text" class="form-control" id="harga_ikan" name="harga_ikan" readonly>
+                                            <input style="text-align: right;" type="text" class="form-control" id="harga_ikan" name="harga_ikan" disabled>
                                         </div>
                                     </div>
                                     <div class="card">

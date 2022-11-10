@@ -91,7 +91,21 @@
                                         <td><?= $a['username']; ?></td>
                                         <td align=""><?= $a['password']; ?></td>
                                         <td align=""><?= $a['code']; ?></td>
-                                        <td align=""><?= $a['tipe']; ?></td>
+                                        <td align="">
+                                            <?php 
+                                                switch ($a['tipe']) {
+                                                    case 0:
+                                                      echo('Nelayan');
+                                                      break;
+                                                    case 1:
+                                                      echo('Admin');
+                                                      break;
+                                                    case 2:
+                                                      echo('Super Admin');
+                                                      break;
+                                                }
+                                            ?>
+                                        </td>
                                         <td align=""><?= $a['nama_nelayan']; ?></td>
                                         <?php if ($this->session->userdata('tipe_akun') != '3') : ?>
                                         <td align="">
@@ -127,8 +141,21 @@
                                         <td><?= $a['username']; ?></td>
                                         <td align=""><?= $a['password']; ?></td>
                                         <td align=""><?= $a['code']; ?></td>
-                                        <td align=""><?= $a['tipe']; ?></td>
-                                        <td align=""><?= $a['nama_nelayan']; ?></td>
+                                        <td align="">
+                                            <?php 
+                                                switch ($a['tipe']) {
+                                                    case 0:
+                                                      echo('Nelayan');
+                                                      break;
+                                                    case 1:
+                                                      echo('Admin');
+                                                      break;
+                                                    case 2:
+                                                      echo('Super Admin');
+                                                      break;
+                                                }
+                                            ?>
+                                        </td>                                        <td align=""><?= $a['nama_nelayan']; ?></td>
                                         <td align="">
                                             <a class="tombol-edit"
                                                 href="<?= base_url('C_akun/edit/' . $a['akun_id']); ?>"><i

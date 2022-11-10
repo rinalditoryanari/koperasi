@@ -98,9 +98,11 @@ class C_akunMaster extends CI_Controller
             'tipe'         => $tipe,
             'id_nelayan'    => $id_nelayan,
             'asal'          => $this->input->post('asal'),
+            'code_koperasi' => $this->input->post('code')   
            
 
         );
+        var_dump($data);
         $query = $this->db->insert('akun', $data);
         if ($query = true) {
             $this->session->set_flashdata('info', 'Data Berhasil Di Simpan');
@@ -127,6 +129,7 @@ class C_akunMaster extends CI_Controller
                 'username'      => $this->input->post('username'),
                 'password'      => $this->input->post('password'),
                 'code'          => $this->input->post('code'),
+                'code_koperasi' => $this->input->post('code'),
                 'tipe'          => $tipe,
                 'id_nelayan'    => $id_nelayan,
                 'asal'          => $this->input->post('kecamatan'),

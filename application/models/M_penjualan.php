@@ -213,7 +213,8 @@ class M_penjualan extends ci_Model
         $id_penjualan_header    = $execpenjualan_id[0]['id_penjualan_header'];
 
         foreach ($all as $a) {
-            $insertdetail = "INSERT INTO `penjualan_detail` ( `id_penjualan`, `id_ikan`, `berat`, `harga/kg`, `created_date`, `created_by`, `modified_date`, `modified_by` ) VALUES ( '$id_penjualan_header', " . $a['ikan'] . ", " . $a['jumlah'] . ", " . $a['harga_ikan'] . ", now(), '$ses_username', now(), '$ses_username', '$code' ); ";
+            $insertdetail = "INSERT INTO `penjualan_detail` ( `id_penjualan`, `id_ikan`, `berat`, `harga/kg`, `created_date`, `created_by`, `modified_date`, `modified_by`,`id_koperasi` ) VALUES ( '$id_penjualan_header', " . $a['ikan'] . ", " . $a['jumlah'] . ", " . $a['harga_ikan'] . ", now(), '$ses_username', now(), '$ses_username', '$code' ); ";
+            var_dump($insertdetail);
             $w = $this->db->query($insertdetail);
         }
     }

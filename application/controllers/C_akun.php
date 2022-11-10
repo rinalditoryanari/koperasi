@@ -56,6 +56,7 @@ class C_akun extends CI_Controller
     public function tambah_akun()
     {
         $daerah = $this->session->userdata('asal');
+        $code = $this->session->userdata('code_akun');
         $lokasi = $this->input->post('$daerah',TRUE);
         $data = array(
             'akun_id'   => $this->input->post('akun_id'),
@@ -64,7 +65,8 @@ class C_akun extends CI_Controller
             'code'      => $this->input->post('code'),
             'tipe'      => $this->input->post('tipe'),
             'id_nelayan'=> $this->input->post('id_nelayan'),
-            'asal'      => $daerah
+            'asal'      => $daerah,
+            'code_koperasi' => $code
         );
         $query = $this->db->insert('akun', $data);
         if ($query = true) {

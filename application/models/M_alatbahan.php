@@ -44,7 +44,7 @@ class M_alatbahan extends ci_Model
         $query = "  SELECT
                         * 
                     FROM `alat` 
-                    WHERE `code_koperasi`= '$code'
+                    WHERE `id_koperasi`= '$code'
                     $stringwhere
                     ORDER BY nama ASC";
 

@@ -131,9 +131,9 @@ class M_akun extends ci_Model
         return $client;
     }
 
-    public function cek_koperasi($code)
+    public function cek_koperasi($asal)
     {
-        $this->db->where('code', $code);
+        $this->db->where('kecamatan', $asal);
         return $this->db->get('koperasi')->row_array();
     }
 

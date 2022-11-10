@@ -28,7 +28,7 @@ class C_menu extends CI_Controller
             $code = $this->session->userdata('code_koperasi');
 
             $data['judul']      = 'SISTEM INFORMASI KOPERASI NELAYAN SUMBER LAUT MANDIRI';
-            $data['lokasi']     = $this->M_akun->cek_koperasi($code);
+            $data['lokasi']     = $this->M_akun->cek_koperasi($asal);
 
             if ($this->session->userdata('tipe_akun') == '2') {
                 $data['ikan']       = $this->M_akun->count_ikan($code);
