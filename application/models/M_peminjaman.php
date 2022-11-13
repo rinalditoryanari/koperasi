@@ -370,14 +370,12 @@ class M_peminjaman extends ci_Model
 
         $cek_status = "SELECT `status` FROM `peminjaman_detail` where `id_peminjaman_header` = '$id_peminjaman_header'";
         $res = $this->db->query($cek_status)->result_array();
-        $data = array(
-            "data" => $res,
-        );
 
         $count = 0;
         foreach($res as $statuss){
-            if($statuss == 0 ){
+            if($statuss['status'] == '0' ){
                 $count = $count +1 ;
+                echo 'pantek';
             };
         };
         if ($count > 0){
